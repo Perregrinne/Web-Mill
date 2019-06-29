@@ -1,2 +1,2 @@
 # KiteSite
-A free and easy open-source website builder that can be completely self-contained.
+A free and easy open-source website builder meant to be completely self-contained.
