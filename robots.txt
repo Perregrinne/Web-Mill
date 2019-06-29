@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /php/
+Disallow: /pages/error_pages/
+Disallow: /images/
