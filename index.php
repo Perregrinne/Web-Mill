@@ -9,6 +9,6 @@
         <span id="clock">&nbsp</span>
         <body  onload="getTime(); setInterval('getTime()', 1000 )">
         <br>
-        <a href="/admin.php"> Admin </a>
+        <a href="/admin.php">Admin</a>
     </body>
 </html>

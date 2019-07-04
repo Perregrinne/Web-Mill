@@ -27,8 +27,8 @@
                         $_SESSION['VALID'] = true;
                         $_SESSION['LAST_ACTIVITY'] = time();
                         $_SESSION['USERNAME'] = $_POST['USERNAME'];
-                        //Redirect back to admin.php:
-                        header('Refresh: 0; URL = /admin.php');
+                        //Redirect back to index.php, where it will now have the admin bar:
+                        header('Refresh: 0; URL = /index.php');
                     }
                     else
                     {

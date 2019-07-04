@@ -18,6 +18,8 @@
 
     //CSS:
     $CSS = '/css/default-css.php';
+    $CONTAINER_COLOR = '#303030';
+    $CONTAINER_HOVER = '#5c5c5c';
 
     //Page Components:
     $HEADER = '/php/header.php';
