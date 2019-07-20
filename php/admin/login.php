@@ -1,5 +1,5 @@
 <?php 
-    @ include ($_SERVER['DOCUMENT_ROOT'] . "/php/header.php");
+    include ($_SERVER['DOCUMENT_ROOT'] . "/php/header.php");
 ?>
 <head>
 </head>

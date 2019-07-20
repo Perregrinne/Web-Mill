@@ -1,5 +1,5 @@
 <?php
-    @ require ($_SERVER['DOCUMENT_ROOT'] . "/php/admin/config.php");
+    require ($_SERVER['DOCUMENT_ROOT'] . "/php/admin/config.php");
     //ob_start();
     session_start();
 ?>
@@ -18,7 +18,7 @@
     <?php
         if (isset($_SESSION['USERNAME']))
         {
-            @ include_once ($_SERVER['DOCUMENT_ROOT'] . "/admin.php");
+            include_once ($_SERVER['DOCUMENT_ROOT'] . "/admin.php");
         }
     ?>
 </body>

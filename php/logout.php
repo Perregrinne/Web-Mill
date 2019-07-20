@@ -1,5 +1,4 @@
 <?php
-    //ob_end_flush();
     session_start();
     if (ini_get("session.use_cookies")) 
     {

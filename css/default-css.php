@@ -1,6 +1,6 @@
 <?php 
     header("Content-type: text/css"); 
-    @ include ($_SERVER['DOCUMENT_ROOT']."/php/admin/config.php");
+    include ($_SERVER['DOCUMENT_ROOT']."/php/admin/config.php");
 ?>
 
 #admin-menu {
@@ -29,7 +29,7 @@
     transform: translate(0%, -50%);
     background-color: <?= $CONTAINER_COLOR ?>;
     text-align: center;
-    color: #FFF;
+    color: #0F0F0F;
     font-size: 42px;
     overflow: hidden;
 }
