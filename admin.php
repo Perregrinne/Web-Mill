@@ -2,7 +2,7 @@
     <?php
 
         include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/header.php');
-        include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/admin/functions.php');
+        include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/functions.php');
         //If an ongoing session has had no activity for 60 minutes, logout.
         if (isset($_SESSION['USERNAME']) && (time() - $_SESSION['LAST_ACTIVITY'] > 3600))
         {
