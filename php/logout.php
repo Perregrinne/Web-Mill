@@ -8,5 +8,5 @@
     session_unset();
     session_destroy();
 
-    header('Refresh: 0; URL = /php/admin/login.php');
+    header('Refresh: 0; URL = /php/login.php');
 ?>

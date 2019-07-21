@@ -1,6 +1,5 @@
 <?php
     require ($_SERVER['DOCUMENT_ROOT'] . "/php/admin/config.php");
-    //ob_start();
     session_start();
 ?>
 <head> 

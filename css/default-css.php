@@ -84,3 +84,7 @@
     text-decoration: none;
     color: #CCCCCC;
 }
+
+.clones {
+    position: static;
+}

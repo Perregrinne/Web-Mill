@@ -1,7 +1,7 @@
 <?php
 
     //About this website:
-    $WEBSITE_TITLE = 'Website Builder';
+    $WEBSITE_TITLE = 'Web Mill';
     $FAVICON_FILE = '/favicon.ico';
 
     //Version of the framework:

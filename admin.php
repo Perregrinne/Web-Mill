@@ -12,7 +12,7 @@
         //If no session already exists, log in.
         if(!isset($_SESSION['USERNAME']))
         {
-            header('Refresh: 0; URL = /php/admin/login.php');
+            header('Refresh: 0; URL = /php/login.php');
         }
         
         //If a user is logged in, they should start on the index and be able to edit using the admin editor.
@@ -31,7 +31,6 @@
             <a href="/php/logout.php" id="logout">Logout</a>
             <?php
                 //Print out all functions here including the "Add New" function
-                include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/functions.php');
                 echo '<ul style="list-style-type:none;">';
                 listAllFunctions();
                 echo '</ul>';
@@ -199,6 +198,8 @@ document.body.onmousedown = function(event)
             clone.classList.remove('clones');
             //But it can still be movable and nestable
             clone.classList.add('nested');
+
+            newElem = clone;
 
             hasMoved = true;
         }
