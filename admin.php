@@ -24,6 +24,7 @@
 </head>
 <body>
     <!-- With the session/login stuff out of the way, display the menus needed to change the website: -->
+    <!-- Left Menu -->
     <div id="admin-menu" toggle="0">
         <div class="admin-option">
             Welcome, <?php echo $_SESSION['USERNAME']; ?>
@@ -73,6 +74,63 @@
             </canvas>
         </div>
     </div>
+
+    <!-- Right Menu -->
+    <div id="admin-r-menu" toggle_r="0">
+        <div class="admin-r-option">
+            Select an element.
+            <br>
+            <?php
+                //List all elements in the webpage here
+                //LISTALLELEMS();
+
+                //Print out all functions here including the "Add New" function
+                echo '<ul style="list-style-type:none;">';
+
+
+                //LISTALLATTR(); instead!
+                //listAllFunctions();
+                echo 'Functionality coming soon...';
+
+                echo '</ul>';
+            ?>
+        </div>
+
+
+        <div id="admin-r-control">
+            <canvas id="control-r-text" width="50px" height="50px">
+                <script>
+                    //Javascript for rendering the image on the admin control
+                    var canvas2 = document.getElementById("control-r-text");
+                    var context2 = canvas2.getContext("2d");
+                    context2.font = "36px Malgun Gothic";
+                    context2.fillStyle = "#FFFFFF";
+                    context2.fillText("<", 12, 35);
+
+                    //jquery for controlling the movement of the admin menu
+                    $(document).ready(function(){
+                        $('#admin-r-control').click(function(){
+                            if($('#admin-r-menu').attr("toggle_r")==="0")
+                            {
+                                $("#control-r-text").css({'transform': 'rotate(180deg)'});
+                                $('#admin-r-menu').animate({"right":"0"},200);
+                                $('#admin-r-menu').attr("toggle_r","1");
+                            }
+                            else
+                            {
+                                $("#control-r-text").css({'transform': 'rotate(0deg)'});
+                                $('#admin-r-menu').animate({"right":"-250px"},200);
+                                $('#admin-r-menu').attr("toggle_r","0");
+                            }
+                        });
+                    })
+
+                </script>
+            </canvas>
+        </div>
+    </div>
+
+
     <script>
                    
         //Functionality for being able to move around and place new elements from the menu, onto the page
@@ -101,6 +159,7 @@ document.body.onmousedown = function(event)
 {
     //Figure out what element id in the body the mouse is down on
     event = event || window.event;
+    preventHighlight(event);
     var elemId = event.target ? event.target.id : event.srcElement.id;
     var newElem = null;
     var mouseElem = document.getElementById(elemId);
@@ -108,6 +167,10 @@ document.body.onmousedown = function(event)
     //Once the mouse is moved, clone the menu item and retract the menu, then set this to true so only one clone can be made
     var hasMoved = false;
     var isClone = false;
+
+    //Put this where it needs to go:
+    //getParent(newElem);
+
 
     //Checks if the mouse moved
     document.addEventListener('mousemove', onmousemove);
@@ -139,15 +202,35 @@ document.body.onmousedown = function(event)
         return;
     }
 
+    //If the menus need to be closed while an element is dragged, these will be set to true so the script knows to pull the menus back out afterwards
+    var hadToToggle_l = false;
+    var hadToToggle_r = false;
+
+    //Retract the left-side menu
+    if($('#admin-menu').attr("toggle")==="1")
+    {
+        hadToToggle_l = true;
+        $("#control-text").css({'transform': 'rotate(0deg)'});
+        $('#admin-menu').animate({"left":"-250px"},200);
+        $('#admin-menu').attr("toggle","0");
+    }
+
+    //retract the right-side menu
+    if($('#admin-r-menu').attr("toggle_r")==="1")
+    {
+        hadToToggle_r = true;
+        $("#control-r-text").css({'transform': 'rotate(0deg)'});
+        $('#admin-r-menu').animate({"right":"-250px"},200);
+        $('#admin-r-menu').attr("toggle_r","0");
+    }
+
     //Location where the new element is on the screen
     let offsetX = event.clientX - newElem.getBoundingClientRect().left;
     let offsetY = event.clientY - newElem.getBoundingClientRect().top;
     //To highlight which element is beneath the dragged element, change its background to this color
     originalBG = '#777777';
-    //To make the new element movable, it has to be anything except static
-    newElem.style.position = 'absolute';
     //The dragged element should appear above everything else on the screen (until the mouse button is let go)
-    newElem.style.zIndex = 1000;
+    //newElem.style.zIndex = 100000;
     //And append it into the viewport
     //document.body.append(newElem);
 
@@ -283,19 +366,58 @@ document.body.onmousedown = function(event)
             currentNested.style.background = originalBG;
 
             //Nest the element
-            currentNested.appendChild(newElem);
+            //currentNested.appendChild(newElem);
 
-            //Make sure that the div is in the right location when parenting
-            cNestLeft = parseInt(currentNested.style.left, 10);
-            cNestTop = parseInt(currentNested.style.top, 10);
+            //cNestLeft = parseInt(currentNested.style.left, 10);
+            cNestLeft = 0;
+            //cNestTop = parseInt(currentNested.style.top, 10);
+            cNestTop = 0;
             nElemLeft = parseInt(newElem.style.left, 10);
+            //nElemLeft = 0;
             nElemTop = parseInt(newElem.style.top, 10);
+            //nElemTop = 0;
             newElem.style.left = nElemLeft - cNestLeft + 'px';
             newElem.style.top = nElemTop - cNestTop + 'px';
         }
+        /*
+        else
+        {
+            //Copy it, delete it if it is a parented element, then reappend it as a new child element to the body
+
+            copyElem = newElem;
+            newElem.innerHTML = '';
+            document.body.append(copyElem);
+
+            //cNestLeft = parseInt(currentNested.style.left, 10);
+            cNestLeft = 0;
+            //cNestTop = parseInt(currentNested.style.top, 10);
+            cNestTop = 0;
+            nElemLeft = parseInt(newElem.style.left, 10);
+            //nElemLeft = 0;
+            nElemTop = parseInt(newElem.style.top, 10);
+            //nElemTop = 0;
+            newElem.style.left = nElemLeft - cNestLeft + 'px';
+            newElem.style.top = nElemTop - cNestTop + 'px';
+        }
+        */
+
+        //Return the menu
+        if (hadToToggle_l)
+        {
+            $("#control-text").css({'transform': 'rotate(180deg)'});
+            $('#admin-menu').animate({"left":"0px"},200);
+            $('#admin-menu').attr("toggle","1");
+            hadToToggle_l = false;
+        }
+        //Return the right-side menu
+        if (hadToToggle_r)
+        {
+            $("#control-r-text").css({'transform': 'rotate(180deg)'});
+            $('#admin-r-menu').animate({"right":"0"},200);
+            $('#admin-r-menu').attr("toggle_r","1");
+            hadToToggle_r = false;
+        }
         
-        //the z-index should now be < 1000
-        newElem.style.zIndex = 0;
 
         //Remove the mouse listener because it's no longer needed
         document.removeEventListener('mousemove', onmousemove);
@@ -307,6 +429,21 @@ document.body.onmousedown = function(event)
     {
         return false;
     };
+
+    function preventHighlight(event)
+    {
+        if(event.stopPropagation)
+        {
+            event.stopPropagation();
+        }
+        if(event.preventDefault)
+        {
+            event.preventDefault();
+        }
+        event.cancelBubble=true;
+        event.returnValue=false;
+        return false;
+    }
 
 };
 
