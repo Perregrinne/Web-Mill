@@ -5,7 +5,7 @@
     <head>
         <?php include ($_SERVER['DOCUMENT_ROOT'] . "/php/header.php"); ?>
     </head>
-    <body class="nested">
+    <body id="body" class="nested">
         <?php 
             echo '<div class="nested" id="mainText">This is your new website!</div>';
             echo '<script src="/javascript/clock.js"></script>';

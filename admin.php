@@ -224,6 +224,12 @@ document.body.onmousedown = function(event)
         $(elem).css({'outline': 'none'});
     });
 
+    //if the body was clicked, everything was just deselected, so do nothing further
+    if(mouseElem == document.getElementById("body"))
+    {
+        return;
+    }
+
     //Checks if the mouse moved
     document.addEventListener('mousemove', onmousemove);
     //Checks if the mouse button is up
