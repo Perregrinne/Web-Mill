@@ -60,6 +60,23 @@
         
     }
 
+    function listAllPages()
+    {
+        $PAGES_PATH = $_SERVER['DOCUMENT_ROOT'] . '/pages';
+        //Ignore '.', '..', and '.gitkeep' in the returned directory array:
+        $files = array_diff(scandir($PAGES_PATH), array('.', '..', '.gitkeep'));
+
+        //ignore if there are no pages
+        if ($files)
+        {
+            foreach($files as $file)
+            {
+                $pageName = substr($file, 0, strrpos($file, "."));
+                echo '<li><a href="/pages/' . $pageName . '.php" style="text-decoration: none; color: #FFFFFF;">' . $pageName . '</a></li>';
+            }
+        }
+    }
+
     //This function needs to pull from two places: the /php/functions (this file) that gets updated
     //when the editor does, and the /saved directory which contains user-made things.
     function listAllFunctions()

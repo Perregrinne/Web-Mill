@@ -30,14 +30,31 @@
             Welcome, <?php echo $_SESSION['USERNAME']; ?>
             <br>
             <a href="/php/logout.php" id="logout">Logout</a>
-            <?php
-                //Print out all functions here including the "Add New" function
-                echo '<ul style="list-style-type:none;">';
-                listAllFunctions();
-                echo '</ul>';
-            ?>
+            <br>
+            <!-- Menu for adding or loading pages -->
+            <div class="list-menu" id="pages-menu">
+                <!-- Functionality for both onclick functions below are with the main script for the page that controls mouse and dragging behaviors and more -->
+                <div id="new-page" onclick="newPage()">Create New Page</div>
+                <div id="remove-page" onclick="deletePage()">Delete This Page</div>
+                <hr style="border-color: #DDDDDD; margin-left: 10px; margin-right: 10px;">
+                <ul class="list-menu" style="list-style-type: none;">
+                    <h5>Pages:</h5>
+                    <?php
+                        echo '<li><a href="/index.php" style="text-decoration: none; color: #FFFFFF;">home</a></li>';
+                        listAllPages();
+                    ?>
+                </ul>
+            </div>
+            <ul class="list-menu" style="list-style-type: none;">
+                <h5>Functions:</h5>
+                <?php
+                    //Print out all functions here including the "Add New" function
+                    echo 'New Function';
+                    listAllFunctions();
+                ?>
+            </ul>
 
-            <!-- "UPDATE WEBSITE" BUTTON HERE! -->
+            <!-- "UPDATE WEBSITE" BUTTON HERE! (Not to be confused with ajax) -->
             <!-- "ADD NEW FUNCTION" BUTTON HERE! -->
 
             
@@ -132,6 +149,28 @@
 
 
     <script>
+
+        //Functionality for adding or removing pages
+        function newPage()
+        {
+            alert('This function is not yet finished.');
+            /*
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("txtHint").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "functions.php?q=newPage", true);
+            //In functions.php: $q = $_REQUEST["q"];
+            xmlhttp.send();
+            */
+        }
+
+        function deletePage()
+        {
+            alert("This function is also not yet finished.");
+        }
                    
         //Functionality for being able to move around and place new elements from the menu, onto the page
 
@@ -164,24 +203,31 @@ document.body.onmousedown = function(event)
     var newElem = null;
     var mouseElem = document.getElementById(elemId);
 
-    //Once the mouse is moved, clone the menu item and retract the menu, then set this to true so only one clone can be made
-    var hasMoved = false;
-    var isClone = false;
-
-    //Put this where it needs to go:
-    //getParent(newElem);
-
-
-    //Checks if the mouse moved
-    document.addEventListener('mousemove', onmousemove);
-    //Checks if the mouse button is up
-    document.addEventListener('mouseup', onmouseup);
-
+    
     //Null checking
     if(!mouseElem)
     {
         return;
     }
+    //If it was the menu controls, do nothing
+    if (!mouseElem.classList.contains('clones') && !mouseElem.classList.contains('nested'))
+    {
+        return;
+    }
+
+    //Once the mouse is moved, clone the menu item and retract the menu, then set this to true so only one clone can be made
+    var hasMoved = false;
+    var isClone = false;
+
+    //Deselect any element already selected
+    $('.nested').each(function(i, elem) {
+        $(elem).css({'outline': 'none'});
+    });
+
+    //Checks if the mouse moved
+    document.addEventListener('mousemove', onmousemove);
+    //Checks if the mouse button is up
+    document.addEventListener('mouseup', onmouseup);
 
     if (mouseElem.classList.contains('clones'))
     {
@@ -201,6 +247,9 @@ document.body.onmousedown = function(event)
     {
         return;
     }
+
+    //Outline newElem to show that it is selected
+    $(newElem).css({'outline': '3px solid #5555FF'});
 
     //If the menus need to be closed while an element is dragged, these will be set to true so the script knows to pull the menus back out afterwards
     var hadToToggle_l = false;
@@ -282,7 +331,13 @@ document.body.onmousedown = function(event)
             //But it can still be movable and nestable
             clone.classList.add('nested');
 
+            //Outline newElem to show that it is selected
+            $(newElem).css({'outline': 'none'});
+
             newElem = clone;
+
+            //Outline newElem to show that it is selected
+            $(newElem).css({'outline': '3px solid #5555FF'});
 
             hasMoved = true;
         }
@@ -379,26 +434,21 @@ document.body.onmousedown = function(event)
             newElem.style.left = nElemLeft - cNestLeft + 'px';
             newElem.style.top = nElemTop - cNestTop + 'px';
         }
+
+        //AJAX THE SERVER TO SAY WHAT ELEMENT WAS ADDED OR MOVED, AND WHERE IT WAS PLACED!
         /*
-        else
-        {
-            //Copy it, delete it if it is a parented element, then reappend it as a new child element to the body
+            If(cloned)
+            {
+                //True for new element
+                ajax(newElem, location, true)
+            }
+            else
+            {
+                //False if existing element was moved
+                ajax(newElem, location, false)
+            }
 
-            copyElem = newElem;
-            newElem.innerHTML = '';
-            document.body.append(copyElem);
-
-            //cNestLeft = parseInt(currentNested.style.left, 10);
-            cNestLeft = 0;
-            //cNestTop = parseInt(currentNested.style.top, 10);
-            cNestTop = 0;
-            nElemLeft = parseInt(newElem.style.left, 10);
-            //nElemLeft = 0;
-            nElemTop = parseInt(newElem.style.top, 10);
-            //nElemTop = 0;
-            newElem.style.left = nElemLeft - cNestLeft + 'px';
-            newElem.style.top = nElemTop - cNestTop + 'px';
-        }
+            Refresh the page? (Hopefully not)
         */
 
         //Return the menu
@@ -417,10 +467,10 @@ document.body.onmousedown = function(event)
             $('#admin-r-menu').attr("toggle_r","1");
             hadToToggle_r = false;
         }
-        
 
         //Remove the mouse listener because it's no longer needed
         document.removeEventListener('mousemove', onmousemove);
+        newElem.onmousemove = null;
         newElem.onmouseup = null;
     };
 

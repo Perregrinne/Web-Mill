@@ -1,3 +1,6 @@
+<?php
+    //This is the default index.php (home) page.
+?>
 <html>
     <head>
         <?php include ($_SERVER['DOCUMENT_ROOT'] . "/php/header.php"); ?>

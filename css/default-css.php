@@ -156,5 +156,18 @@
 .nested {
     position: absolute;
     left: 0;
-    width: 100px;
+}
+
+.list-menu {
+    margin: 10px 10px 10px 10px;
+    padding: 10px 0 10px 0;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #DDDDDD;
+    border-radius: 10px 10px 10px 10px;
+}
+
+body {
+    width: 100%;
+    height: 100%;
 }
