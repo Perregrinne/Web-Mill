@@ -1,0 +1,17 @@
+#Web-Mill
+
+#index (default home) page
+index.php
+
+#favicons
+*.ico
+*.png
+
+#user-made or third-party content
+css/**
+images/**
+javascript/**
+php/admin/**
+php/development/**
+saved/**
+vendor/**
