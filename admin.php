@@ -47,9 +47,12 @@
             <br>
             <!-- Menu for adding or loading pages -->
             <div class="list-menu" id="pages-menu">
+                Apps:
                 <!-- Functionality for both onclick functions below are with the main script for the page that controls mouse and dragging behaviors and more -->
-                <div class="left-menu-item" id="new-page" onclick="fileBrowser('../*')">Create New Page</div>
-                <div class="left-menu-item" id="remove-page" onclick="deletePage()">Delete This Page</div>
+                <!-- File browser link -->
+                <div class="left-menu-item" id="file-browser-link" onclick="fileBrowser('../*')">File Browser</div>
+                <!-- Link for getting to the text-editor -->
+                <a href="/php/textEditor.php" style="text-decoration: none; color: #FFFFFF;">Open Text Editor</a>
                 <hr style="border-color: #DDDDDD; margin-left: 10px; margin-right: 10px;">
                 <ul class="list-menu" style="list-style-type: none;">
                     <h5>Pages:</h5>
@@ -59,8 +62,6 @@
                     ?>
                 </ul>
             </div>
-            <!-- Menu for getting to the text-editor -->
-            <a href="/php/textEditor.php" style="text-decoration: none; color: #FFFFFF;">Open Text Editor</a>
             <!-- Menu for the drag and drop functions -->
             <ul class="list-menu" style="list-style-type: none;">
                 <h5>Functions:</h5>
