@@ -1,4 +1,147 @@
 <?php
+    //This is needed for the session variables
+    session_start();
+
+    //Checking for GET data
+    if(isset($_GET['action']) && !empty($_GET['action'])) {
+        $action = $_GET['action'];
+        $currentPath = $_GET['currPath'];
+        switch($action) {
+            case 'fileBrowserphp':
+                fileBrowserphp($currentPath);
+                break;
+            case 'homeDir':
+                homeDir();
+                break;
+            case 'goUpDir':
+                goUpDir();
+                break;
+            case 'goBackDir':
+                goBackDir();
+                break;
+            case 'delPage':
+                delPage();
+                break;
+        }
+    }
+
+    function fileBrowserphp($path)
+    {
+        if(!isset($_SESSION['currPath']))
+        {
+            $_SESSION['currPath'] = '../*';
+        }
+        //Keep track of the current path in a session variable
+        if($path === '../*')
+        {
+            $_SESSION['currPath'] = $path;
+        }
+        else
+        {
+            //Remember the last directory
+            $_SESSION['prevPath'] = $_SESSION['currPath'];
+            //The folders are named folder-name, so remove the "folder-", leaving just the "name"
+            $path = substr($path, 7);
+            //Strip away the *
+            $_SESSION['currPath'] = substr($_SESSION['currPath'], 0, -1);
+            $path = $path . '/*';
+            $_SESSION['currPath'] = $_SESSION['currPath'] . $path;
+        }
+
+        $files = [];
+        $folders = [];
+
+        $scanFiles = glob($_SESSION['currPath']);
+        foreach($scanFiles as $file)
+        {
+            if(is_file($file) && $file !== "." && $file !== ".." && $file !== ".gitkeep"  && $file !== ".git" && $file !== ".gitignore")
+            {
+                //Get all files
+                $fileName = strrpos($file, '/');
+                if ($fileName)
+                {
+                    $file = substr($file, $fileName + 1);
+                    array_push($files, $file);
+                }
+                
+            }
+            else if(is_dir($file) && $file !== "." && $file !== ".." && $file !== ".gitkeep"  && $file !== ".git" && $file !== ".gitignore")
+            {
+                //Get all directories
+                $fileName = strrpos($file, '/');
+                if ($fileName)
+                {
+                    $file = substr($file, $fileName + 1);
+                    array_push($folders, $file);
+                }
+            }
+        }
+
+        //Print 5 elements per row
+        $rowIndex = 0;
+        foreach($folders as $folder)
+        {
+            if($rowIndex == 6)
+            {
+                echo '<br>';
+                $rowIndex = 0;
+            }
+            if (strlen($folder) > 11)
+            {
+                $folder = substr($folder, 0, 11) . '...';
+            }
+            echo '<div class="folder-item" id="folder-' . $folder . '"><div class="file-name">' . $folder . '</div></div>';
+            $rowIndex += 1;
+        }
+        foreach($files as $file)
+        {
+            if($rowIndex == 6)
+            {
+                echo '<br>';
+                $rowIndex = 0;
+            }
+            if (strlen($file) > 11)
+            {
+                $file = substr($file, 0, 11) . '...';
+            }
+            echo '<div class="file-item"><div class="file-name">' . $file . '</div></div>';
+            $rowIndex += 1;
+        }
+
+    }
+
+    //Back arrow
+    function goUpDir()
+    {
+        if(isset($_SESSION['prevPath']))
+        {
+            $_SESSSION['nextPath'] = $_SESSION['currPath'];
+            $_SESSION['currPath'] = $_SESSION['prevPath'];
+        }
+        fileBrowserphp(basename($_SESSION['currPath']));
+    }
+
+    //Forward arrow
+    function goBackDir()
+    {
+        if(isset($_SESSION['nextPath']))
+        {
+            $_SESSSION['prevPath'] = $_SESSION['currPath'];
+            $_SESSION['currPath'] = $_SESSION['nextPath'];
+        }
+        fileBrowserphp(basename($_SESSION['currPath']));
+    }
+
+    //Home button
+    function homeDir()
+    {
+        $_SESSSION['prevPath'] = $_SESSION['currPath'];
+        $_SESSION['currPath'] = '../*';
+        fileBrowserphp(basename($_SESSION['currPath']));
+    }
+?>
+
+<?php
     //Update secrets.php
     function update_secrets($text, $category)
     {

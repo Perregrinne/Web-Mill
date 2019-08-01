@@ -36,6 +36,7 @@
 
 #admin-control:hover {
     background-color: <?= $CONTAINER_HOVER ?>;
+    cursor: pointer;
 }
 
 /*appear animation keyframes*/
@@ -74,9 +75,6 @@
     left: 0;
     width: 250px;
 }
-
-
-
 #admin-r-menu {
     position: fixed;
     top: 0%;
@@ -89,10 +87,6 @@
     -o-animation: appear 1s;
     animation: appear 1s;
     z-index: 10000;
-}
-
-#admin-r-control:hover {
-    background-color: <?= $CONTAINER_HOVER ?>;
 }
 
 #admin-r-control {
@@ -110,6 +104,7 @@
 
 #admin-r-control:hover {
     background-color: <?= $CONTAINER_HOVER ?>;
+    cursor: pointer;
 }
 
 .admin-r-option {
@@ -123,8 +118,6 @@
     width: 250px;
 }
 
-
-
 #logout {
     text-decoration: none;
     color: #FFF;
@@ -133,6 +126,7 @@
 #logout:hover {
     text-decoration: none;
     color: #CCCCCC;
+    cursor: pointer;
 }
 
 #mainText {
@@ -151,6 +145,7 @@
 
 .clones {
     position: static;
+    cursor: pointer;
 }
 
 .nested {
@@ -170,4 +165,111 @@
 body {
     width: 100%;
     height: 100%;
+}
+
+.cms-window {
+    background-color: #777777;
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    display: inline-block;
+    z-index: 3;
+    color: #DDDDDD;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.file-browser {
+    background-color: #555555;
+    min-width: 500px;
+    min-height: 400px;
+    max-width: 550px;
+    max-height: 800px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 0px 0px 10px 10px;
+    margin: 5px 2px 2px 2px;
+}
+
+.folder-item {
+    background: url("/php/cms-img/directory.png");
+    position: relative;
+    height: 64px;
+    width: 64px;
+    display: inline-block;
+    margin: 10px 10px 30px 10px;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.folder-item:hover {
+    background-color: #AAAAAA;
+    cursor: pointer;
+}
+
+.file-item {
+    background: url("/php/cms-img/file.png");
+    position: relative;
+    height: 64px;
+    width: 64px;
+    display: inline-block;
+    margin: 10px 10px 30px 10px;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.file-item:hover {
+    background-color: #AAAAAA;
+    cursor: pointer;
+}
+
+.file-name {
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+    top: 60px;
+    left: 0;
+    right: 0;
+}
+
+.cms-window-close {
+    background-color: red;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    line-height: 16px;
+    top: 5px;
+    right: 5px;
+    border-radius: 5px 5px 5px 5px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.cms-window-title {
+    position: relative;
+    top: 3px;
+    left: 10px;
+}
+
+#file-browser-window {
+    left: -600px;
+}
+
+.file-browser-menu {
+    display: inline-block;
+    padding: 5px 0 5px 10px;
+}
+
+.file-browser-items {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #DDDDDD;
+    border-radius: 5px 5px 5px 5px;
+    text-align: center;
+    width: 75px;
+    cursor: pointer;
+}
+
+.left-menu-item {
+    cursor: pointer;
 }

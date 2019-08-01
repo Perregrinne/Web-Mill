@@ -1,6 +1,5 @@
 <head>
     <?php
-
         include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/header.php');
         include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/functions.php');
         //If an ongoing session has had no activity for 60 minutes, logout.
@@ -23,6 +22,21 @@
     ?>
 </head>
 <body>
+    <!-- The file browser window -->
+    <div class="cms-window" id="file-browser-window" style="left: -600px;">
+        <span class="cms-window-controls" id="cms-file-controls">
+            <div class="cms-window-title" id="cms-file-title">File Browser</div>
+            <div class="cms-window-close" id="cms-file-x">x</div>
+        </span>
+        <span class="file-browser-menu" id="file-menu">
+            <div class="file-browser-items" id="file-home">home</div>
+            <div class="file-browser-items" id="file-back"><</div>
+            <div class="file-browser-items" id="file-forward">></div>
+            <div class="file-browser-items" id="file-new-file">+File</div>
+            <div class="file-browser-items" id="file-new-folder">+Folder</div>
+        </span>
+        <div class="file-browser" id="file-browser"></div>
+    </div>
     <!-- With the session/login stuff out of the way, display the menus needed to change the website: -->
     <!-- Left Menu -->
     <div id="admin-menu" toggle="0">
@@ -34,8 +48,8 @@
             <!-- Menu for adding or loading pages -->
             <div class="list-menu" id="pages-menu">
                 <!-- Functionality for both onclick functions below are with the main script for the page that controls mouse and dragging behaviors and more -->
-                <div id="new-page" onclick="newPage()">Create New Page</div>
-                <div id="remove-page" onclick="deletePage()">Delete This Page</div>
+                <div class="left-menu-item" id="new-page" onclick="fileBrowser('../*')">Create New Page</div>
+                <div class="left-menu-item" id="remove-page" onclick="deletePage()">Delete This Page</div>
                 <hr style="border-color: #DDDDDD; margin-left: 10px; margin-right: 10px;">
                 <ul class="list-menu" style="list-style-type: none;">
                     <h5>Pages:</h5>
@@ -45,11 +59,14 @@
                     ?>
                 </ul>
             </div>
+            <!-- Menu for getting to the text-editor -->
+            <a href="/php/textEditor.php" style="text-decoration: none; color: #FFFFFF;">Open Text Editor</a>
+            <!-- Menu for the drag and drop functions -->
             <ul class="list-menu" style="list-style-type: none;">
                 <h5>Functions:</h5>
                 <?php
                     //Print out all functions here including the "Add New" function
-                    echo 'New Function';
+                    //echo 'New Function';
                     listAllFunctions();
                 ?>
             </ul>
@@ -149,27 +166,104 @@
 
 
     <script>
+        //If a folder is clicked, refresh the file browser window with the contents of the inner directory
+        //document.getElementsByClassName('folder-item').addEventListener("onmousedown", function(){fileBrowser()}, false);
 
-        //Functionality for adding or removing pages
-        function newPage()
+        //If a file is clicked, open it in the text-editor (or maybe go to that page)
+        //Code that here
+
+        //Hide the file browser window when it's not needed
+        document.getElementById('cms-file-x').addEventListener("mousedown", function(){
+            document.getElementById('file-browser-window').style.top = "25%";
+            document.getElementById('file-browser-window').style.left = "-600px";
+        }, false);
+
+        //Functionality for showing the file browser
+        function fileBrowser(path)
         {
-            alert('This function is not yet finished.');
-            /*
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("txtHint").innerHTML = this.responseText;
-                }
-            };
-            xmlhttp.open("GET", "functions.php?q=newPage", true);
-            //In functions.php: $q = $_REQUEST["q"];
-            xmlhttp.send();
-            */
+            //Move the window into the viewport (if it's outside of it)
+            if(document.getElementById('file-browser-window').style.left == "-600px")
+            {
+                document.getElementById('file-browser-window').style.top = "25%";
+                document.getElementById('file-browser-window').style.left = "25%";
+            }
+            //Refresh the file-browser section of the window
+            $.ajax({ url: '/php/functions.php',
+                data: {action: 'fileBrowserphp', currPath: path},
+                type: 'GET',
+                success: function(output) {
+                    //Post the folders and files inside the window
+                    document.getElementById('file-browser').innerHTML = output;
+                    }
+            });
         }
+
+        //Home button
+        document.getElementById('file-home').addEventListener("mousedown", function(){
+            homeDir();
+        }, false);
+
+        function homeDir()
+        {
+            //Refresh the file-browser section of the window
+            $.ajax({ url: '/php/functions.php',
+                data: {action: 'homeDir'},
+                type: 'GET',
+                success: function(output) {
+                    //Post the folders and files inside the window
+                    document.getElementById('file-browser').innerHTML = output;
+                    }
+            });
+        }
+
+        //Back arrow
+        document.getElementById('file-back').addEventListener("mousedown", function(){
+            goUpDir();
+        }, false);
+
+        function goUpDir()
+        {
+            //Refresh the file-browser section of the window
+            $.ajax({ url: '/php/functions.php',
+                data: {action: 'goUpDir'},
+                type: 'GET',
+                success: function(output) {
+                    //Post the folders and files inside the window
+                    document.getElementById('file-browser').innerHTML = output;
+                    }
+            });
+        }
+
+        //Forward arrow
+        document.getElementById('file-forward').addEventListener("mousedown", function(){
+            goBackDir();
+        }, false);
+
+        function goBackDir()
+        {
+            //Refresh the file-browser section of the window
+            $.ajax({ url: '/php/functions.php',
+                data: {action: 'goBackDir'},
+                type: 'GET',
+                success: function(output) {
+                    //Post the folders and files inside the window
+                    document.getElementById('file-browser').innerHTML = output;
+                    }
+            });
+        }
+
+        
 
         function deletePage()
         {
-            alert("This function is also not yet finished.");
+            $.ajax({ url: '/php/functions.php',
+                data: {action: 'delPage'},
+                type: 'GET',
+                success: function(output) {
+                    $().html(output);
+                    }
+            });
+            //alert("This function is also not yet finished.");
         }
                    
         //Functionality for being able to move around and place new elements from the menu, onto the page
@@ -209,8 +303,16 @@ document.body.onmousedown = function(event)
     {
         return;
     }
+
+    //Check to see if the clicked item was a folder-item or a file-item
+    if (mouseElem.classList.contains('folder-item'))
+    {
+        fileBrowser(mouseElem.id);
+    }
+
     //If it was the menu controls, do nothing
-    if (!mouseElem.classList.contains('clones') && !mouseElem.classList.contains('nested'))
+    //if (!mouseElem.classList.contains('clones') && !mouseElem.classList.contains('nested') && !mouseElem.classList.contains('cms-window'))
+    if (!mouseElem.classList.contains('clones') && !mouseElem.classList.contains('nested') && !mouseElem.classList.contains('cms-window') && !mouseElem.classList.contains('cms-window-controls') && !mouseElem.classList.contains('cms-window-title') && !mouseElem.classList.contains('cms-window-close'))
     {
         return;
     }
@@ -244,6 +346,10 @@ document.body.onmousedown = function(event)
     {
         newElem = document.getElementById(elemId);
     }
+    else if (mouseElem.classList.contains('cms-window') || mouseElem.classList.contains('cms-window') || mouseElem.classList.contains('cms-window') || mouseElem.classList.contains('cms-window-controls') || mouseElem.classList.contains('cms-window-title') || mouseElem.classList.contains('cms-window-close'))
+    {
+        newElem = document.getElementById('file-browser-window');
+    }
 
     //Keeps track of the current element of class "nested" beneath the new element
     currentNested = null;
@@ -254,8 +360,12 @@ document.body.onmousedown = function(event)
         return;
     }
 
-    //Outline newElem to show that it is selected
-    $(newElem).css({'outline': '3px solid #5555FF'});
+    //Outline newElem to show that it is selected, but don't outline it if it's a cms window
+    if (newElem !== document.getElementById('file-browser-window'))
+    {
+        $(newElem).css({'outline': '3px solid #5555FF'});
+    }
+    
 
     //If the menus need to be closed while an element is dragged, these will be set to true so the script knows to pull the menus back out afterwards
     var hadToToggle_l = false;
@@ -437,8 +547,12 @@ document.body.onmousedown = function(event)
             //nElemLeft = 0;
             nElemTop = parseInt(newElem.style.top, 10);
             //nElemTop = 0;
-            newElem.style.left = nElemLeft - cNestLeft + 'px';
-            newElem.style.top = nElemTop - cNestTop + 'px';
+            if(newElem.id !== 'file-browser-window')
+            {
+                newElem.style.left = nElemLeft - cNestLeft + 'px';
+                newElem.style.top = nElemTop - cNestTop + 'px';
+            }
+            
         }
 
         //AJAX THE SERVER TO SAY WHAT ELEMENT WAS ADDED OR MOVED, AND WHERE IT WAS PLACED!
@@ -488,6 +602,12 @@ document.body.onmousedown = function(event)
 
     function preventHighlight(event)
     {
+        //Skip this if the text editor is loaded in, or text can't be highlighted
+        var currPage = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+        if(currPage == "textEditor.php"){
+            return;
+        }
+
         if(event.stopPropagation)
         {
             event.stopPropagation();
