@@ -289,14 +289,14 @@
 
         function deletePage()
         {
-            $.ajax({ url: '/php/functions.php',
+            /*$.ajax({ url: '/php/functions.php',
                 data: {action: 'delPage'},
                 type: 'GET',
                 success: function(output) {
                     $().html(output);
                     }
-            });
-            //alert("This function is also not yet finished.");
+            });*/
+            alert("This function is not yet finished.");
         }
                    
         //Functionality for being able to move around and place new elements from the menu, onto the page
@@ -330,6 +330,9 @@ document.body.onmousedown = function(event)
     var newElem = null;
     var mouseElem = document.getElementById(elemId);
 
+    //Keep track of initial mouse location
+    var x0 = event.clientX;
+    var y0 = event.clientY;
     
     //Null checking
     if(!mouseElem)
@@ -503,8 +506,16 @@ document.body.onmousedown = function(event)
             listAllAttr(newElem);
         }
 
+        if(event.clientX != x0 && event.clientY != y0)
+        {
+            //Disable link propagation if the element is being dragged
+            newElem.style.pointerEvents = "none";
+        }
+
         //Set the object's position
         setPos(event);
+
+        
     }
 
     function setPos(event)
@@ -530,6 +541,8 @@ document.body.onmousedown = function(event)
         }
 
         setBackground(elemBelow);
+
+        hasMoved = true;
     }
 
     //When over something, change its background to gray
@@ -636,6 +649,9 @@ document.body.onmousedown = function(event)
             $('#admin-r-menu').attr("toggle_r","1");
             hadToToggle_r = false;
         }
+
+        //Make links clickable again
+        newElem.style.pointerEvents = "auto";
 
         //Remove the mouse listener because it's no longer needed
         document.removeEventListener('mousemove', onmousemove);
