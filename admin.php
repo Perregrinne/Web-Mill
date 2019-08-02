@@ -113,22 +113,13 @@
     <!-- Right Menu -->
     <div id="admin-r-menu" toggle_r="0">
         <div class="admin-r-option">
-            Select an element.
-            <br>
-            <?php
-                //List all elements in the webpage here
-                //LISTALLELEMS();
-
-                //Print out all functions here including the "Add New" function
-                echo '<ul style="list-style-type:none;">';
-
-
-                //LISTALLATTR(); instead!
-                //listAllFunctions();
-                echo 'Functionality coming soon...';
-
-                echo '</ul>';
-            ?>
+            <!-- This list is refreshed every time the page is loaded or an element is cloned. -->
+            <ul class="list-menu"  id="list-all-elems">
+            </ul>
+            <!-- This list is refreshed every time an element is selected -->
+            <ul class="list-menu"  id="list-elem-attr">
+                Attributes:<br>
+            </ul>
         </div>
 
 
@@ -167,6 +158,47 @@
 
 
     <script>
+        //List all elements (of the "nested" class)
+        $(document).ready(function() {
+            listAllElems();
+        });
+
+        function listAllElems()
+        {
+            var listContent = 'Elements:<br>'; 
+            $('.nested').each(function(i, nestElem) {
+                listContent += '<li class="element-list-item" id="element-list-' + nestElem.id + '">' + nestElem.id + '</li>';
+            });
+            document.getElementById('list-all-elems').innerHTML = listContent;
+        }
+
+        function listAllAttr(selElem)
+        {
+            var listContent = 'Attributes:<br>';
+            listContent += '<li class="element-attr-item" id="element-attr-height">Height: ' + selElem.style.height + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-width">Width: ' + selElem.style.width + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-top">Top: ' + selElem.style.top + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-bottom">Bottom: ' + selElem.style.bottom + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-left">Left: ' + selElem.style.left + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-right">Right: ' + selElem.style.right + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-mtop">Margin Top: ' + selElem.style.marginTop + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-mbottom">Margin Bottom: ' + selElem.style.marginBottom + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-mleft">Margin Left: ' + selElem.style.marginLeft + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-mright">Margin Right: ' + selElem.style.marginRight + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-ptop">Padding Top: ' + selElem.style.paddingTop + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-pbottom">Padding Bottom: ' + selElem.style.paddingBottom + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-pleft">Padding Left: ' + selElem.style.paddingLeft + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-pright">Padding Right: ' + selElem.style.paddingRight + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-color">Font Color: ' + selElem.style.color + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-fsize">Font Size: ' + selElem.style.fontSize + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-font">Font: ' + selElem.style.font + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-bg">Background Color: ' + selElem.style.background + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-text">Text: ' + selElem.innerHTML + '</li>';
+            listContent += '<li class="element-attr-item" id="element-attr-z">Z-Index: ' + selElem.style.zIndex + '</li>';
+            document.getElementById('list-elem-attr').innerHTML = listContent;
+        }
+
+
         //If a folder is clicked, refresh the file browser window with the contents of the inner directory
         //document.getElementsByClassName('folder-item').addEventListener("onmousedown", function(){fileBrowser()}, false);
 
@@ -325,6 +357,8 @@ document.body.onmousedown = function(event)
     //Deselect any element already selected
     $('.nested').each(function(i, elem) {
         $(elem).css({'outline': 'none'});
+        //Clear the attributes list too
+        document.getElementById('list-elem-attr').innerHTML = 'Attributes:<br>';
     });
 
     //if the body was clicked, everything was just deselected, so do nothing further
@@ -365,6 +399,10 @@ document.body.onmousedown = function(event)
     if (newElem !== document.getElementById('file-browser-window'))
     {
         $(newElem).css({'outline': '3px solid #5555FF'});
+        //Update the list of elements
+        listAllElems();
+        //List its attributes
+        listAllAttr(newElem);
     }
     
 
@@ -457,6 +495,12 @@ document.body.onmousedown = function(event)
             $(newElem).css({'outline': '3px solid #5555FF'});
 
             hasMoved = true;
+
+            //Update the list of elements
+            listAllElems();
+
+            //List its attributes
+            listAllAttr(newElem);
         }
 
         //Set the object's position
@@ -492,23 +536,27 @@ document.body.onmousedown = function(event)
     //Otherwise, return its background to what it was before
     function setBackground(elemBelow)
     {
-        let droppableBelow = elemBelow.closest('.nested');
-        if (currentNested != droppableBelow)
+        if(newElem !== document.getElementById('file-browser-window'))
         {
-            if (currentNested)
-            { 
-                //Return the highlighted element back to its original background
-                currentNested.style.background = originalBG;
-            }
-            currentNested = droppableBelow;
-            if (currentNested)
-            { 
-                //If the mouse is over a "nested" element, save its original background and make the new background gray
-                let elemStyle = window.getComputedStyle(currentNested, null);
-                originalBG = elemStyle.getPropertyValue('background-color');
-                currentNested.style.background = '#777777';
+            let nestedBelow = elemBelow.closest('.nested');
+            if (currentNested != nestedBelow)
+            {
+                if (currentNested)
+                { 
+                    //Return the highlighted element back to its original background
+                    currentNested.style.background = originalBG;
+                }
+                currentNested = nestedBelow;
+                if (currentNested)
+                { 
+                    //If the mouse is over a "nested" element, save its original background and make the new background gray
+                    let elemStyle = window.getComputedStyle(currentNested, null);
+                    originalBG = elemStyle.getPropertyValue('background-color');
+                    currentNested.style.background = '#777777';
+                }
             }
         }
+        
     }
 
     //Create a new id for new elements.

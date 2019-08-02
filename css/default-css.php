@@ -245,6 +245,10 @@ body {
     cursor: pointer;
 }
 
+.cms-window-close:hover {
+    background-color: #FF7777;
+}
+
 .cms-window-title {
     position: relative;
     top: 3px;
@@ -263,13 +267,37 @@ body {
 .file-browser-items {
     position: relative;
     display: inline-block;
-    border: 1px solid #DDDDDD;
+    border: 1px solid #999999;
     border-radius: 5px 5px 5px 5px;
     text-align: center;
     width: 75px;
     cursor: pointer;
+    background: #333333;
+    color: #CCCCCC;
+}
+
+.file-browser-items:hover {
+    background: #AAAAAA;
+    border: 1px solid #DDDDDD;
 }
 
 .left-menu-item {
     cursor: pointer;
+}
+
+.admin-r-list {
+    list-style-type: none;
+}
+
+.element-list-item {
+    list-style-type: none;
+    margin-left: 15px;
+    text-align: left;
+}
+
+.element-attr-item {
+    list-style-type: none;
+    margin-left: 15px;
+    text-align: left;
+    font-size: 14px;
 }
