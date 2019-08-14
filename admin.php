@@ -46,7 +46,7 @@
             <a href="/php/logout.php" id="logout">Logout</a>
             <br>
             <!-- Menu for adding or loading pages -->
-            <div class="list-menu" id="pages-menu">
+            <div class="list-menu" id="apps-menu">
                 Apps:
                 <!-- Functionality for both onclick functions below are with the main script for the page that controls mouse and dragging behaviors and more -->
                 <!-- File browser link -->
@@ -54,7 +54,7 @@
                 <!-- Link for getting to the text-editor -->
                 <a href="/php/textEditor.php" style="text-decoration: none; color: #FFFFFF;">Open Text Editor</a>
                 <hr style="border-color: #DDDDDD; margin-left: 10px; margin-right: 10px;">
-                <ul class="list-menu" style="list-style-type: none;">
+                <ul class="list-menu" id="pages-menu" style="list-style-type: none;">
                     <h5>Pages:</h5>
                     <?php
                         echo '<li><a href="/index.php" style="text-decoration: none; color: #FFFFFF;">home</a></li>';
@@ -63,7 +63,7 @@
                 </ul>
             </div>
             <!-- Menu for the drag and drop functions -->
-            <ul class="list-menu" style="list-style-type: none;">
+            <ul class="list-menu" id="functions-menu" style="list-style-type: none;">
                 <h5>Functions:</h5>
                 <?php
                     //Print out all functions here including the "Add New" function
@@ -71,12 +71,12 @@
                     listAllFunctions();
                 ?>
             </ul>
-
-            <!-- "UPDATE WEBSITE" BUTTON HERE! (Not to be confused with ajax) -->
-            <!-- "ADD NEW FUNCTION" BUTTON HERE! -->
-
-            
         </div>
+        
+
+        <!-- "UPDATE WEBSITE" BUTTON HERE! (Not to be confused with ajax) -->
+        <!-- "ADD NEW FUNCTION" BUTTON HERE! -->
+        
         <div id="admin-control">
             <canvas id="control-text" width="50px" height="50px">
                 <script>
@@ -175,26 +175,183 @@
         function listAllAttr(selElem)
         {
             var listContent = 'Attributes:<br>';
-            listContent += '<li class="element-attr-item" id="element-attr-height">Height: ' + selElem.style.height + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-width">Width: ' + selElem.style.width + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-top">Top: ' + selElem.style.top + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-bottom">Bottom: ' + selElem.style.bottom + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-left">Left: ' + selElem.style.left + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-right">Right: ' + selElem.style.right + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-mtop">Margin Top: ' + selElem.style.marginTop + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-mbottom">Margin Bottom: ' + selElem.style.marginBottom + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-mleft">Margin Left: ' + selElem.style.marginLeft + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-mright">Margin Right: ' + selElem.style.marginRight + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-ptop">Padding Top: ' + selElem.style.paddingTop + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-pbottom">Padding Bottom: ' + selElem.style.paddingBottom + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-pleft">Padding Left: ' + selElem.style.paddingLeft + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-pright">Padding Right: ' + selElem.style.paddingRight + '</li>';
+
+            //Name (Id)
+            listContent += '<li class="element-attr-item" id="element-attr-id">Name: ' + selElem.id + '</li>';
+
+            //Height
+            if (selElem.style.height)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-height">Height: ' + selElem.style.height + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-height">Height: ' + Math.round(selElem.getBoundingClientRect().bottom - selElem.getBoundingClientRect().top) + 'px</li>';
+            }
+
+            //Width
+            if (selElem.style.width)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-width">Width: ' + selElem.style.width + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-width">Width: ' + Math.round(selElem.getBoundingClientRect().right - selElem.getBoundingClientRect().left) + 'px</li>';
+            }
+
+            //Top
+            if (selElem.style.top)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-top">Top: ' + selElem.style.top + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-top">Top: ' + selElem.getBoundingClientRect().top + 'px</li>';
+            }
+            
+            //Bottom
+            if (selElem.style.bottom)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-bottom">Bottom: ' + selElem.style.bottom + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-bottom">Bottom: ' + selElem.getBoundingClientRect().bottom + 'px</li>';
+            }
+
+            //Left
+            if (selElem.style.left)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-left">Left: ' + selElem.style.left + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-left">Left: ' + selElem.getBoundingClientRect().left + 'px</li>';
+            }
+
+            //Right
+            if (selElem.style.right)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-right">Right: ' + selElem.style.right + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-right">Right: ' + selElem.getBoundingClientRect().right + 'px</li>';
+            }
+
+            //Margin Top
+            if (selElem.style.marginTop)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-mtop">Margin Top: ' + selElem.style.marginTop + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-mtop">Margin Top: 0px</li>';
+            }
+
+            //Margin Bottom
+            if (selElem.style.marginBottom)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-mbottom">Margin Bottom: ' + selElem.style.marginBottom + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-mbottom">Margin Bottom: 0px</li>';
+            }
+
+            //Margin Left
+            if (selElem.style.marginLeft)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-mleft">Margin Left: ' + selElem.style.marginLeft + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-mleft">Margin Left: 0px</li>';
+            }
+            
+            //Margin Right
+            if (selElem.style.marginRight)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-mright">Margin Right: ' + selElem.style.marginRight + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-mright">Margin Right: 0px</li>';
+            }
+            
+            //Padding Top
+            if (selElem.style.paddingTop)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-ptop">Padding Top: ' + selElem.style.paddingTop + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-ptop">Padding Top: 0px</li>';
+            }
+
+            //Padding Bottom
+            if (selElem.style.paddingBottom)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-pbottom">Padding Bottom: ' + selElem.style.paddingBottom + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-pbottom">Padding Bottom: 0px</li>';
+            }
+            
+            //Padding Left
+            if (selElem.style.paddingLeft)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-pleft">Padding Left: ' + selElem.style.paddingLeft + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-pleft">Padding Left: 0px</li>';
+            }
+            
+            //Padding Right
+            if (selElem.style.paddingRight)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-pright">Padding Right: ' + selElem.style.paddingRight + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-pright">Padding Right: 0px</li>';
+            }
+            
+            //Font Color
             listContent += '<li class="element-attr-item" id="element-attr-color">Font Color: ' + selElem.style.color + '</li>';
+
+            //Font size
             listContent += '<li class="element-attr-item" id="element-attr-fsize">Font Size: ' + selElem.style.fontSize + '</li>';
+
+            //Font
             listContent += '<li class="element-attr-item" id="element-attr-font">Font: ' + selElem.style.font + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-bg">Background Color: ' + selElem.style.background + '</li>';
+
+            //Background
+            if (selElem.style.zIndex)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-bg">Background Color: ' + selElem.style.background + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-bg">Background Color: none</li>';
+            }
+
+            //Content
             listContent += '<li class="element-attr-item" id="element-attr-text">Text: ' + selElem.innerHTML + '</li>';
-            listContent += '<li class="element-attr-item" id="element-attr-z">Z-Index: ' + selElem.style.zIndex + '</li>';
+
+            //Z-Index
+            if (selElem.style.zIndex)
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-z">Z-Index: ' + selElem.style.zIndex + '</li>';
+            }
+            else
+            {
+                listContent += '<li class="element-attr-item" id="element-attr-z">Z-Index: 0</li>';
+            }
+            
+            //Display them in #list-elem-attr
             document.getElementById('list-elem-attr').innerHTML = listContent;
         }
 
@@ -398,6 +555,9 @@ document.body.onmousedown = function(event)
         return;
     }
 
+    //Move the element
+    moveAt(event.pageX, event.pageY);
+
     //Outline newElem to show that it is selected, but don't outline it if it's a cms window
     if (newElem !== document.getElementById('file-browser-window'))
     {
@@ -407,29 +567,10 @@ document.body.onmousedown = function(event)
         //List its attributes
         listAllAttr(newElem);
     }
-    
 
-    //If the menus need to be closed while an element is dragged, these will be set to true so the script knows to pull the menus back out afterwards
+    //If the menus need to be retracted while an element is dragged, these will be set to true so the script knows to pull the menus back out afterwards
     var hadToToggle_l = false;
     var hadToToggle_r = false;
-
-    //Retract the left-side menu
-    if($('#admin-menu').attr("toggle")==="1")
-    {
-        hadToToggle_l = true;
-        $("#control-text").css({'transform': 'rotate(0deg)'});
-        $('#admin-menu').animate({"left":"-250px"},200);
-        $('#admin-menu').attr("toggle","0");
-    }
-
-    //retract the right-side menu
-    if($('#admin-r-menu').attr("toggle_r")==="1")
-    {
-        hadToToggle_r = true;
-        $("#control-r-text").css({'transform': 'rotate(0deg)'});
-        $('#admin-r-menu').animate({"right":"-250px"},200);
-        $('#admin-r-menu').attr("toggle_r","0");
-    }
 
     //Location where the new element is on the screen
     let offsetX = event.clientX - newElem.getBoundingClientRect().left;
@@ -462,8 +603,8 @@ document.body.onmousedown = function(event)
     {
         if (newElem && !newElem.classList.contains('clones'))
         {
-            newElem.style.left = pageX - offsetX + 'px';
-            newElem.style.top = pageY - offsetY + 'px';
+            newElem.style.left = pageX + 'px';
+            newElem.style.top = pageY + 'px';
         }
         
     }
@@ -476,6 +617,7 @@ document.body.onmousedown = function(event)
         //clone it and make the clone unclonable so it can be moved without making extra clones
         if(!hasMoved && isClone)
         {
+            
             var clone = newElem.cloneNode(true);
 
             // Change the id attribute of the newly created element
@@ -506,16 +648,39 @@ document.body.onmousedown = function(event)
             listAllAttr(newElem);
         }
 
+        //If the mouse has moved
         if(event.clientX != x0 && event.clientY != y0)
         {
             //Disable link propagation if the element is being dragged
             newElem.style.pointerEvents = "none";
+
+            //Retract the left-side menu
+            if($('#admin-menu').attr("toggle")==="1")
+            {
+                hadToToggle_l = true;
+                $("#control-text").css({'transform': 'rotate(0deg)'});
+                $('#admin-menu').animate({"left":"-250px"},200);
+                $('#admin-menu').attr("toggle","0");
+            }
+
+            //retract the right-side menu
+            if($('#admin-r-menu').attr("toggle_r")==="1")
+            {
+                hadToToggle_r = true;
+                $("#control-r-text").css({'transform': 'rotate(0deg)'});
+                $('#admin-r-menu').animate({"right":"-250px"},200);
+                $('#admin-r-menu').attr("toggle_r","0");
+            }
         }
+
+        //List its attributes
+        listAllAttr(newElem);
+
+        //Move the element
+        moveAt(event.pageX, event.pageY);
 
         //Set the object's position
         setPos(event);
-
-        
     }
 
     function setPos(event)
@@ -525,9 +690,6 @@ document.body.onmousedown = function(event)
         {
             return;
         }
-
-        //Move the element
-        moveAt(event.pageX, event.pageY);
         
         //Look under the dragged object to see what element is directly beneath it
         newElem.hidden = true;
@@ -541,8 +703,6 @@ document.body.onmousedown = function(event)
         }
 
         setBackground(elemBelow);
-
-        hasMoved = true;
     }
 
     //When over something, change its background to gray
@@ -582,9 +742,9 @@ document.body.onmousedown = function(event)
 
         while(!uniqueID)
         {
-            if(!document.getElementById('id' + idNum))
+            if(!document.getElementById('name' + idNum))
             {
-                return 'id' + idNum;
+                return 'name' + idNum;
             }
             idNum++;
         }
@@ -593,13 +753,13 @@ document.body.onmousedown = function(event)
     //When the mouse button is released, nest the dragged element if necessary
     document.onmouseup = function(event) 
     {
-        if(currentNested)
+        if(currentNested && newElem)
         {
             //Change the highlighted background back to what it originally was
             currentNested.style.background = originalBG;
 
             //Nest the element
-            //currentNested.appendChild(newElem);
+            currentNested.appendChild(newElem);
 
             //cNestLeft = parseInt(currentNested.style.left, 10);
             cNestLeft = 0;
@@ -609,11 +769,11 @@ document.body.onmousedown = function(event)
             //nElemLeft = 0;
             nElemTop = parseInt(newElem.style.top, 10);
             //nElemTop = 0;
-            if(newElem.id !== 'file-browser-window')
-            {
-                newElem.style.left = nElemLeft - cNestLeft + 'px';
-                newElem.style.top = nElemTop - cNestTop + 'px';
-            }
+            //if(newElem.id !== 'file-browser-window')
+            //{
+                //newElem.style.left = event.pageX + newElem.getBoundingClientRect().left - event.clientX + 'px';
+                //newElem.style.top = event.pageY + newElem.getBoundingClientRect().top - event.clientY + 'px';
+            //}
             
         }
 

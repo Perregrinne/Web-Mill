@@ -129,20 +129,6 @@
     cursor: pointer;
 }
 
-#mainText {
-    position: absolute;
-    width: 250px;
-    left: 100px;
-}
-
-#adminLink {
-    left: 100px;
-}
-
-#clock {
-    left: 100px;
-}
-
 .clones {
     position: static;
     cursor: pointer;
@@ -154,12 +140,60 @@
 }
 
 .list-menu {
-    margin: 10px 10px 10px 10px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: 10px 10px 0 10px;
     padding: 10px 0 10px 0;
     border-style: solid;
     border-width: 1px;
     border-color: #DDDDDD;
-    border-radius: 10px 10px 10px 10px;
+    border-radius: 5px 5px 5px 5px;
+    min-height: 46%;
+    max-height: 48%;
+    overflow: auto;
+}
+
+/*Customizing the scrollbars in the side menus*/
+
+.list-menu::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #aaaaaa;
+}
+
+.list-menu::-webkit-scrollbar-thumb {
+    width: 10px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #888888;
+}
+
+.list-menu::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.25);
+    border-radius: 5px 5px 5px 5px;
+    background-color: #DDDDDD;
+}
+
+#list-elem-attr {
+    bottom: 10px;
+    max-height: 48.5%;
+}
+
+#list-all-elems {
+    max-height: 48.5%;
+}
+
+#pages-menu {
+    position: absolute;
+    top: 100px;
+    bottom: 0;
+    margin-bottom: 10px;
+    max-height: 75%;
+    scroll: auto;
+}
+
+#functions-menu {
+    bottom: 10px;
 }
 
 body {
@@ -300,4 +334,97 @@ body {
     margin-left: 15px;
     text-align: left;
     font-size: 14px;
+}
+
+#navbar {
+    position: absolute;
+    width: 100%;
+    height: 75px;
+    left: 0;
+    right: 0;
+    background-color: #DDDDDD;
+}
+
+#navbar-logo {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#navbar-title {
+    position: absolute;
+    left: 100px;
+    top: 15px;
+    font-size: 32px;
+}
+
+#navbar-home-link {
+    position: absolute;
+    left: 25%;
+    top: 15px;
+    text-decoration: none;
+    font-size: 32px;
+}
+
+#navbar-admin-link {
+    position: absolute;
+    left: 55%;
+    top: 15px;
+    text-decoration: none;
+    font-size: 32px;
+}
+
+#main-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#clock {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-86px, 64px);
+    transform: translate(-86px, 64px);
+    font-size: 32px;
+}
+
+#footer {
+    position: absolute;
+    display: inline-block;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 35px;
+    background-color: #DDDDDD;
+    text-align: center;
+}
+
+#copyright {
+    position: relative;
+    display: inline-block;
+    bottom: -5px;
+}
+
+#copyright-text {
+    position: relative;
+    display: inline-block;
+    bottom: 0px;
+}
+
+#copyright-year {
+    position: relative;
+    display: inline-block;
+    bottom: 0px;
+}
+
+#copyright-name {
+    position: relative;
+    display: inline-block;
+    bottom: 0px;
 }

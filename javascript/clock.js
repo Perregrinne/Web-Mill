@@ -24,5 +24,5 @@ function getTime() {
     var timeString = hour + ":" + minute + ":" + second + " " + ampm;
 
     //Return the time string:
-    document.getElementById("clock").firstChild.nodeValue = timeString;
+    document.getElementById("clock").innerHTML = timeString;
 }

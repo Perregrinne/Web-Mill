@@ -7,6 +7,8 @@
     //Version of the framework:
     $VERSION = '0.0.1';
     $PHP_VER = phpversion();
+
+    $ORGANIZATION = 'Default Organization';
 ?>
 
 <?php
