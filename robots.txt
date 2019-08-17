@@ -1,4 +1,8 @@
 User-agent: *
 Disallow: /php/
-Disallow: /pages/error_pages/
+Disallow: /pages/error/
 Disallow: /images/
+Disallow: /css/
+Disallow: /javascript/
+Disallow: /saved/
+Disallow: /vendor/
