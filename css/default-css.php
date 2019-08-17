@@ -336,6 +336,14 @@ body {
     font-size: 14px;
 }
 
+.admin-attr-item {
+    background-color: #555555;
+    color: #EEEEEE;
+    border-radius: 5px 5px 5px 5px;
+    height: 32px;
+    width: 150px;
+}
+
 #navbar {
     position: absolute;
     width: 100%;
