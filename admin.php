@@ -261,8 +261,6 @@
             
         }
 
-
-
         //List all elements (of the "nested" class)
         $(document).ready(function() {
             listAllElems();
@@ -354,7 +352,7 @@
             listContent += '<li class="element-attr-item" id="element-attr-bg">Background Color: <br><input type="text" class="admin-attr-item" id="admin-attr-bg" value="' + elemBG + '"></li>';
 
             //Content
-            //listContent += '<li class="element-attr-item" id="element-attr-text">Text: <br><input type="text" class="admin-attr-item" id="admin-attr-text" value="' + JSON.stringify(selElem.innerHTML) + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-text">Text: <br><input type="text" class="admin-attr-item" id="admin-attr-text"></li>';
 
             //Z-Index
             var elemZ = (selElem.style.zIndex) ? selElem.style.zIndex : "0";
@@ -364,6 +362,9 @@
             
             //Display them in #list-elem-attr
             document.getElementById('list-elem-attr').innerHTML = listContent;
+
+            //Modify "admin-attr-text" to show the innerHTML
+            document.getElementById("admin-attr-text").value = selElem.innerHTML;
         }
 
 
