@@ -34,6 +34,11 @@
             <div class="file-browser-items" id="file-forward">></div>
             <div class="file-browser-items" id="file-new-file">+File</div>
             <div class="file-browser-items" id="file-new-folder">+Folder</div>
+            <form action="" method="POST" enctype="multipart/form-data" >
+                <input type="file" name="file" />
+                <input type="submit"/>
+            </form>
+            <!--div class="file-browser-items" id="file-upload">Upload</div-->
         </span>
         <div class="file-browser" id="file-browser"></div>
     </div>
@@ -873,4 +878,60 @@ document.body.onmousedown = function(event)
 };
 
     </script>
+
+<?php
+    //FTP file uploader script
+    //function uploadFiles()
+    //{
+        if(isset($_FILES['file']))
+        {
+            $status = 'Upload completed successfully.';
+            $file_name = $_FILES['file']['name'];
+            $file_size =$_FILES['file']['size'];
+            $file_tmp =$_FILES['file']['tmp_name'];
+            
+            $max_post = getSize(ini_get('post_max_size'));
+            $max_upload = getSize(ini_get('upload_max_filesize'));
+
+            $max_size = ($max_post < $max_upload) ? $max_post : $max_upload;
+
+            if($file_size > $max_size)
+            {
+                $status = 'File is too large. Maximum size: ' . $max_size;
+            }
+            else
+            {
+                move_uploaded_file($file_tmp, $_SERVER['DOCUMENT_ROOT'] . '/saved/' . $file_name);
+            }
+
+            echo $status;
+        }
+    //}
+
+    function getSize($size)
+    {
+        $exponent = strtoupper(substr($size, -1));
+        $number = substr($size, 0, -1);
+
+        switch($exponent)
+        {
+            case 'K':
+                $number *= 1024;
+                break;
+            case 'M':
+                $number *= 1024 * 1024;
+                break;
+            case 'G':
+                $number *= 1024 * 1024 * 1024;
+                break;
+            case 'T':
+                $number *= 1024 * 1024 * 1024 * 1024;
+                break;
+            case 'P':
+                $number *= 1024 * 1024 * 1024 * 1024 * 1024;
+                break;
+        }
+        return $number;
+    }
+?>
 </body>
