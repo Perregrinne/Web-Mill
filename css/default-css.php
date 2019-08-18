@@ -327,6 +327,7 @@ body {
     list-style-type: none;
     margin-left: 15px;
     text-align: left;
+    max-width: 200px;
 }
 
 .element-attr-item {

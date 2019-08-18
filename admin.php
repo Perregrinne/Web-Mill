@@ -521,6 +521,29 @@ document.body.onmousedown = function(event)
         fileBrowser(mouseElem.id);
     }
 
+    //If an element from the admin list was clicked, select it
+    if(mouseElem.classList.contains('element-list-item'))
+    {
+        //Deselect any element already selected
+        $('.nested').each(function(i, elem) {
+            $(elem).css({'outline': 'none'});
+        });
+        //including elements in the admin menu
+        $('.element-list-item').each(function(i, elem) {
+            $(elem).css({'outline': 'none'});
+        });
+
+        $(mouseElem).css({'outline': '3px solid #5555FF'});
+        var listElem = document.getElementById(mouseElem.innerHTML);
+        $(listElem).css({'outline': '3px solid #5555FF'});
+
+        //List its attributes
+        listAllAttr(listElem);
+
+        //And nothing further needs to get done, so just return
+        return;
+    }
+
     //If it was the menu controls, do nothing
     //if (!mouseElem.classList.contains('clones') && !mouseElem.classList.contains('nested') && !mouseElem.classList.contains('cms-window'))
     if (!mouseElem.classList.contains('clones') && !mouseElem.classList.contains('nested') && !mouseElem.classList.contains('cms-window') && !mouseElem.classList.contains('cms-window-controls') && !mouseElem.classList.contains('cms-window-title'))
@@ -584,6 +607,11 @@ document.body.onmousedown = function(event)
         $(newElem).css({'outline': '3px solid #5555FF'});
         //Update the list of elements
         listAllElems();
+
+        //Highlight the element in the admin list
+        var syncList = "#element-list-" + newElem.id;
+        $(syncList).css({'outline': '3px solid #5555FF'});
+
         //List its attributes
         listAllAttr(newElem);
     }
@@ -919,16 +947,19 @@ document.body.onmousedown = function(event)
                 $number *= 1024;
                 break;
             case 'M':
-                $number *= 1024 * 1024;
+                $number *= pow(1024, 2);
                 break;
             case 'G':
-                $number *= 1024 * 1024 * 1024;
+                $number *= pow(1024, 3);
                 break;
             case 'T':
-                $number *= 1024 * 1024 * 1024 * 1024;
+                $number *= pow(1024, 4);
                 break;
             case 'P':
-                $number *= 1024 * 1024 * 1024 * 1024 * 1024;
+                $number *= pow(1024, 5);
+                break;
+            case 'Y':
+                $number *= pow(1024, 6);
                 break;
         }
         return $number;
