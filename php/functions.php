@@ -2,6 +2,9 @@
     //This is needed for the session variables
     session_start();
 
+    //Variable holds the name of the current page
+    $thisPage = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+
     //Checking for GET data
     if(isset($_GET['action']) && !empty($_GET['action'])) {
         $action = $_GET['action'];
@@ -215,7 +218,7 @@
             foreach($files as $file)
             {
                 $pageName = substr($file, 0, strrpos($file, "."));
-                echo '<li><a href="/pages/' . $pageName . '.php" style="text-decoration: none; color: #FFFFFF;">' . $pageName . '</a></li>';
+                echo '<li class="pages-menu-item"><a href="/pages/' . $pageName . '.php" id="pages-menu-' . $pageName . '" style="text-decoration: none; color: #FFFFFF;">' . $pageName . '</a></li>';
             }
         }
     }

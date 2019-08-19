@@ -62,7 +62,7 @@
                 <ul class="list-menu" id="pages-menu" style="list-style-type: none;">
                     <h5>Pages:</h5>
                     <?php
-                        echo '<li><a href="/index.php" style="text-decoration: none; color: #FFFFFF;">home</a></li>';
+                        echo '<li class="pages-menu-item"><a href="/index.php" id="pages-menu-index" style="text-decoration: none; color: #FFFFFF;">home</a></li>';
                         listAllPages();
                     ?>
                 </ul>
@@ -904,6 +904,10 @@ document.body.onmousedown = function(event)
     }
 
 };
+
+//Highlight the current page in the pages menu
+var menuPage = "#pages-menu-" + "<?= $thisPage?>";
+$(menuPage).css({'outline': '3px solid #5555FF'});
 
     </script>
 
