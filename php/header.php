@@ -15,8 +15,10 @@
 </head>
 <body>
     <?php
+        //If logged in, load admin controls
         if (isset($_SESSION['USERNAME']))
         {
+            echo '<link rel="stylesheet" href="/css/admin-css.php">';
             include_once ($_SERVER['DOCUMENT_ROOT'] . "/admin.php");
         }
     ?>
