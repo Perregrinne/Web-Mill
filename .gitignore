@@ -8,9 +8,6 @@ index.php
 *.png
 
 #user-made or third-party content
-css/**
-images/**
-javascript/**
 php/admin/**
 php/development/**
 saved/**
