@@ -44,16 +44,13 @@
             //Nested element of footerContent
             $copyrightContent = [];
 
-            $copyrightContent['copyright'] = '&nbsp';
             $copyrightContent['copyright-text'] = 'Copyright' . '&nbsp&copy&nbsp';
             $copyrightContent['copyright-year'] = date('Y');
             $copyrightContent['copyright-name'] = '&nbsp' . 'Your Name Here';//$ORGANIZATION;
 
-            $footerContent['footer'] = '&nbsp';
             $footerContent['copyright'] = $copyrightContent;
             
 
-            $navbarContent['navbar'] = '&nbsp';
             $navbarContent['navbar-logo'] = '/favicon.png';
             $navbarContent['navbar-title'] = 'Web Mill';//$ORGANIZATION;
             $navbarContent['navbar-home-link'] = 'home';

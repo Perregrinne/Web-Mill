@@ -1,14 +1,5 @@
 #Web-Mill
 
-#index (default home) page
-index.php
-
-#favicons
-*.ico
-*.png
-
 #user-made or third-party content
-php/admin/**
-php/development/**
 saved/**
 vendor/**

@@ -1,6 +1,9 @@
 <?php
     require ($_SERVER['DOCUMENT_ROOT'] . "/php/admin/config.php");
-    session_start();
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
 ?>
 <head> 
     <title><?php echo $WEBSITE_TITLE; ?></title>
