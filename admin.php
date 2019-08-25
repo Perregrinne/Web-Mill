@@ -21,7 +21,6 @@
         }
     ?>
 </head>
-<body>
     <!-- The file browser window -->
     <div class="cms-window" id="file-browser-window" style="left: -600px;">
         <span class="cms-window-controls" id="cms-file-controls">
@@ -163,109 +162,7 @@
 
 
     <script>
-        //When the users types in a new value for an element's CSS, update it through ajax
-        window.onkeyup = keyup;
-
-        function keyup(e)
-        {
-            //Runs when the "Enter" key is pressed and focused input is a text field
-            if (e.keyCode == 13 && document.activeElement.classList.contains('admin-field'))
-            {
-                var elemModified = document.activeElement.id;
-                var newValue = document.getElementById(elemModified).value;
-
-                //Check if one of the text fields in the attributes menu were changed
-                switch (document.activeElement.id)
-                {
-                    case "elem-attr-id":
-                        elemModified = 'id';
-                        break;
-                    case "elem-attr-height":
-                        elemModified = 'height';
-                        break;
-                    case "elem-attr-width":
-                        elemModified = 'width';
-                        break;
-                    case "elem-attr-top":
-                        elemModified = 'top';
-                        break;
-                    case "elem-attr-bottom":
-                        elemModified = 'bottom';
-                        break;
-                    case "elem-attr-left":
-                        elemModified = 'left';
-                        break;
-                    case "elem-attr-right":
-                        elemModified = 'right';
-                        break;
-                    case "elem-attr-mtop":
-                        elemModified = 'marginTop';
-                        break;
-                    case "elem-attr-mbottom":
-                        elemModified = 'marginBottom';
-                        break;
-                    case "elem-attr-mleft":
-                        elemModified = 'marginLeft';
-                        break;
-                    case "elem-attr-mright":
-                        elemModified = 'marginRight';
-                        break;
-                    case "elem-attr-ptop":
-                        elemModified = 'paddingTop';
-                        break;
-                    case "elem-attr-pbottom":
-                        elemModified = 'paddingBottom';
-                        break;
-                    case "elem-attr-pleft":
-                        elemModified = 'paddingLeft';
-                        break;
-                    case "elem-attr-pright":
-                        elemModified = 'paddingRight';
-                        break;
-                    case "elem-attr-color":
-                        elemModified = 'color';
-                        break;
-                    case "elem-attr-fsize":
-                        elemModified = 'fontSize';
-                        break;
-                    case "elem-attr-font":
-                        elemModified = 'font';
-                        break;
-                    case "elem-attr-bg":
-                        elemModified = 'background';
-                        break;
-                    case "elem-attr-text":
-                        elemModified = 'innerHTML';
-                        break;
-                    case "elem-attr-z":
-                        elemModified = 'zIndex';
-                        break;
-                }
-                //Update things client-side
-                if(elemModified === 'id')
-                {
-                    document.activeElement.setAttribute('id', getNewID());
-                }
-                //else
-                //{
-
-                //}
-                        
-                //Send the new value and modified text field to the server
-                /*
-                //Possible method instead: $('input[type=text]').change(function() {
-                var updateField = $.ajax({ 
-                    type: "POST",
-                    url: 'admin.php',
-                    dataType: "json",
-                    data: { newValue: newValue, elementModified: elemModified },
-                    // See if needed: success:function(data) { $(".result").text(data); }
-                })
-                */
-            }
-            
-        }
-
+                  
         //List all elements (of the "nested" class)
         $(document).ready(function() {
             listAllElems();
@@ -663,7 +560,7 @@ document.body.onmousedown = function(event)
         
         //If the element is something to be cloned and hasn't been cloned yet, 
         //clone it and make the clone unclonable so it can be moved without making extra clones
-        if(!hasMoved && isClone)
+        if(!hasMoved && isClone && newElem)
         {
             
             var clone = newElem.cloneNode(true);
@@ -694,6 +591,22 @@ document.body.onmousedown = function(event)
 
             //List its attributes
             listAllAttr(newElem);
+
+            let idName = newElem.id;
+            let elemHTML = newElem.innerHTML;
+
+            //Ajax the server to give it newElem's info
+            $.ajax({ url: '/php/functions.php',
+                data: {action: 'newElem', elem: elemHTML, idName: idName},
+                type: 'GET',
+                success: function(output) {
+                    //Post the folders and files inside the window
+                    document.body.insertAdjacentHTML( 'beforeend', output );
+                    newElem.parentNode.removeChild(newElem); //Destroy the old newElem, and replace it with the server's ajax one
+                    newElem = document.getElementById(idName);
+                    }
+            });
+            
         }
 
         //If the mouse has moved
@@ -825,22 +738,6 @@ document.body.onmousedown = function(event)
             
         }
 
-        //AJAX THE SERVER TO SAY WHAT ELEMENT WAS ADDED OR MOVED, AND WHERE IT WAS PLACED!
-        /*
-            If(cloned)
-            {
-                //True for new element
-                ajax(newElem, location, true)
-            }
-            else
-            {
-                //False if existing element was moved
-                ajax(newElem, location, false)
-            }
-
-            Refresh the page? (Hopefully not)
-        */
-
         //Return the menu
         if (hadToToggle_l)
         {
@@ -909,35 +806,150 @@ document.body.onmousedown = function(event)
 var menuPage = "#pages-menu-" + "<?= $thisPage?>";
 $(menuPage).css({'outline': '3px solid #5555FF'});
 
+//When the users types in a new value for an element's CSS, update it through ajax
+window.onkeyup = keyup;
+
+function keyup(e)
+{
+    //Runs when the "Enter" key is pressed and focused input is a text field
+    if (e.keyCode == 13 && document.activeElement.classList.contains('admin-attr-item'))
+    {
+        var fieldAttr = '';
+        var textField = document.activeElement.id;
+        var newValue = document.getElementById(textField).value;
+
+        //Check if one of the text fields in the attributes menu were changed
+        switch (textField)
+        {
+            case "admin-attr-id":
+                fieldAttr = 'id';
+                break;
+            case "admin-attr-height":
+                fieldAttr = 'height';
+                break;
+            case "admin-attr-width":
+                fieldAttr = 'width';
+                break;
+            case "admin-attr-top":
+                fieldAttr = 'top';
+                break;
+            case "admin-attr-bottom":
+                fieldAttr = 'bottom';
+                break;
+            case "admin-attr-left":
+                fieldAttr = 'left';
+                break;
+            case "admin-attr-right":
+                fieldAttr = 'right';
+                break;
+            case "admin-attr-mtop":
+                fieldAttr = 'marginTop';
+                break;
+            case "admin-attr-mbottom":
+                fieldAttr = 'marginBottom';
+                break;
+            case "admin-attr-mleft":
+                fieldAttr = 'marginLeft';
+                break;
+            case "admin-attr-mright":
+                fieldAttr = 'marginRight';
+                break;
+            case "admin-attr-ptop":
+                fieldAttr = 'paddingTop';
+                break;
+            case "admin-attr-pbottom":
+                fieldAttr = 'paddingBottom';
+                break;
+            case "admin-attr-pleft":
+                fieldAttr = 'paddingLeft';
+                break;
+            case "admin-attr-pright":
+                fieldAttr = 'paddingRight';
+                break;
+            case "admin-attr-color":
+                fieldAttr = 'color';
+                break;
+            case "admin-attr-fsize":
+                fieldAttr = 'fontSize';
+                break;
+            case "admin-attr-font":
+                fieldAttr = 'font';
+                break;
+            case "admin-attr-bg":
+                fieldAttr = 'background';
+                break;
+            case "admin-attr-text":
+                fieldAttr = 'innerHTML';
+                break;
+            case "admin-attr-z":
+                fieldAttr = 'zIndex';
+                break;
+        }
+
+        //Figure out what element is currently selected
+        let modifyElem = '';
+        
+        var allAdminAtrr = document.getElementsByClassName("element-list-item");
+        for(var i = 0; i < allAdminAtrr.length; i++)
+        {
+            if(allAdminAtrr.item(i).style.outline == "rgb(85, 85, 255) solid 3px")
+            {
+                modifyElem = allAdminAtrr.item(i).innerHTML;
+                alert(modifyElem);
+            }
+        }
+
+        //Update things client-side
+        if(textField == 'id')
+        {
+            document.activeElement.setAttribute(textField, newValue);
+        }
+
+        //When a value in one of the attribute text fields is changed, then update things on the backend using ajax
+        if(newElem && textField)
+        {
+            $.ajax({ url: '/php/functions.php',
+                data: {action: 'updatecss', newElem, textField, newValue},
+                type: 'GET',
+                success: function() {
+                    alert('It worked!');
+                    },
+                error: function() {
+                    alert('Failed to connect to the server!');
+                }
+            });
+        }
+    }
+}
     </script>
 
 <?php
     //FTP file uploader script
     //function uploadFiles()
     //{
-        if(isset($_FILES['file']))
+    if(isset($_FILES['file']))
+    {
+        $status = 'Upload completed successfully.';
+        $file_name = $_FILES['file']['name'];
+        $file_size =$_FILES['file']['size'];
+        $file_tmp =$_FILES['file']['tmp_name'];
+        
+        $max_post = getSize(ini_get('post_max_size'));
+        $max_upload = getSize(ini_get('upload_max_filesize'));
+
+        $max_size = ($max_post < $max_upload) ? $max_post : $max_upload;
+
+        if($file_size > $max_size)
         {
-            $status = 'Upload completed successfully.';
-            $file_name = $_FILES['file']['name'];
-            $file_size =$_FILES['file']['size'];
-            $file_tmp =$_FILES['file']['tmp_name'];
-            
-            $max_post = getSize(ini_get('post_max_size'));
-            $max_upload = getSize(ini_get('upload_max_filesize'));
-
-            $max_size = ($max_post < $max_upload) ? $max_post : $max_upload;
-
-            if($file_size > $max_size)
-            {
-                $status = 'File is too large. Maximum size: ' . $max_size;
-            }
-            else
-            {
-                move_uploaded_file($file_tmp, $_SERVER['DOCUMENT_ROOT'] . '/saved/' . $file_name);
-            }
-
-            echo $status;
+            $status = 'File is too large. Maximum size: ' . $max_size;
         }
+        else
+        {
+            move_uploaded_file($file_tmp, $_SERVER['DOCUMENT_ROOT'] . '/saved/' . $file_name);
+        }
+
+        echo $status;
+    }
     //}
 
     function getSize($size)
@@ -969,4 +981,3 @@ $(menuPage).css({'outline': '3px solid #5555FF'});
         return $number;
     }
 ?>
-</body>

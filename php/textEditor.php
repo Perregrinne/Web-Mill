@@ -5,6 +5,8 @@
     <head>
         <?php 
             include ($_SERVER['DOCUMENT_ROOT'] . "/php/header.php");
+            include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/functions.php');
+            include_once ($_SERVER['DOCUMENT_ROOT'] . '/admin.php');
 
             //Don't allow visitors to this page, unless logged in
             if(!isset($_SESSION['USERNAME']))
@@ -34,11 +36,30 @@
                 function saveText()
                 {
                     alert("SaveText() function works.");
+                    //Tell the server to save changes
+                    $.ajax({ url: '/php/functions.php',
+                        data: {action: 'saveText'},
+                        type: 'GET',
+                        success: function() {
+                            alert('Document saved.');
+                            }
+                    });
                 }
 
                 function loadText()
                 {
+                    //Bring up the file browser, so that a file can be selected for editing
+                    fileBrowser('../*');
+
                     alert("LoadText() function works.");
+                    //Tell the server to load script
+                    $.ajax({ url: '/php/functions.php',
+                        data: {action: 'loadText'},
+                        type: 'GET',
+                        success: function(output) {
+                            alert('Document loaded.');
+                            }
+                    });
                 }
 
             </script>

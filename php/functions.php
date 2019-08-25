@@ -8,10 +8,9 @@
     //Checking for GET data
     if(isset($_GET['action']) && !empty($_GET['action'])) {
         $action = $_GET['action'];
-        $currentPath = $_GET['currPath'];
         switch($action) {
             case 'fileBrowserphp':
-                fileBrowserphp($currentPath);
+                fileBrowserphp($_GET['currPath']);
                 break;
             case 'homeDir':
                 homeDir();
@@ -25,6 +24,17 @@
             case 'delPage':
                 delPage();
                 break;
+            case 'updatecss':
+                updateCSS();
+                break;
+            case 'saveText':
+                saveText($file);
+                break;
+            case 'loadText':
+                loadText($file);
+                break;
+            case 'newElem':
+                newElem($_GET['elem'], $_GET['idName']);
         }
     }
 
@@ -223,6 +233,22 @@
         }
     }
 
+    function newElem($elem, $idName)
+    {
+        switch($elem)
+        {
+            case 'Simple Div':
+                createSimpleDiv($idName);
+                break;
+            case 'Simple Link':
+                createSimpleLink($idName);
+                break;
+            case 'Image':
+                createImage($idName);
+                break;
+        }
+    }
+
     //This function needs to pull from two places: the /php/functions (this file) that gets updated
     //when the editor does, and the /saved directory which contains user-made things.
     function listAllFunctions()
@@ -233,6 +259,7 @@
         $FUNCTIONS_ID = [
             0 => 'Simple Div',
             1 => 'Simple Link',
+            2 => 'Image',
         ];
 
         //Store the actual functions here.
@@ -246,25 +273,25 @@
         }
     }
 
-    //Prints the name of the function in the admin menu
-    $FUNCTIONS_LIST['Simple Div'] = function ($function_id){
-        echo '<div class="nested" id="' . 'a' . '">' . 'b' . '</div>';
-    };
-
     function listFunction($function_id)
     {
         echo '<div class="clones" id="' . $function_id . '">' . $function_id . '</div>';
     }
 
 
-    function createSimpleDiv()
+    function createSimpleDiv($idName)
     {
-        echo '<div class="nested">Function 1 works</div>';
+        echo '<div id="' . $idName . '"class="nested">Div</div>';
     }
 
-    function createSimpleLink()
+    function createSimpleLink($idName)
     {
-        echo '<a href="index.php">homepage</a>';
+        echo '<a href="index.php" id="' . $idName . '" class="nested">homepage</a>';
+    }
+
+    function createImage($idName)
+    {
+        echo '<img src="/php/cms-img/file2.png" id="' . $idName . '" class="nested"/>';
     }
 
 ?>
