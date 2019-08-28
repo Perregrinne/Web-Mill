@@ -339,4 +339,16 @@
     border-radius: 5px 5px 5px 5px;
     height: 32px;
     width: 150px;
+    z-index: 10000000;
+    margin: 1em 1em 1em 1em;
+}
+
+.color {
+    display: inline-block;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(3, 1, 1, 0.08);
+}
+
+#admin-attr-test {
+    position: absolute;
+    left: -300px;
 }

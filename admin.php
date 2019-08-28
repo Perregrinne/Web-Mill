@@ -20,6 +20,11 @@
             header('Refresh: 0; URL = /index.php');
         }
     ?>
+  <link href="//cdn.rawgit.com/twbs/bootstrap/v4.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.css" rel="stylesheet">
+  <script src="//code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="//cdn.rawgit.com/twbs/bootstrap/v4.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/js/bootstrap-colorpicker.js"></script>
 </head>
     <!-- The file browser window -->
     <div class="cms-window" id="file-browser-window" style="left: -600px;">
@@ -76,7 +81,6 @@
                 ?>
             </ul>
         </div>
-        
 
         <!-- "UPDATE WEBSITE" BUTTON HERE! (Not to be confused with ajax) -->
         <!-- "ADD NEW FUNCTION" BUTTON HERE! -->
@@ -116,13 +120,37 @@
 
     <!-- Right Menu -->
     <div id="admin-r-menu" toggle_r="0">
+    <input id="admin-attr-test" type="text" class="form-control admin-attr-item" value=""/>
         <div class="admin-r-option">
             <!-- This list is refreshed every time the page is loaded or an element is cloned. -->
             <ul class="list-menu"  id="list-all-elems">
             </ul>
             <!-- This list is refreshed every time an element is selected -->
             <ul class="list-menu"  id="list-elem-attr">
-                Attributes:<br>
+                Attributes:<br><form>
+                <li class="element-attr-item" id="element-attr-id">Name: <br><input type="text" class="admin-attr-item" id="admin-attr-id" value=""/></li>
+                <li class="element-attr-item" id="element-attr-height">Height: <br><input type="text" class="admin-attr-item" id="admin-attr-height" value=""/></li>
+                <li class="element-attr-item" id="element-attr-width">Width: <br><input type="text" class="admin-attr-item" id="admin-attr-width" value=""/></li>
+                <li class="element-attr-item" id="element-attr-top">Top: <br><input type="text" class="admin-attr-item" id="admin-attr-top" value=""/></li>
+                <li class="element-attr-item" id="element-attr-bottom">Bottom: <br><input type="text" class="admin-attr-item" id="admin-attr-bottom" value=""/></li>
+                <li class="element-attr-item" id="element-attr-left">Left: <br><input type="text" class="admin-attr-item" id="admin-attr-left" value=""/></li>
+                <li class="element-attr-item" id="element-attr-right">Right: <br><input type="text" class="admin-attr-item" id="admin-attr-right" value=""/></li>
+                <li class="element-attr-item" id="element-attr-mtop">Margin Top: <br><input type="text" class="admin-attr-item" id="admin-attr-mtop" value=""/></li>
+                <li class="element-attr-item" id="element-attr-mbottom">Margin Bottom: <br><input type="text" class="admin-attr-item" id="admin-attr-mbottom" value=""/></li>
+                <li class="element-attr-item" id="element-attr-mleft">Margin Left: <br><input type="text" class="admin-attr-item" id="admin-attr-mleft" value=""/></li>
+                <li class="element-attr-item" id="element-attr-mright">Margin Right: <br><input type="text" class="admin-attr-item" id="admin-attr-mright" value=""/></li>
+                <li class="element-attr-item" id="element-attr-ptop">Padding Top: <br><input type="text" class="admin-attr-item" id="admin-attr-ptop" value=""/></li>
+                <li class="element-attr-item" id="element-attr-pbottom">Padding Bottom: <br><input type="text" class="admin-attr-item" id="admin-attr-pbottom" value=""/></li>
+                <li class="element-attr-item" id="element-attr-pleft">Padding Left: <br><input type="text" class="admin-attr-item" id="admin-attr-pleft" value=""/></li>
+                <li class="element-attr-item" id="element-attr-pright">Padding Right: <br><input type="text" class="admin-attr-item" id="admin-attr-pright" value=""/></li>
+                <li class="element-attr-item" id="element-attr-color">Font Color: <br><input type="text" class="admin-attr-item" id="admin-attr-color" value=""/></li>
+                <li class="element-attr-item" id="element-attr-fsize">Font Size: <br><input type="text" class="admin-attr-item" id="admin-attr-fsize" value=""/></li>
+                <li class="element-attr-item" id="element-attr-font">Font: <br><input type="text" class="admin-attr-item" id="admin-attr-font" value=""/></li>
+                <li class="element-attr-item" id="element-attr-bg">Background Color: <br><input id="admin-attr-bg" type="text" class="form-control admin-attr-item" value=""/></li>
+                <li class="element-attr-item" id="element-attr-text">Text: <br><input type="text" class="admin-attr-item" id="admin-attr-text"/></li>
+                <li class="element-attr-item" id="element-attr-link">Link URL: <br><input type="link" class="admin-attr-item" id="admin-attr-link" value=""/></li>
+                <li class="element-attr-item" id="element-attr-z">Z-Index: <br><input type="text" class="admin-attr-item" id="admin-attr-z" value=""/></li>
+                </form>
             </ul>
         </div>
 
@@ -182,83 +210,87 @@
             var listContent = 'Attributes:<br><form>';
 
             //Name (Id)
-            listContent += '<li class="element-attr-item" id="element-attr-id">Name: <br><input type="text" class="admin-attr-item" id="admin-attr-id" value="' + selElem.id + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-id">Name: <br><input type="text" class="admin-attr-item" id="admin-attr-id" value="' + selElem.id + '"/></li>';
 
             //Height
             var elemHeight = (selElem.style.height) ? selElem.style.height : (Math.round(selElem.getBoundingClientRect().bottom - selElem.getBoundingClientRect().top) + "px");
-            listContent += '<li class="element-attr-item" id="element-attr-height">Height: <br><input type="text" class="admin-attr-item" id="admin-attr-height" value="' + elemHeight + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-height">Height: <br><input type="text" class="admin-attr-item" id="admin-attr-height" value="' + elemHeight + '"/></li>';
 
             //Width
             var elemWidth = (selElem.style.width) ? selElem.style.width : (Math.round(selElem.getBoundingClientRect().right - selElem.getBoundingClientRect().left) + "px");
-            listContent += '<li class="element-attr-item" id="element-attr-width">Width: <br><input type="text" class="admin-attr-item" id="admin-attr-width" value="' + elemWidth + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-width">Width: <br><input type="text" class="admin-attr-item" id="admin-attr-width" value="' + elemWidth + '"/></li>';
 
             //Top
             var elemTop = (selElem.style.top) ? selElem.style.top : (Math.round(selElem.getBoundingClientRect().top) + "px");
-            listContent += '<li class="element-attr-item" id="element-attr-top">Top: <br><input type="text" class="admin-attr-item" id="admin-attr-top" value="' + elemTop + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-top">Top: <br><input type="text" class="admin-attr-item" id="admin-attr-top" value="' + elemTop + '"/></li>';
             
             //Bottom
             var elemBottom = (selElem.style.bottom) ? selElem.style.bottom : (Math.round(selElem.getBoundingClientRect().bottom) + "px");
-            listContent += '<li class="element-attr-item" id="element-attr-bottom">Bottom: <br><input type="text" class="admin-attr-item" id="admin-attr-bottom" value="' + elemBottom + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-bottom">Bottom: <br><input type="text" class="admin-attr-item" id="admin-attr-bottom" value="' + elemBottom + '"/></li>';
 
             //Left
             var elemLeft = (selElem.style.left) ? selElem.style.left : (Math.round(selElem.getBoundingClientRect().left) + "px");
-            listContent += '<li class="element-attr-item" id="element-attr-left">Left: <br><input type="text" class="admin-attr-item" id="admin-attr-left" value="' + elemLeft + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-left">Left: <br><input type="text" class="admin-attr-item" id="admin-attr-left" value="' + elemLeft + '"/></li>';
 
             //Right
             var elemRight = (selElem.style.right) ? selElem.style.right : (Math.round(selElem.getBoundingClientRect().right) + "px");
-            listContent += '<li class="element-attr-item" id="element-attr-right">Right: <br><input type="text" class="admin-attr-item" id="admin-attr-right" value="' + elemRight + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-right">Right: <br><input type="text" class="admin-attr-item" id="admin-attr-right" value="' + elemRight + '"/></li>';
 
             //Margin Top
             var elemMTop = (selElem.style.marginTop) ? selElem.style.marginTop : "0px";
-            listContent += '<li class="element-attr-item" id="element-attr-mtop">Margin Top: <br><input type="text" class="admin-attr-item" id="admin-attr-mtop" value="' + elemMTop + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-mtop">Margin Top: <br><input type="text" class="admin-attr-item" id="admin-attr-mtop" value="' + elemMTop + '"/></li>';
 
             //Margin Bottom
             var elemMBottom = (selElem.style.marginBottom) ? selElem.style.marginBottom : "0px";
-            listContent += '<li class="element-attr-item" id="element-attr-mbottom">Margin Bottom: <br><input type="text" class="admin-attr-item" id="admin-attr-mbottom" value="' + elemMBottom + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-mbottom">Margin Bottom: <br><input type="text" class="admin-attr-item" id="admin-attr-mbottom" value="' + elemMBottom + '"/></li>';
 
             //Margin Left
             var elemMLeft = (selElem.style.marginLeft) ? selElem.style.marginLeft : "0px";
-            listContent += '<li class="element-attr-item" id="element-attr-mleft">Margin Left: <br><input type="text" class="admin-attr-item" id="admin-attr-mleft" value="' + elemMLeft + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-mleft">Margin Left: <br><input type="text" class="admin-attr-item" id="admin-attr-mleft" value="' + elemMLeft + '"/></li>';
             
             //Margin Right
             var elemMRight = (selElem.style.marginRight) ? selElem.style.marginRight : "0px";
-            listContent += '<li class="element-attr-item" id="element-attr-mright">Margin Right: <br><input type="text" class="admin-attr-item" id="admin-attr-mright" value="' + elemMRight + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-mright">Margin Right: <br><input type="text" class="admin-attr-item" id="admin-attr-mright" value="' + elemMRight + '"/></li>';
             
             //Padding Top
             var elemPTop = (selElem.style.paddingTop) ? selElem.style.paddingTop : "0px";
-            listContent += '<li class="element-attr-item" id="element-attr-ptop">Padding Top: <br><input type="text" class="admin-attr-item" id="admin-attr-ptop" value="' + elemPTop + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-ptop">Padding Top: <br><input type="text" class="admin-attr-item" id="admin-attr-ptop" value="' + elemPTop + '"/></li>';
 
             //Padding Bottom
             var elemPBottom = (selElem.style.paddingBottom) ? selElem.style.paddingBottom : "0px";
-            listContent += '<li class="element-attr-item" id="element-attr-pbottom">Padding Bottom: <br><input type="text" class="admin-attr-item" id="admin-attr-pbottom" value="' + elemPBottom + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-pbottom">Padding Bottom: <br><input type="text" class="admin-attr-item" id="admin-attr-pbottom" value="' + elemPBottom + '"/></li>';
             
             //Padding Left
             var elemPLeft = (selElem.style.paddingLeft) ? selElem.style.paddingLeft : "0px";
-            listContent += '<li class="element-attr-item" id="element-attr-pleft">Padding Left: <br><input type="text" class="admin-attr-item" id="admin-attr-pleft" value="' + elemPLeft + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-pleft">Padding Left: <br><input type="text" class="admin-attr-item" id="admin-attr-pleft" value="' + elemPLeft + '"/></li>';
             
             //Padding Right
             var elemPRight = (selElem.style.paddingRight) ? selElem.style.paddingRight : "0px";
-            listContent += '<li class="element-attr-item" id="element-attr-pright">Padding Right: <br><input type="text" class="admin-attr-item" id="admin-attr-pright" value="' + elemPRight + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-pright">Padding Right: <br><input type="text" class="admin-attr-item" id="admin-attr-pright" value="' + elemPRight + '"/></li>';
             
             //Font Color
-            listContent += '<li class="element-attr-item" id="element-attr-color">Font Color: <br><input type="text" class="admin-attr-item" id="admin-attr-color" value="' + selElem.style.color + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-color">Font Color: <br><input type="text" class="admin-attr-item" id="admin-attr-color" value="' + selElem.style.color + '"/></li>';
 
             //Font size
-            listContent += '<li class="element-attr-item" id="element-attr-fsize">Font Size: <br><input type="text" class="admin-attr-item" id="admin-attr-fsize" value="' + selElem.style.fontSize + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-fsize">Font Size: <br><input type="text" class="admin-attr-item" id="admin-attr-fsize" value="' + selElem.style.fontSize + '"/></li>';
 
             //Font
-            listContent += '<li class="element-attr-item" id="element-attr-font">Font: <br><input type="text" class="admin-attr-item" id="admin-attr-font" value="' + selElem.style.font + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-font">Font: <br><input type="text" class="admin-attr-item" id="admin-attr-font" value="' + selElem.style.font + '"/></li>';
 
             //Background
-            var elemBG = (selElem.style.background) ? selElem.style.background : "none";
-            listContent += '<li class="element-attr-item" id="element-attr-bg">Background Color: <br><input type="text" class="admin-attr-item" id="admin-attr-bg" value="' + elemBG + '"></li>';
+            var elemBG = (selElem.style.background) ? selElem.style.background : "rgba(0, 0, 0, 0)";
+            listContent += '<li class="element-attr-item" id="element-attr-bg">Background Color: <br><input id="admin-attr-bg" type="text" class="form-control admin-attr-item" value="' + elemBG + '"/></li>';
 
             //Content
-            listContent += '<li class="element-attr-item" id="element-attr-text">Text: <br><input type="text" class="admin-attr-item" id="admin-attr-text"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-text">Text: <br><input type="text" class="admin-attr-item" id="admin-attr-text"/></li>';
+
+            //Hyperlink
+            var elemLink = (selElem.href) ? selElem.href : "";
+            listContent += '<li class="element-attr-item" id="element-attr-link">Link URL: <br><input type="link" class="admin-attr-item" id="admin-attr-link" value="' + elemLink + '"/></li>';
 
             //Z-Index
             var elemZ = (selElem.style.zIndex) ? selElem.style.zIndex : "0";
-            listContent += '<li class="element-attr-item" id="element-attr-z">Z-Index: <br><input type="text" class="admin-attr-item" id="admin-attr-z" value="' + elemZ + '"></li>';
+            listContent += '<li class="element-attr-item" id="element-attr-z">Z-Index: <br><input type="text" class="admin-attr-item" id="admin-attr-z" value="' + elemZ + '"/></li>';
 
             listContent += '</form>';
             
@@ -393,6 +425,8 @@
         //Holds the name of the element that the dragged element will be nested inside
     var nestedElem = null;
 
+    var globalElem = '';
+
 document.body.onmousedown = function(event) 
 {
     //Figure out what element id in the body the mouse is down on
@@ -483,6 +517,11 @@ document.body.onmousedown = function(event)
     {
         newElem = document.getElementById('file-browser-window');
     }
+    if(newElem)
+    {
+        globalElem = newElem.value;
+    }
+    
 
     preventHighlight(event);
 
@@ -692,6 +731,34 @@ document.body.onmousedown = function(event)
         }
         
     }
+
+
+    $( document ).ready(function() {
+            $(function () {
+                // Basic instantiation:
+                alert("a");
+
+                $('.admin-attr-item').one('focus', function() {
+                    
+                    $('#admin-attr-bg').colorpicker();
+                    alert("Oi.");
+                });
+
+                // Example using an event, to change the color of the .jumbotron background:
+                $('#admin-attr-bg').on('colorpickerChange', function(event) {
+                    alert("Done");
+                    if(globalElem)
+                    {
+                        alert("Done1");
+                        $(globalElem).css('background-color', event.color.toString());
+                        alert("Done2");
+                    }
+                    
+                });
+                
+            });
+        });
+
 
     //Create a new id for new elements.
     //It will always be something like 'id7' or whatever number, starting from 0, has not yet been used.
@@ -906,10 +973,10 @@ function keyup(e)
         }
 
         //When a value in one of the attribute text fields is changed, then update things on the backend using ajax
-        if(newElem && textField)
+        if(globalElem && textField)
         {
             $.ajax({ url: '/php/functions.php',
-                data: {action: 'updatecss', newElem, textField, newValue},
+                data: {action: 'updatecss', globalElem, textField, newValue},
                 type: 'GET',
                 success: function() {
                     alert('It worked!');
@@ -921,6 +988,34 @@ function keyup(e)
         }
     }
 }
+
+$( document ).ready(function() {
+            $(function () {
+                // Basic instantiation:
+                alert("a");
+
+                $('#admin-attr-test').one('focus', function() {
+                    
+                    $('#admin-attr-test').colorpicker();
+                    alert("Oi.");
+                });
+
+                // Example using an event, to change the color of the .jumbotron background:
+                $('#admin-attr-test').on('colorpickerChange', function(event) {
+                    alert("Done");
+                    if(globalElem)
+                    {
+                        alert("Done1");
+                        $(globalElem).css('background-color', event.color.toString());
+                        alert("Done2");
+                    }
+                    
+                });
+                
+            });
+        });
+
+
     </script>
 
 <?php
