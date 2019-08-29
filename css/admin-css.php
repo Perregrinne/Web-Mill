@@ -88,7 +88,7 @@
     -ms-animation: appear 1s;
     -o-animation: appear 1s;
     animation: appear 1s;
-    z-index: 10000;
+    z-index: 1;
 }
 
 #admin-r-control {
@@ -351,4 +351,9 @@
 #admin-attr-test {
     position: absolute;
     left: -300px;
+}
+
+.form-control {
+    max-width: 150px;
+    z-index: 100000000000;
 }

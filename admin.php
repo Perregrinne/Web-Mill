@@ -120,7 +120,6 @@
 
     <!-- Right Menu -->
     <div id="admin-r-menu" toggle_r="0">
-    <input id="admin-attr-test" type="text" class="form-control admin-attr-item" value=""/>
         <div class="admin-r-option">
             <!-- This list is refreshed every time the page is loaded or an element is cloned. -->
             <ul class="list-menu"  id="list-all-elems">
@@ -735,23 +734,16 @@ document.body.onmousedown = function(event)
 
     $( document ).ready(function() {
             $(function () {
-                // Basic instantiation:
-                alert("a");
-
                 $('.admin-attr-item').one('focus', function() {
                     
                     $('#admin-attr-bg').colorpicker();
-                    alert("Oi.");
                 });
 
                 // Example using an event, to change the color of the .jumbotron background:
                 $('#admin-attr-bg').on('colorpickerChange', function(event) {
-                    alert("Done");
                     if(globalElem)
                     {
-                        alert("Done1");
                         $(globalElem).css('background-color', event.color.toString());
-                        alert("Done2");
                     }
                     
                 });
@@ -991,10 +983,18 @@ function keyup(e)
 
 $( document ).ready(function() {
             $(function () {
+                $('#admin-attr-bg').colorpicker();
+                $('#admin-attr-test').colorpicker();
+
                 // Basic instantiation:
                 $('#admin-attr-test').one('focus', function() {
                     
                     $('#admin-attr-test').colorpicker();
+                });
+
+                $('#admin-attr-bg').one('focus', function() {
+                    
+                    $('#admin-attr-bg').colorpicker();
                 });
                 
             });
