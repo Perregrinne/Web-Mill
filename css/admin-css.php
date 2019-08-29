@@ -338,9 +338,7 @@
     color: #EEEEEE;
     border-radius: 5px 5px 5px 5px;
     height: 32px;
-    width: 150px;
-    z-index: 10000000;
-    margin: 1em 1em 1em 1em;
+    width: 175px;
 }
 
 .color {
@@ -354,6 +352,8 @@
 }
 
 .form-control {
-    max-width: 150px;
-    z-index: 100000000000;
+    max-width: 175px;
+    background-color: #555555;
+    color: #EEEEEE;
+    z-index: 10;
 }

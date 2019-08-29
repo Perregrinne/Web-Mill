@@ -142,7 +142,7 @@
                 <li class="element-attr-item" id="element-attr-pbottom">Padding Bottom: <br><input type="text" class="admin-attr-item" id="admin-attr-pbottom" value=""/></li>
                 <li class="element-attr-item" id="element-attr-pleft">Padding Left: <br><input type="text" class="admin-attr-item" id="admin-attr-pleft" value=""/></li>
                 <li class="element-attr-item" id="element-attr-pright">Padding Right: <br><input type="text" class="admin-attr-item" id="admin-attr-pright" value=""/></li>
-                <li class="element-attr-item" id="element-attr-color">Font Color: <br><input type="text" class="admin-attr-item" id="admin-attr-color" value=""/></li>
+                <li class="element-attr-item" id="element-attr-color">Font Color: <br><input type="text" class="form-control admin-attr-item" id="admin-attr-color" value=""/></li>
                 <li class="element-attr-item" id="element-attr-fsize">Font Size: <br><input type="text" class="admin-attr-item" id="admin-attr-fsize" value=""/></li>
                 <li class="element-attr-item" id="element-attr-font">Font: <br><input type="text" class="admin-attr-item" id="admin-attr-font" value=""/></li>
                 <li class="element-attr-item" id="element-attr-bg">Background Color: <br><input id="admin-attr-bg" type="text" class="form-control admin-attr-item" value=""/></li>
@@ -268,7 +268,8 @@
             listContent += '<li class="element-attr-item" id="element-attr-pright">Padding Right: <br><input type="text" class="admin-attr-item" id="admin-attr-pright" value="' + elemPRight + '"/></li>';
             
             //Font Color
-            listContent += '<li class="element-attr-item" id="element-attr-color">Font Color: <br><input type="text" class="admin-attr-item" id="admin-attr-color" value="' + selElem.style.color + '"/></li>';
+            var elemColor = (selElem.style.color) ? selElem.style.color : "rgba(0, 0, 0, 0)";
+            listContent += '<li class="element-attr-item" id="element-attr-color">Font Color: <br><input type="text" class="form-control admin-attr-item" id="admin-attr-color" value="' + elemColor + '"/></li>';
 
             //Font size
             listContent += '<li class="element-attr-item" id="element-attr-fsize">Font Size: <br><input type="text" class="admin-attr-item" id="admin-attr-fsize" value="' + selElem.style.fontSize + '"/></li>';
@@ -734,13 +735,10 @@ document.body.onmousedown = function(event)
 
     $( document ).ready(function() {
             $(function () {
-                $('.admin-attr-item').one('focus', function() {
-                    
-                    $('#admin-attr-bg').colorpicker();
-                });
+                $('.form-control').colorpicker();
 
                 // Example using an event, to change the color of the .jumbotron background:
-                $('#admin-attr-bg').on('colorpickerChange', function(event) {
+                $('.form-control').on('colorpickerChange', function(event) {
                     if(globalElem)
                     {
                         $(globalElem).css('background-color', event.color.toString());
@@ -983,19 +981,7 @@ function keyup(e)
 
 $( document ).ready(function() {
             $(function () {
-                $('#admin-attr-bg').colorpicker();
-                $('#admin-attr-test').colorpicker();
-
-                // Basic instantiation:
-                $('#admin-attr-test').one('focus', function() {
-                    
-                    $('#admin-attr-test').colorpicker();
-                });
-
-                $('#admin-attr-bg').one('focus', function() {
-                    
-                    $('#admin-attr-bg').colorpicker();
-                });
+                $('.form-control').colorpicker();
                 
             });
         });
