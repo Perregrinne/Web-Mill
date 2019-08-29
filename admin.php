@@ -992,24 +992,9 @@ function keyup(e)
 $( document ).ready(function() {
             $(function () {
                 // Basic instantiation:
-                alert("a");
-
                 $('#admin-attr-test').one('focus', function() {
                     
                     $('#admin-attr-test').colorpicker();
-                    alert("Oi.");
-                });
-
-                // Example using an event, to change the color of the .jumbotron background:
-                $('#admin-attr-test').on('colorpickerChange', function(event) {
-                    alert("Done");
-                    if(globalElem)
-                    {
-                        alert("Done1");
-                        $(globalElem).css('background-color', event.color.toString());
-                        alert("Done2");
-                    }
-                    
                 });
                 
             });
