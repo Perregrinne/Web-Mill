@@ -1,6 +1,9 @@
 <?php
     //This is needed for the session variables
-    session_start();
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
 
     //Variable holds the name of the current page
     $thisPage = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
