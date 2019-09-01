@@ -151,8 +151,8 @@
     border-width: 1px;
     border-color: #DDDDDD;
     border-radius: 5px 5px 5px 5px;
-    min-height: 46%;
-    max-height: 48%;
+    min-height: 44%;
+    max-height: 47%;
     overflow: auto;
 }
 
