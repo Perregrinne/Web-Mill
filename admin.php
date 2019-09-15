@@ -24,10 +24,10 @@
         $_SESSION['LAST_ACTIVITY'] = $_SERVER['REQUEST_TIME'];
     ?>
 </head>
-<div id="admin-l-menu" toggle_l="0">Welcome, <?php echo $_SESSION["USERNAME"]; ?><br></div>
+<div id="admin-l-menu" toggle_l="0"><h3 id="menu-l-welcome">Welcome, <?php echo $_SESSION["USERNAME"]; ?></h3><br></div>
 <div id="admin-l-control">&nbsp;</div>
-<!--div id="admin-r-menu" toggle_r="0"></div-->
-<!--div id="admin-r-control">&nbsp;</div-->
+<div id="admin-r-menu" toggle_r="0"></div>
+<div id="admin-r-control">&nbsp;</div>
 <script>
     //Get all supported tag types by name and first tag (but not id), and sort them into a tree (based on end tag)
     function detectAllElems() {};
@@ -39,7 +39,7 @@
 
         //Creation of the menus
         $('#admin-l-menu').append(function(){
-            let content = '&nbsp;';
+            let content = '<a href="/php/logout.php" id="logout">logout</a>';
 
             return content;
         });
@@ -68,15 +68,15 @@
         $('#admin-l-control').click(function(){
             if($('#admin-l-menu').attr("toggle_l")==="0")
             {
-                $('#admin-l-control').css({'background-img': 'url("/php/cms-img/lt.png")'});
+                $('#admin-l-control').css({'background-image': 'url("/php/cms-img/lt.png")'});
                 //$('#admin-l-control').css({'background-color': '#333333'});
                 $('#admin-l-control').animate({"left":controlPlacement}, 200);
-                $('#admin-l-menu').animate({"left":"0"},200);
+                $('#admin-l-menu').animate({"left":"0"}, 200);
                 $('#admin-l-menu').attr("toggle_l","1");
             }
             else
             {
-                $("#admin-l-control").css({'background-img': 'url("/php/cms-img/gt.png")'});
+                $("#admin-l-control").css({'background-image': 'url("/php/cms-img/gt.png")'});
                 //$('#admin-l-control').css({'background-color': '#333333'});
                 $('#admin-l-control').animate({"left":"0"}, 200);
                 $('#admin-l-menu').animate({"left":menuWidth}, 200);
@@ -87,13 +87,15 @@
         $('#admin-r-control').click(function(){
             if($('#admin-r-menu').attr("toggle_r")==="0")
             {
-                $('#control-r-text').css({'transform': 'rotate(180deg)'});
+                $("#admin-r-control").css({'background-image': 'url("/php/cms-img/gt.png")'});
+                $('#admin-r-control').animate({"right":controlPlacement}, 200);
                 $('#admin-r-menu').animate({"right":"0"},200);
                 $('#admin-r-menu').attr("toggle_r","1");
             }
             else
             {
-                $("#control-r-text").css({'transform': 'rotate(0deg)'});
+                $("#admin-r-control").css({'background-image': 'url("/php/cms-img/lt.png")'});
+                $('#admin-r-control').animate({"right":"0"}, 200);
                 $('#admin-r-menu').animate({"right":menuWidth},200);
                 $('#admin-r-menu').attr("toggle_r","0");
             }

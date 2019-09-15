@@ -23,6 +23,7 @@
         -o-animation: appear 1s;
         animation: appear 1s;
         z-index: 10000;
+        padding: 5px 5px 5px 5px;
     }
 
     #admin-l-control:hover {
@@ -30,12 +31,12 @@
     }
 
     #admin-l-control {
-        background: url("/php/cms-img/lt.png");
+        background: url("/php/cms-img/gt.png");
         background-repeat: no-repeat;
         background-position: center;
         position: absolute;
         top: 50%;
-        right: -50px;
+        left: 0;
         width: 50px;
         border-radius: 0 10px 10px 0;
         transform: translate(0%, -50%);
@@ -47,6 +48,49 @@
     }
 
     #admin-l-control:hover {
+        background-color: <?= $CONTAINER_HOVER ?>;
+        cursor: pointer;
+    }
+
+
+    #admin-r-menu {
+        right: -100px;
+        width: 100px;
+        position: fixed;
+        background-color: <?= $CONTAINER_COLOR ?>;
+        color: #CCCCCC;
+        top: 0%;
+        bottom: 0%;
+        -webkit-animation: appear 1s;
+        -moz-animation: appear 1s;
+        -ms-animation: appear 1s;
+        -o-animation: appear 1s;
+        animation: appear 1s;
+        z-index: 10000;
+    }
+
+    #admin-r-control:hover {
+        background-color: <?= $CONTAINER_HOVER ?>;
+    }
+
+    #admin-r-control {
+        background: url("/php/cms-img/lt.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 50px;
+        border-radius: 10px 0 0 10px;
+        transform: translate(0%, -50%);
+        background-color: <?= $CONTAINER_COLOR ?>;
+        text-align: center;
+        color: #0F0F0F;
+        font-size: 42px;
+        overflow: hidden;
+    }
+
+    #admin-r-control:hover {
         background-color: <?= $CONTAINER_HOVER ?>;
         cursor: pointer;
     }
@@ -68,6 +112,7 @@
         -o-animation: appear 1s;
         animation: appear 1s;
         z-index: 10000;
+        padding: 10px 10px 10px 10px;
     }
 
     #admin-l-control:hover {
@@ -75,12 +120,12 @@
     }
 
     #admin-l-control {
-        background: url("/php/cms-img/lt.png");
+        background: url("/php/cms-img/gt.png");
         background-repeat: no-repeat;
         background-position: center;
         position: absolute;
         top: 50%;
-        right: -50px;
+        left: 0;
         width: 50px;
         border-radius: 0 10px 10px 0;
         transform: translate(0%, -50%);
@@ -92,6 +137,49 @@
     }
 
     #admin-l-control:hover {
+        background-color: <?= $CONTAINER_HOVER ?>;
+        cursor: pointer;
+    }
+
+
+    #admin-r-menu {
+        right: -200px;
+        width: 200px;
+        position: fixed;
+        background-color: <?= $CONTAINER_COLOR ?>;
+        color: #CCCCCC;
+        top: 0%;
+        bottom: 0%;
+        -webkit-animation: appear 1s;
+        -moz-animation: appear 1s;
+        -ms-animation: appear 1s;
+        -o-animation: appear 1s;
+        animation: appear 1s;
+        z-index: 10000;
+    }
+
+    #admin-r-control:hover {
+        background-color: <?= $CONTAINER_HOVER ?>;
+    }
+
+    #admin-r-control {
+        background: url("/php/cms-img/lt.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 50px;
+        border-radius: 10px 0 0 10px;
+        transform: translate(0%, -50%);
+        background-color: <?= $CONTAINER_COLOR ?>;
+        text-align: center;
+        color: #0F0F0F;
+        font-size: 42px;
+        overflow: hidden;
+    }
+
+    #admin-r-control:hover {
         background-color: <?= $CONTAINER_HOVER ?>;
         cursor: pointer;
     }
@@ -113,6 +201,7 @@
         -o-animation: appear 1s;
         animation: appear 1s;
         z-index: 10000;
+        padding: 25px 25px 25px 25px;
     }
 
     #admin-l-control:hover {
@@ -120,12 +209,12 @@
     }
 
     #admin-l-control {
-        background: url("/php/cms-img/lt.png");
+        background: url("/php/cms-img/gt.png");
         background-repeat: no-repeat;
         background-position: center;
         position: absolute;
         top: 50%;
-        right: -50px;
+        left: 0;
         width: 50px;
         border-radius: 0 10px 10px 0;
         transform: translate(0%, -50%);
@@ -140,8 +229,61 @@
         background-color: <?= $CONTAINER_HOVER ?>;
         cursor: pointer;
     }
+
+
+    #admin-r-menu {
+        right: -400px;
+        width: 400px;
+        position: fixed;
+        background-color: <?= $CONTAINER_COLOR ?>;
+        color: #CCCCCC;
+        top: 0%;
+        bottom: 0%;
+        -webkit-animation: appear 1s;
+        -moz-animation: appear 1s;
+        -ms-animation: appear 1s;
+        -o-animation: appear 1s;
+        animation: appear 1s;
+        z-index: 10000;
+    }
+
+    #admin-r-control:hover {
+        background-color: <?= $CONTAINER_HOVER ?>;
+    }
+
+    #admin-r-control {
+        background: url("/php/cms-img/lt.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 50px;
+        border-radius: 10px 0 0 10px;
+        transform: translate(0%, -50%);
+        background-color: <?= $CONTAINER_COLOR ?>;
+        text-align: center;
+        color: #0F0F0F;
+        font-size: 42px;
+        overflow: hidden;
+    }
+
+    #admin-r-control:hover {
+        background-color: <?= $CONTAINER_HOVER ?>;
+        cursor: pointer;
+    }
 }
 
+
+
+
+
+
+
+
+
+
+/*
 #admin-l-menu {
     position: fixed;
     background-color: <?= $CONTAINER_COLOR ?>;
@@ -181,6 +323,7 @@
     background-color: <?= $CONTAINER_HOVER ?>;
     cursor: pointer;
 }
+*/
 
 /*appear animation keyframes*/
 @keyframes appear {
@@ -218,6 +361,8 @@
     left: 0;
     width: 250px;
 }
+
+/*
 #admin-r-menu {
     position: fixed;
     top: 0%;
@@ -249,6 +394,7 @@
     background-color: <?= $CONTAINER_HOVER ?>;
     cursor: pointer;
 }
+*/
 
 .admin-r-option {
     background-color: <?= $CONTAINER_COLOR ?>;
