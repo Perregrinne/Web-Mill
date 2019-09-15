@@ -11,6 +11,7 @@
     //Checking for GET data
     if(isset($_GET['action']) && !empty($_GET['action'])) {
         $action = $_GET['action'];
+        $_SESSION['LAST_ACTIVITY'] = $_SERVER['REQUEST_TIME'];
         switch($action) {
             case 'fileBrowserphp':
                 fileBrowserphp($_GET['currPath']);

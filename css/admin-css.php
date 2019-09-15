@@ -5,12 +5,149 @@
     //This file contains the css used by the admin script.
 ?>
 
-#admin-menu {
+/* Responsive values are modified here */
+
+/* 0px - 499px */
+@media all and (max-width: 449px) {
+    #admin-l-menu {
+        left: -100px;
+        width: 100px;
+        position: fixed;
+        background-color: <?= $CONTAINER_COLOR ?>;
+        color: #CCCCCC;
+        top: 0%;
+        bottom: 0%;
+        -webkit-animation: appear 1s;
+        -moz-animation: appear 1s;
+        -ms-animation: appear 1s;
+        -o-animation: appear 1s;
+        animation: appear 1s;
+        z-index: 10000;
+    }
+
+    #admin-l-control:hover {
+        background-color: <?= $CONTAINER_HOVER ?>;
+    }
+
+    #admin-l-control {
+        background: url("/php/cms-img/lt.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        top: 50%;
+        right: -50px;
+        width: 50px;
+        border-radius: 0 10px 10px 0;
+        transform: translate(0%, -50%);
+        background-color: <?= $CONTAINER_COLOR ?>;
+        text-align: center;
+        color: #0F0F0F;
+        font-size: 42px;
+        overflow: hidden;
+    }
+
+    #admin-l-control:hover {
+        background-color: <?= $CONTAINER_HOVER ?>;
+        cursor: pointer;
+    }
+}
+
+/* 500px - 1079px */
+@media all and (min-width: 450px) and (max-width: 1079px) {
+    #admin-l-menu {
+        left: -200px;
+        width: 200px;
+        position: fixed;
+        background-color: <?= $CONTAINER_COLOR ?>;
+        color: #CCCCCC;
+        top: 0%;
+        bottom: 0%;
+        -webkit-animation: appear 1s;
+        -moz-animation: appear 1s;
+        -ms-animation: appear 1s;
+        -o-animation: appear 1s;
+        animation: appear 1s;
+        z-index: 10000;
+    }
+
+    #admin-l-control:hover {
+        background-color: <?= $CONTAINER_HOVER ?>;
+    }
+
+    #admin-l-control {
+        background: url("/php/cms-img/lt.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        top: 50%;
+        right: -50px;
+        width: 50px;
+        border-radius: 0 10px 10px 0;
+        transform: translate(0%, -50%);
+        background-color: <?= $CONTAINER_COLOR ?>;
+        text-align: center;
+        color: #0F0F0F;
+        font-size: 42px;
+        overflow: hidden;
+    }
+
+    #admin-l-control:hover {
+        background-color: <?= $CONTAINER_HOVER ?>;
+        cursor: pointer;
+    }
+}
+
+/* 1080px - ... */
+@media all and (min-width: 1080px) {
+    #admin-l-menu {
+        left: -400px;
+        width: 400px;
+        position: fixed;
+        background-color: <?= $CONTAINER_COLOR ?>;
+        color: #CCCCCC;
+        top: 0%;
+        bottom: 0%;
+        -webkit-animation: appear 1s;
+        -moz-animation: appear 1s;
+        -ms-animation: appear 1s;
+        -o-animation: appear 1s;
+        animation: appear 1s;
+        z-index: 10000;
+    }
+
+    #admin-l-control:hover {
+        background-color: <?= $CONTAINER_HOVER ?>;
+    }
+
+    #admin-l-control {
+        background: url("/php/cms-img/lt.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        top: 50%;
+        right: -50px;
+        width: 50px;
+        border-radius: 0 10px 10px 0;
+        transform: translate(0%, -50%);
+        background-color: <?= $CONTAINER_COLOR ?>;
+        text-align: center;
+        color: #0F0F0F;
+        font-size: 42px;
+        overflow: hidden;
+    }
+
+    #admin-l-control:hover {
+        background-color: <?= $CONTAINER_HOVER ?>;
+        cursor: pointer;
+    }
+}
+
+#admin-l-menu {
     position: fixed;
+    background-color: <?= $CONTAINER_COLOR ?>;
+    color: #CCCCCC;
     top: 0%;
     bottom: 0%;
-    left: -250px;
-    width: 300px;
     -webkit-animation: appear 1s;
     -moz-animation: appear 1s;
     -ms-animation: appear 1s;
@@ -19,14 +156,18 @@
     z-index: 10000;
 }
 
-#admin-control:hover {
+#admin-l-control:hover {
     background-color: <?= $CONTAINER_HOVER ?>;
 }
 
-#admin-control {
+#admin-l-control {
+    background: url("/php/cms-img/lt.png");
+    background-repeat: no-repeat;
+    background-position: center;
     position: absolute;
     top: 50%;
-    right: 0px;
+    right: -50px;
+    width: 50px;
     border-radius: 0 10px 10px 0;
     transform: translate(0%, -50%);
     background-color: <?= $CONTAINER_COLOR ?>;
@@ -36,7 +177,7 @@
     overflow: hidden;
 }
 
-#admin-control:hover {
+#admin-l-control:hover {
     background-color: <?= $CONTAINER_HOVER ?>;
     cursor: pointer;
 }
@@ -81,8 +222,8 @@
     position: fixed;
     top: 0%;
     bottom: 0%;
-    right: -250px;
-    width: 300px;
+    right: -200px;
+    width: 200px;
     -webkit-animation: appear 1s;
     -moz-animation: appear 1s;
     -ms-animation: appear 1s;
