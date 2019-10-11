@@ -102,3 +102,22 @@ body {
     display: inline-block;
     bottom: 0px;
 }
+
+#cookie-banner {
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    text-align: center;
+    background-color: #555555;
+    /*line-height: 50px;*/
+}
+
+#cookie-text {
+    position: relative;
+    top: 10px;
+    bottom: 10px;
+    height: 30px;
+}
