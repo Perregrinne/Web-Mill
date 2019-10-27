@@ -335,4 +335,54 @@
         header('Refresh: 0; URL = /pages/' . $name . '.php');
     }
 
+    //Create a new Database in MySQL (MySQLi).
+    function newMySQLDatabase($server, $user, $passwd, $dbname, $port = null)
+    {
+        //I really feel like default arguments shouldn't work this way, but StackOverflow says it's fine.
+        if($port === null) //If no port was specified:
+        {
+            //Set up the connection without the port.
+            $dbConnection = new mysqli($server, $user, $passwd);
+        }
+        else //If a port was specified
+        {
+            //Then use it.
+            $dbConnection = new mysqli($server, $user, $passwd, "", $port);
+        }
+        //Test the connection
+        if($dbConnection->connect_error) //If the connection fails:
+        {
+            //Print the error and the rest of the function is not run.
+            echo "Connection failed: " . $dbConnection->connect_error;
+        }
+        else //If the connection goes smoothly:
+        {
+            //Create the database
+            if ($dbConnection->query("CREATE DATABASE " . $dbname) === TRUE) {
+                echo "Database created successfully.";
+            } 
+            else //Otherwise, print the error.
+            {
+                echo "Database could not be created: " . $dbConnection->error;
+            }
+            //Close the connection.
+            $dbConnection->close();
+        }
+    }
+
+    //Create a new SQLite3 database.
+    function newSQLiteDatabase($dbname)
+    {
+        //Try opening or creating the database.
+        if ($db = sqlite_open($dbname, 0666, $errorMsg)) //If that executes smoothly:
+        { 
+            echo "Database created successfully or already exists.";
+        }
+        else //If that didn't work:
+        {
+            //Print out the error message and move on.
+            echo "Database could not be created: " . $errorMsg;
+        }
+    }
+
 ?>
