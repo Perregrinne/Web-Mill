@@ -24,7 +24,7 @@
         $_SESSION['LAST_ACTIVITY'] = $_SERVER['REQUEST_TIME'];
     ?>
 </head>
-<div id="admin-l-menu" toggle_l="0"><h3 id="menu-l-welcome">Welcome, <?php echo $_SESSION["USERNAME"]; ?></h3><br></div>
+<div id="admin-l-menu" toggle_l="0"><h3 id="menu-l-welcome">Welcome, <?php echo (isset($_SESSION["USERNAME"]) ? $_SESSION["USERNAME"] : " "); ?></h3><br></div>
 <div id="admin-l-control">&nbsp;</div>
 <div id="admin-r-menu" toggle_r="0"></div>
 <div id="admin-r-control">&nbsp;</div>

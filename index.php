@@ -30,7 +30,7 @@
                     Copyright&nbsp;©&nbsp;
                 </div>
                 <div class="nested" id="copyright-year">
-                    2019
+                    <?php echo date("Y"); ?>
                 </div>
                 <div class="nested" id="copyright-name">
                     &nbsp;Your Name Here

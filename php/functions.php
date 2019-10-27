@@ -217,6 +217,10 @@
                 $login_error = 'Please choose a different username';
             }
         }
+        else
+        {
+            $login_error = 'Please log in first';
+        }
         
     }
 
@@ -272,14 +276,9 @@
         foreach($FUNCTIONS_ID as $function_id)
         {
             echo '<li>';
-            listFunction($function_id);
+            echo '<div class="clones" id="' . $function_id . '">' . $function_id . '</div>';
             echo '</li>';
         }
-    }
-
-    function listFunction($function_id)
-    {
-        echo '<div class="clones" id="' . $function_id . '">' . $function_id . '</div>';
     }
 
 
@@ -296,6 +295,44 @@
     function createImage($idName)
     {
         echo '<img src="/php/cms-img/file2.png" id="' . $idName . '" class="nested"/>';
+    }
+
+    //Writes the HTML page.
+    function writePage($text)
+    {
+        return 1;
+    }
+
+    //Creates a new PHP page with the default stuff added.
+    function createPage($name)
+    {
+        //Keep track of the new page's location.
+        $location = $_SERVER['DOCUMENT_ROOT'] . "/pages/" . $name . ".php";
+        //Check to make sure the file doesn't already exist.
+        if(file_exists($location))
+        {
+            //If it does exist, just load into that page.
+            header('Refresh: 0; URL = /pages/' . $name . '.php');
+        }
+        //Create a new php page in the pages folder.
+        $newPage = fopen($location, "w");
+        //Ensure that the user can write, and that anyone can read it.
+        //If need be, put this in an "if" statement in case it throws an error.
+        chmod($location, 0644);
+        //Add the default stuff like header.php
+        $defaultText = '<?php
+    include ($_SERVER[\'DOCUMENT_ROOT\'] . "/php/header.php");
+?>
+<head>
+</head>
+<body id="body" class="nested">
+</body>';
+        //Write the default text into the new page.
+        fwrite($newPage, $defaultText);
+        //Close editing
+        fclose($newPage);
+        //Load the new page
+        header('Refresh: 0; URL = /pages/' . $name . '.php');
     }
 
 ?>
