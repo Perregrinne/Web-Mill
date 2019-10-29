@@ -385,4 +385,37 @@
         }
     }
 
+    //Create a new MySQL datatable
+    function newMySQLDatatable($server, $user, $passwd, $dbname, $tableName, $elements)
+    {
+        // Create connection
+        $dbConnection = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($dbConnection->connect_error) {
+            die("Connection failed: " . $dbConnection->connect_error);
+        }
+
+        // sql to create table
+        $newTable = "CREATE TABLE " . $tableName . " (";
+        /*foreach($elements as $row)
+        {
+            $newTable += $row . $row=>$type;
+        }*/
+        $newTable += ")";
+        //id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        //firstname VARCHAR(30) NOT NULL,
+        //lastname VARCHAR(30) NOT NULL,
+        //email VARCHAR(50),
+        //reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        //)";
+
+        if ($dbConnection->query($newTable) === TRUE) {
+            echo "Table MyGuests created successfully";
+        } else {
+            echo "Error creating table: " . $dbConnection->error;
+        }
+
+        $dbConnection->close();
+    }
+
 ?>
