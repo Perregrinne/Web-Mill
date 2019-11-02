@@ -1,0 +1,54 @@
++ Note for the admin menu:
+  List only the most important attributes, and a "+" to add any unlisted?
+
++ Toggle list for CSS attributes that take multiple values, or just one line for all 4 values
+  Margin, Padding, overflow, border-radius
+
+- Remove the file browser, keep it inside the menus
+
++ Check for keyboard input while a text form is active
+
++ Upload and download files (php/ server-side)
+
++ ajax function for handling all various actions, such as adding a page, deleting a page, going back a directory, going forward a directory, etc.
+
+
+function detectAllElems(){}
+
+function listElemAttr(get css file() -- CSS file is needed to determine even attributes not normally listed){}
+
+document.body.OnMouseDown = function(event)...
+
+//Figure out what was clicked
+event = event || window.event;
+var elemId = event.target | event.target.id : event.srcElement.id;
+mouseElem = document.getElementById(elemId);
+
+if(!mouseElem)
+{
+    return;
+}
+
+//Get the mouse's initial position from mousedown
+    var x0 = event.clientX;
+    var y0 = event.clientY;
+
+
+//Reset the activity timer (via ajax, though, so not this):
+ajax stuff happens here, then php happens server-side:
+$_SESSION['LAST_ACTIVITY'] = $_SERVER['REQUEST_TIME'];
+
+- var classList = newElem.getClassList();
+  if(!classList.contains('moveable') || !classList.contains('clone'))
+   break;
+
+1. if(newElem.style.position != "static")
+   ...
+   else
+      newElem.style.position = absolute;
+
+- select_elem(newElem)
+- listAllAttr(newElem)
+- 
+
+2. Worry about Z-index?
