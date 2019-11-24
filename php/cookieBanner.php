@@ -1,5 +1,5 @@
 <script src="/javascript/functions.js"></script>
-<div id="cookie-banner">
+<div id="cookie-banner" style="visible: false;">
     <p id="cookie-text">
         This site uses cookies. Check our <a href="/pages/tos.php">privacy policy</a> for more information.
         <button id="cookie-ok" onclick="hideBanner()">OK</button>

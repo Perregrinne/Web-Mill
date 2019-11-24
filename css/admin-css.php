@@ -8,7 +8,7 @@
 /* Responsive values are modified here */
 
 /* 0px - 499px */
-@media all and (max-width: 449px) {
+@media all and (max-width: 499px) {
     #admin-l-menu {
         left: -100px;
         width: 100px;
@@ -24,6 +24,7 @@
         animation: appear 1s;
         z-index: 10000;
         padding: 5px 5px 5px 5px;
+        overflow: hidden;
     }
 
     #admin-l-control:hover {
@@ -34,7 +35,7 @@
         background: url("/php/cms-img/gt.png");
         background-repeat: no-repeat;
         background-position: center;
-        position: absolute;
+        position: fixed;
         top: 50%;
         left: 0;
         width: 50px;
@@ -44,6 +45,7 @@
         text-align: center;
         color: #0F0F0F;
         font-size: 42px;
+        z-index: 10000;
         overflow: hidden;
     }
 
@@ -67,6 +69,7 @@
         -o-animation: appear 1s;
         animation: appear 1s;
         z-index: 10000;
+        overflow: hidden;
     }
 
     #admin-r-control:hover {
@@ -77,7 +80,7 @@
         background: url("/php/cms-img/lt.png");
         background-repeat: no-repeat;
         background-position: center;
-        position: absolute;
+        position: fixed;
         top: 50%;
         right: 0;
         width: 50px;
@@ -87,6 +90,7 @@
         text-align: center;
         color: #0F0F0F;
         font-size: 42px;
+        z-index: 10000;
         overflow: hidden;
     }
 
@@ -113,6 +117,7 @@
         animation: appear 1s;
         z-index: 10000;
         padding: 10px 10px 10px 10px;
+        overflow: hidden;
     }
 
     #admin-l-control:hover {
@@ -123,7 +128,7 @@
         background: url("/php/cms-img/gt.png");
         background-repeat: no-repeat;
         background-position: center;
-        position: absolute;
+        position: fixed;
         top: 50%;
         left: 0;
         width: 50px;
@@ -133,6 +138,7 @@
         text-align: center;
         color: #0F0F0F;
         font-size: 42px;
+        z-index: 10000;
         overflow: hidden;
     }
 
@@ -156,6 +162,7 @@
         -o-animation: appear 1s;
         animation: appear 1s;
         z-index: 10000;
+        overflow: hidden;
     }
 
     #admin-r-control:hover {
@@ -166,7 +173,7 @@
         background: url("/php/cms-img/lt.png");
         background-repeat: no-repeat;
         background-position: center;
-        position: absolute;
+        position: fixed;
         top: 50%;
         right: 0;
         width: 50px;
@@ -176,6 +183,7 @@
         text-align: center;
         color: #0F0F0F;
         font-size: 42px;
+        z-index: 10000;
         overflow: hidden;
     }
 
@@ -202,6 +210,7 @@
         animation: appear 1s;
         z-index: 10000;
         padding: 25px 25px 25px 25px;
+        overflow: hidden;
     }
 
     #admin-l-control:hover {
@@ -212,7 +221,7 @@
         background: url("/php/cms-img/gt.png");
         background-repeat: no-repeat;
         background-position: center;
-        position: absolute;
+        position: fixed;
         top: 50%;
         left: 0;
         width: 50px;
@@ -222,6 +231,7 @@
         text-align: center;
         color: #0F0F0F;
         font-size: 42px;
+        z-index: 10000;
         overflow: hidden;
     }
 
@@ -245,6 +255,7 @@
         -o-animation: appear 1s;
         animation: appear 1s;
         z-index: 10000;
+        overflow: hidden;
     }
 
     #admin-r-control:hover {
@@ -255,7 +266,7 @@
         background: url("/php/cms-img/lt.png");
         background-repeat: no-repeat;
         background-position: center;
-        position: absolute;
+        position: fixed;
         top: 50%;
         right: 0;
         width: 50px;
@@ -265,6 +276,7 @@
         text-align: center;
         color: #0F0F0F;
         font-size: 42px;
+        z-index: 10000;
         overflow: hidden;
     }
 
@@ -306,7 +318,7 @@
     background: url("/php/cms-img/lt.png");
     background-repeat: no-repeat;
     background-position: center;
-    position: absolute;
+    position: fixed;
     top: 50%;
     right: -50px;
     width: 50px;
@@ -374,11 +386,11 @@
     -ms-animation: appear 1s;
     -o-animation: appear 1s;
     animation: appear 1s;
-    z-index: 1;
+    z-index: 10000;
 }
 
 #admin-r-control {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 0;
     border-radius: 10px 0 0 10px;
@@ -388,6 +400,7 @@
     color: #0F0F0F;
     font-size: 42px;
     overflow: hidden;
+    z-index: 10000;
 }
 
 #admin-r-control:hover {
