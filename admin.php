@@ -3,6 +3,11 @@
         //PHP includes:
         include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/header.php');
         include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/functions.php');
+
+        //Set the current page as the last visited one, in case user is redirected to the login page:
+        //As long as admin.php is an "include" in any page, the last page will automatically be set here.
+        $_SESSION['LASTPAGE'] = $_SERVER['REQUEST_URI'];
+
         //If an ongoing session has had no activity for 60 minutes, logout.
         if (isset($_SESSION['USERNAME']) && ($_SERVER['REQUEST_TIME'] - $_SESSION['LAST_ACTIVITY'] > 3600))
         {

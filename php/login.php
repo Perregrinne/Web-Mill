@@ -27,8 +27,17 @@
                         $_SESSION['VALID'] = true;
                         $_SESSION['LAST_ACTIVITY'] = time();
                         $_SESSION['USERNAME'] = $_POST['USERNAME'];
-                        //Redirect back to index.php, where it will now have the admin bar:
-                        header('Refresh: 0; URL = /index.php');
+
+                        //Redirect to the last visited page (if there is one):
+                        if(isset($_SESSION['LASTPAGE']))
+                        {
+                            header('Refresh: 0; URL = ' . $_SESSION['LASTPAGE']);
+                        }
+                        else //If $_SESSION['LASTPAGE'] isn't set, redirect back to index.php, where it will now have the admin bar:
+                        {   
+                            header('Refresh: 0; URL = /index.php');
+                        }
+                        
                     }
                     else
                     {

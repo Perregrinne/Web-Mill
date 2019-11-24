@@ -2,6 +2,7 @@
     //This page serves as the UI for making and managing databases and datatables.
 
     include ($_SERVER['DOCUMENT_ROOT'] . "/php/header.php");
+    include_once ($_SERVER['DOCUMENT_ROOT'] . "/admin.php");
 ?>
 <style>
     #database-manager {
