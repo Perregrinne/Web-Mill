@@ -14,7 +14,7 @@
                 header('Refresh: 0; URL = /php/login.php');
             }
         ?>
-
+        <!-- TODO: Get rid of both CDN libs -->
         <script src="https://cdn.jsdelivr.net/npm/codemirror@5.48.2/lib/codemirror.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/codemirror/CodeMirror/master/lib/codemirror.css">
 

@@ -284,6 +284,16 @@
         background-color: <?= $CONTAINER_HOVER ?>;
         cursor: pointer;
     }
+
+    .pages-ul {
+        margin-bottom: 0;
+    }
+    #admin-pages {
+        margin-top: 15px;
+        border-radius: 10px;
+        border: 1px solid #DDD;
+        padding: 10px; 
+    }
 }
 
 

@@ -30,7 +30,77 @@
         $_SESSION['LAST_ACTIVITY'] = $_SERVER['REQUEST_TIME'];
     ?>
 </head>
-<div id="admin-l-menu" toggle_l="0"><h3 id="menu-l-welcome">Welcome, <?php echo (isset($_SESSION["USERNAME"]) ? $_SESSION["USERNAME"] : " "); ?></h3><br></div>
+<div id="admin-l-menu" toggle_l="0">
+    <h3 id="menu-l-welcome">Welcome, <?php echo (isset($_SESSION["USERNAME"]) ? $_SESSION["USERNAME"] : " "); ?></h3>
+    <br>
+    <a id="logout" href="/php/logout.php">Logout</a>
+    <div id="admin-pages"><h5>Pages:</h5>
+        <?php //Make everything in the menu:
+            
+            //List every page in the website. If the index is missing, the website won't work, so check for that.
+            echo '<ul class="pages-ul">';
+            if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/index.php'))
+            {
+                echo '<li>WARNING: NO INDEX.PHP FOUND. THE WEBSITE WILL BREAK.</li>';
+            } 
+            else
+            {
+                echo '<li><a href="/index.php">index</a></li>';
+            }
+            echo '</ul>';
+            listDir($_SERVER['DOCUMENT_ROOT'] . '/pages', '/pages');
+
+            //List all other pages in the /pages folder:
+            //Scan for all pages in the pages directory:
+            function listDir($fullDirectory, $directory)
+            {
+                $files = array_diff(scandir($fullDirectory), array('.', '..'));
+                //Don't make a list if the directory is empty:
+                if(empty($files)) return;
+                echo '<ul class="pages-ul">';
+                //Don't make a nested list until all the directories are out of the way:
+                foreach($files as $file)
+                {
+                    if(is_dir($fullDirectory . '/' . $file))
+                    {
+                        echo '<li>' . $file . '</li>';
+                        listDir($fullDirectory . '/' . $file, $directory . '/' . $file);
+                    }
+                }
+                //Now that there are no more directories in the way, list the innermost directory's files.
+                echo '</ul>';
+                echo '<ul class="pages-ul">';
+                foreach($files as $file)
+                {
+                    if(!is_dir($fullDirectory . '/' . $file))
+                    {
+                        $fileName = pathinfo($file);
+                        if(isset($fileName['extension']) && $fileName['extension'] == 'php')
+                        {
+                            //echo '<li><a href="' . $fileName . '">' . $fileName['filename'] . '</a></li>';
+                            echo '<li><a href="' . $directory . '/' . $fileName['basename'] . '">' . $fileName['filename'] . '</a></li>';
+                        }
+                    }
+                }
+                echo '</ul>';
+            }
+            /*
+            $allFiles = array_diff(scandir($_SERVER['DOCUMENT_ROOT'] . '/pages'), array('.', '..')); //Get rid of "." and ".."
+            //Remove anything without a .php extension:
+            foreach($allFiles as $file)
+            {
+                $pathInfo = pathinfo($file);
+                //If the file's extension is .php, keep track of it.
+                if(isset($pathInfo['extension']) && $pathInfo['extension'] == 'php')
+                {
+                    echo "\n" . "<a href=" . $pathInfo . $pathInfo['filename'];
+                    //array_push($pathInfo);
+                }
+            }
+            */
+        ?>
+    </div>
+</div>
 <div id="admin-l-control">&nbsp;</div>
 <div id="admin-r-menu" toggle_r="0"></div>
 <div id="admin-r-control">&nbsp;</div>
@@ -40,12 +110,13 @@
 
         //Generate the menu controls:
         //Make the logout link:
-        var logoutLink = document.createElement('a'); //Create the 'a' element.
+        /*var logoutLink = document.createElement('a'); //Create the 'a' element.
         var logoutText = document.createTextNode("Logout"); //Its text will be "Logout".
         logoutLink.appendChild(logoutText); //Attach the "Logout" text to the 'a' element.
         logoutLink.id = "logout"; //Name the 'a' element "logout".
         logoutLink.href = "/php/logout.php"; //Set its href link destination.
         document.getElementById("admin-l-menu").appendChild(logoutLink); //Add the "logout" href to the menu.
+        */
 
         //Left menu open or close when "<" or ">" controls are clicked:
         document.getElementById('admin-l-control').onclick = function(){
@@ -202,7 +273,7 @@
         //Detect all the elements on the html page (excluding the Web-Mill stuff):
         function detectAllElems() 
         {
-            //Exclude Web-Mill generated conted!
+            //Exclude Web-Mill generated content!
         }
     }, false);
     
