@@ -288,16 +288,44 @@
     .pages-ul {
         margin-bottom: 0;
     }
+
     #admin-pages {
         margin-top: 15px;
         border-radius: 10px;
         border: 1px solid #DDD;
         padding: 10px; 
     }
+
+    #admin-elem {
+        margin: 15px;
+        border-radius: 10px;
+        border: 1px solid #DDD;
+        padding: 10px;
+    }
+
+    .admin-li {
+        list-style-type: none;
+    }
+
+    #cookie-privacy {
+        position: static;
+    }
+
+    #cookie-ok {
+        margin-left: 5px;
+    }
 }
 
 
-
+/*
+TODO: 
+- Organize this mess of a css doc.
+    - Get rid of these extra lines and commented out code.
+- Ensure that the changed classes and elements by Id are consistently changed at all 3 levels of resolution.
+- Actually make use of the fact that this utilizes php.
+    - Incorporate light/dark themes.
+    - Save theme colors user commonly uses in the website?
+*/
 
 
 
@@ -448,7 +476,6 @@
 
 .nested {
     position: absolute;
-    left: 0;
 }
 
 .list-menu {

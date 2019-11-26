@@ -92,11 +92,16 @@
     </div>
 </div>
 <div id="admin-l-control">&nbsp;</div>
-<div id="admin-r-menu" toggle_r="0"></div>
+<div id="admin-r-menu" toggle_r="0">
+    <div id="admin-elem"><h5>Elements:</h5></div>
+</div>
 <div id="admin-r-control">&nbsp;</div>
 <script>
     //This runs only after the page has loaded, so javascript doesn't miss any elements not yet loaded in:
     document.addEventListener('DOMContentLoaded', function() {
+
+        //Detect and list all elements on the page. They're listed in the "admin-r-menu" div, within the "admin-elem" div.
+        detectAllElems();
 
         //Left menu open or close when "<" or ">" controls are clicked:
         document.getElementById('admin-l-control').onclick = function(){
@@ -250,10 +255,27 @@
             }
         }
 
-        //Detect all the elements on the html page (excluding the Web-Mill stuff):
+        //Detect all the elements on the html page (excluding the Web Mill stuff):
         function detectAllElems() 
         {
-            //Exclude Web-Mill generated content!
+            //All elements added to the page by Web Mill are of "nested" class type so they can be moved around on the page.
+            var pageElems = document.getElementsByClassName("nested");
+            
+            var elemList = document.createElement('ul');
+            elemList.id = 'admin-ul';
+            document.body.appendChild(elemList);
+            for(var singleElem of pageElems)
+            {
+                //Exclude "body" from the list:
+                if(singleElem.id != 'body')
+                {
+                    var listItem = document.createElement('li');
+                    var linkText = document.createTextNode(singleElem.id);
+                    listItem.appendChild(linkText);
+                    listItem.classList.add('admin-li');
+                    document.getElementById('admin-elem').appendChild(listItem);
+                }
+            }
         }
     }, false);
     
