@@ -35,69 +35,59 @@
     <br>
     <a id="logout" href="/php/logout.php">Logout</a>
     <div id="admin-pages"><h5>Pages:</h5>
-        <?php //Make everything in the menu:
-            
-            //List every page in the website. If the index is missing, the website won't work, so check for that.
+        <?php
+            //List every webpage in the website.
             echo '<ul class="pages-ul">';
-            if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/index.php'))
+            //If the index is missing, the website won't work
+            if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/index.php')) 
             {
                 echo '<li>WARNING: NO INDEX.PHP FOUND. THE WEBSITE WILL BREAK.</li>';
             } 
-            else
+            else //If it exists, we can simply hardcode the link and it should still work.
             {
                 echo '<li><a href="/index.php">index</a></li>';
             }
             echo '</ul>';
+            //Now, scan every file and subdirectory in /pages/.
             listDir($_SERVER['DOCUMENT_ROOT'] . '/pages', '/pages');
 
             //List all other pages in the /pages folder:
             //Scan for all pages in the pages directory:
             function listDir($fullDirectory, $directory)
             {
+                //Scan the current directory, but we don't want '.' or '..' in the returned list.
                 $files = array_diff(scandir($fullDirectory), array('.', '..'));
+
                 //Don't make a list if the directory is empty:
-                if(empty($files)) return;
+                if(empty($files)) return; //We don't need to waste any more time here, if it's empty.
+                //Otherwise, time for a new list:
                 echo '<ul class="pages-ul">';
                 //Don't make a nested list until all the directories are out of the way:
                 foreach($files as $file)
                 {
-                    if(is_dir($fullDirectory . '/' . $file))
+                    //If it's a folder, list it and scan inside it for more folders:
+                    if(is_dir($fullDirectory . '/' . $file)) 
                     {
                         echo '<li>' . $file . '</li>';
                         listDir($fullDirectory . '/' . $file, $directory . '/' . $file);
                     }
                 }
-                //Now that there are no more directories in the way, list the innermost directory's files.
-                echo '</ul>';
+                echo '</ul>'; //Done scanning through directories now.
+
+                //Now that there are no more directories in the way, list the directory's files:
                 echo '<ul class="pages-ul">';
                 foreach($files as $file)
                 {
-                    if(!is_dir($fullDirectory . '/' . $file))
+                    //We'll want to check its extension and get its filename without its path or extension.
+                    $fileName = pathinfo($file);
+                    //If it's a php file, then list it with a link to its path.
+                    if(isset($fileName['extension']) && $fileName['extension'] == 'php') //Not sure why, but $fileName['extension'] isn't always set.
                     {
-                        $fileName = pathinfo($file);
-                        if(isset($fileName['extension']) && $fileName['extension'] == 'php')
-                        {
-                            //echo '<li><a href="' . $fileName . '">' . $fileName['filename'] . '</a></li>';
-                            echo '<li><a href="' . $directory . '/' . $fileName['basename'] . '">' . $fileName['filename'] . '</a></li>';
-                        }
+                        echo '<li><a href="' . $directory . '/' . $fileName['basename'] . '">' . $fileName['filename'] . '</a></li>';
                     }
                 }
-                echo '</ul>';
+                echo '</ul>'; //Done listing the php webpages now.
             }
-            /*
-            $allFiles = array_diff(scandir($_SERVER['DOCUMENT_ROOT'] . '/pages'), array('.', '..')); //Get rid of "." and ".."
-            //Remove anything without a .php extension:
-            foreach($allFiles as $file)
-            {
-                $pathInfo = pathinfo($file);
-                //If the file's extension is .php, keep track of it.
-                if(isset($pathInfo['extension']) && $pathInfo['extension'] == 'php')
-                {
-                    echo "\n" . "<a href=" . $pathInfo . $pathInfo['filename'];
-                    //array_push($pathInfo);
-                }
-            }
-            */
         ?>
     </div>
 </div>
@@ -107,16 +97,6 @@
 <script>
     //This runs only after the page has loaded, so javascript doesn't miss any elements not yet loaded in:
     document.addEventListener('DOMContentLoaded', function() {
-
-        //Generate the menu controls:
-        //Make the logout link:
-        /*var logoutLink = document.createElement('a'); //Create the 'a' element.
-        var logoutText = document.createTextNode("Logout"); //Its text will be "Logout".
-        logoutLink.appendChild(logoutText); //Attach the "Logout" text to the 'a' element.
-        logoutLink.id = "logout"; //Name the 'a' element "logout".
-        logoutLink.href = "/php/logout.php"; //Set its href link destination.
-        document.getElementById("admin-l-menu").appendChild(logoutLink); //Add the "logout" href to the menu.
-        */
 
         //Left menu open or close when "<" or ">" controls are clicked:
         document.getElementById('admin-l-control').onclick = function(){
