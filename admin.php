@@ -100,6 +100,11 @@
     //This runs only after the page has loaded, so javascript doesn't miss any elements not yet loaded in:
     document.addEventListener('DOMContentLoaded', function() {
 
+        //If an element is hovered over and its background color changes as a result, remember its original background color.
+        var originalBackground = '';
+        //Also remember which element on the page is being highlighted.
+        var selectedElement = '';
+
         //Detect and list all elements on the page. They're listed in the "admin-r-menu" div, within the "admin-elem" div.
         detectAllElems();
 
@@ -273,10 +278,37 @@
                     var linkText = document.createTextNode(singleElem.id);
                     listItem.appendChild(linkText);
                     listItem.classList.add('admin-li');
+                    listItem.id = singleElem.id + '-li';
+                    listItem.onmouseover = elemHover;
+                    listItem.onmouseout = elemOut;
                     document.getElementById('admin-elem').appendChild(listItem);
                 }
+                
             }
         }
+
+        //When the user hovers over the elements in the admin menu, highlight them in the menu and on the page.
+        function elemHover()
+        {
+            this.style.backgroundColor = '#7777DD';
+            var elemName = this.id.substring(0, this.id.length - 3);
+            selectedElement = document.getElementById(elemName);
+            if(selectedElement != null)
+            {
+                originalBackground = selectedElement.style.backgroundColor;
+                selectedElement.style.backgroundColor = '#7777DD';
+            }
+        }
+
+        function elemOut()
+        {
+            this.style.backgroundColor = '';
+            if(selectedElement != null)
+            {
+                selectedElement.style.backgroundColor = originalBackground;
+            }
+        }
+
     }, false);
     
     //TODO: Move menu and controls as viewport is resized.
