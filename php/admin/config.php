@@ -9,9 +9,8 @@
     $PHP_VER = phpversion();
 
     $ORGANIZATION = 'Default Organization';
-?>
 
-<?php
+    $THEME_PRESET = 'Dark';
 
     //Page routing:
     $INDEX = '/index.php';
@@ -26,4 +25,3 @@
     //Page Components:
     $HEADER = '/php/header.php';
     $FOOTER = '/php/footer.php';
-?>
