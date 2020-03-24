@@ -105,8 +105,22 @@
         //Also remember which element on the page is being highlighted.
         var selectedElement = '';
 
-        //Detect and list all elements on the page. They're listed in the "admin-r-menu" div, within the "admin-elem" div.
-        detectAllElems();
+        //If on any non-Web Mill page, list all elements
+        //Otherwise, display the relevant set of tools for that page.
+        <?php
+            //If the current page is the flowscript editor page:
+            if($_SERVER['REQUEST_URI'] == "/php/flowscriptEditor.php")
+            {
+                //List all of the flowscript nodes in the right-side menu.
+                echo 'document.getElementById("admin-elem").innerHTML = "<h5>Nodes:</h5>";';
+                echo "listFlowscriptNodes();";
+            }
+            else //If on any non-Web Mill page:
+            {
+                //Detect and list all elements on the page. They're listed in the "admin-r-menu" div, within the "admin-elem" div.
+                echo "detectAllElems();";
+            }
+        ?>
 
         //Left menu open or close when "<" or ">" controls are clicked:
         document.getElementById('admin-l-control').onclick = function(){
@@ -257,6 +271,27 @@
                     element.style.right = currPos + "px";
                 }
                 
+            }
+        }
+
+        //List all of the nodes the user can drag into the editor:
+        function listFlowscriptNodes()
+        {
+            var nodeList = ['a', 'b', 'c'];
+
+            var elemList = document.createElement('ul');
+            elemList.id = 'admin-ul';
+            document.body.appendChild(elemList);
+            for(var nodeElem of nodeList)
+            {
+                var listItem = document.createElement('li');
+                var linkText = document.createTextNode(nodeElem);
+                listItem.appendChild(linkText);
+                listItem.classList.add('admin-li');
+                listItem.id = nodeElem + '-li';
+                listItem.onmouseover = elemHover;
+                listItem.onmouseout = elemOut;
+                document.getElementById('admin-elem').appendChild(listItem);
             }
         }
 

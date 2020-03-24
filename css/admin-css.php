@@ -697,59 +697,137 @@ TODO:
 
 /*Database.php*/
 #database-manager {
-        margin-left: 65px;
-    }
-    h3, select {
-        margin-left: 65px;
-        margin-bottom: 25px;
-        z-index: -1;
-    }
-    select {
-        color: #DDDDDD;
-        background-color: #333333;
-        min-width: 150px;
-        z-index: -1;
-    }
-    #database-break {
-        border-color: #CCCCCC;
-        z-index: -1;
-    }
-    #table-default {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        margin: 0 65px 0 65px;
-        max-width: 100%;
-        min-width: 90%;
-        z-index: -1;
-    }
-    input {
-        font-family: arial, sans-serif;
-        border: none;
-        outline: 1px solid #333333;
-        color: #DDDDDD;
-        background-color: #555555;
-        z-index: -1;
-        padding: 5px;
-    }
-    td, th {
-        border: 2px solid #222222;
-        text-align: left;
-        padding: 8px;
-        min-width: 25px;
-        max-width: 100px;
-        z-index: -1;
-    }
-    #new-col {
-        background-color: #33AA33;
-    }
-    #new-col:hover {
-        background-color: #33CC33;
-    }
-    tr:nth-child(even) {
-        background-color: #555555;
-        z-index: -1;
-    }
-    tr:nth-child(odd) {
-        background-color: #333333;
-        z-index: -1;
-    }
+    margin-left: 65px;
+}
+h3, select {
+    margin-left: 65px;
+    margin-bottom: 25px;
+    z-index: -1;
+}
+select {
+    color: #DDDDDD;
+    background-color: #333333;
+    min-width: 150px;
+    z-index: -1;
+}
+#database-break {
+    border-color: #CCCCCC;
+    z-index: -1;
+}
+#table-default {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    margin: 0 65px 0 65px;
+    max-width: 100%;
+    min-width: 90%;
+    z-index: -1;
+}
+input {
+    font-family: arial, sans-serif;
+    border: none;
+    outline: 1px solid #333333;
+    color: #DDDDDD;
+    background-color: #555555;
+    z-index: -1;
+    padding: 5px;
+}
+td, th {
+    border: 2px solid #222222;
+    text-align: left;
+    padding: 8px;
+    min-width: 25px;
+    max-width: 100px;
+    z-index: -1;
+}
+#new-col {
+    /*background-color: #33AA33;*/
+    background-image: linear-gradient(#55EE55, #118811);
+    cursor: pointer;
+}
+#new-col:hover {
+    /*background-color: #33CC33;*/
+    background-image: linear-gradient(#66FF66, #11AA11);
+}
+tr:nth-child(even) {
+    background-color: #555555;
+    z-index: -1;
+}
+tr:nth-child(odd) {
+    background-color: #333333;
+    z-index: -1;
+}
+#new-datatable-bttn {
+    position: absolute;
+    left: 49%;
+    margin-top: 1em;
+    background-image: linear-gradient(#55EE55, #118811);
+    cursor: pointer;
+}
+#new-datatable-bttn:hover {
+    position: absolute;
+    left: 49%;
+    margin-top: 1em;
+    background-image: linear-gradient(#66FF66, #11AA11);
+}
+
+/*texteditor.php*/
+#text-page-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #DDD;
+}
+#menu-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8%;
+    background-color: #AAA;
+    z-index: 2;
+}
+#text-container {
+    position: absolute;
+    left: 50px;
+    right: 50px;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+}
+#line-number {
+    position: absolute;
+    display: inline-block;
+    bottom: 16px;
+    top: 8%;
+    width: 44px;
+    margin-left: 4px;
+}
+#line-border {
+    position: fixed;
+    width: 1px;
+    top: 8%;
+    bottom: 8px;
+    left: 98px;
+    background-color: #000;
+    z-index: 3;
+}
+#text-field {
+    margin: 0;
+    padding: 0 0.25em 0.25em 0.5em;
+    position: absolute;
+    left: 48px;
+    right: 0;
+    top: 8%;
+    bottom: 0;
+    background-color: #DDD;
+    overflow: hidden;
+    outline: none;
+    font-family: "Lucida Console", serif;
+}
+
+body {
+    position: absolute;
+    top: 0;
+}

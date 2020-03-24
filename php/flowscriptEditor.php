@@ -1,6 +1,6 @@
 <?php
     include ($_SERVER['DOCUMENT_ROOT'] . "/php/header.php");
-    include_once ($_SERVER['DOCUMENT_ROOT'] . "/php/admin.php");
+    include_once ($_SERVER['DOCUMENT_ROOT'] . "/admin.php");
 
     //If an ongoing session has had no activity for 60 minutes, logout.
     if (isset($_SESSION['USERNAME']) && ($_SERVER['REQUEST_TIME'] - $_SESSION['LAST_ACTIVITY'] > 3600))
@@ -15,19 +15,18 @@
     }
 ?>
 <body>
-    <canvas id="Flow-Canvas" width="100%" height="100%" style="border:1px solid #CCCCCC;"></canvas>
+    <canvas id="Flow-Canvas" width="2000px" height="1000px"></canvas>
     <script>
     var canv = document.getElementById("Flow-Canvas");
-    setTimeout(function() {
-  canv.style.height = window.innerHeight + "px";
-}, 0.01);
-    canv.style.width = window.innerWidth + "px";
-    canv.width = window.innerWidth + "px";
-    canv.height = window.innerHeight + "px";
-    canv.style.backgroundColor = "#333333";
+    //setTimeout(function() {canv.style.height = window.innerHeight + "px"; }, 1);
+    //canv.style.width = window.innerWidth + "px";
+    canv.style.width = "100vw";
+    canv.style.height = "100vh";
+    canv.style.backgroundColor = "#111";
     var ctx = canv.getContext("2d");
-    //ctx.beginPath();
-    //ctx.rect(20, 20, 150, 100);
-    //ctx.stroke();
+    ctx.fillStyle = "rgb(200, 200, 200)";
+    ctx.beginPath();
+    ctx.fillRect(20, 20, 125, 150);
+    ctx.stroke();
     </script>
 </body>
