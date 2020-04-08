@@ -21,7 +21,7 @@
         }
         
         //If a user is logged in, they should start on the index and be able to edit using the admin editor.
-        if (isset($_SESSION['USERNAME']) && $_SERVER['REQUEST_URI'] == '/admin.php')
+        if (isset($_SESSION['USERNAME']) && $_SERVER['REQUEST_URI'] === '/admin.php')
         {
             header('Refresh: 0; URL = /index.php');
         }
@@ -32,8 +32,7 @@
 </head>
 <div id="admin-l-menu" toggle_l="0">
     <h3 id="menu-l-welcome">Welcome, <?php echo (isset($_SESSION["USERNAME"]) ? $_SESSION["USERNAME"] : " "); ?></h3>
-    <br>
-    <a id="logout" href="/php/logout.php">Logout</a>
+    <a class="wm-link" href="/php/logout.php">Logout</a>
     <div id="admin-pages"><h5>Pages:</h5>
         <?php
             //List every webpage in the website.
@@ -90,6 +89,7 @@
             }
         ?>
     </div>
+    <a class="wm-link" href="/php/textEditor.php">Text Editor</a>
 </div>
 <div id="admin-l-control">&nbsp;</div>
 <div id="admin-r-menu" toggle_r="0">
@@ -109,7 +109,7 @@
         //Otherwise, display the relevant set of tools for that page.
         <?php
             //If the current page is the flowscript editor page:
-            if($_SERVER['REQUEST_URI'] == "/php/flowscriptEditor.php")
+            if($_SERVER['REQUEST_URI'] === "/php/flowscriptEditor.php")
             {
                 //List all of the flowscript nodes in the right-side menu.
                 echo 'document.getElementById("admin-elem").innerHTML = "<h5>Nodes:</h5>";';
@@ -237,7 +237,7 @@
             else //if(attribute === "right")
             {
                 //Get the element's starting position from the right
-                if(element.style.right == "")
+                if(element.style.right === "")
                 {
                     element.style.right = 0 + "px";
                 }
@@ -307,7 +307,7 @@
             for(var singleElem of pageElems)
             {
                 //Exclude "body" from the list:
-                if(singleElem.id != 'body')
+                if(singleElem.id !== 'body')
                 {
                     var listItem = document.createElement('li');
                     var linkText = document.createTextNode(singleElem.id);
@@ -338,7 +338,7 @@
         function elemOut()
         {
             this.style.backgroundColor = '';
-            if(selectedElement != null)
+            if(selectedElement !== null)
             {
                 selectedElement.style.backgroundColor = originalBackground;
             }

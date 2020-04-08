@@ -5,7 +5,7 @@
 </head>
 <body>
     <h2>Enter Username and Password</h2> 
-        <div class = "container form-signin">
+        <div class="container form-signin">
             <?php
                 //Reset the message for the login error:
                 $login_error = '';

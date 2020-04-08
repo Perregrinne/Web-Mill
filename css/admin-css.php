@@ -457,18 +457,15 @@ TODO:
     right: 0;
     width: 250px;
 }
-
-#logout {
+.wm-link{
     text-decoration: none;
     color: #FFF;
 }
-
-#logout:hover {
+.wm-link:hover {
     text-decoration: none;
     color: #CCCCCC;
     cursor: pointer;
 }
-
 .clones {
     position: static;
     cursor: pointer;
@@ -826,8 +823,21 @@ tr:nth-child(odd) {
     outline: none;
     font-family: "Lucida Console", serif;
 }
-
 body {
     position: absolute;
     top: 0;
+}
+
+/*Text Editor*/
+.editor-bttn{
+    display: inline-block;
+    padding: 10px;
+    margin: 10px 10px 15px 0;
+    min-width: 85px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+.editor-bttn:hover{
+    background-color: rgba(255, 255, 255, 0.2);
 }
