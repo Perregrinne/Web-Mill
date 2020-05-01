@@ -1,5 +1,4 @@
 <?php
-
     //About this website:
     $WEBSITE_TITLE = 'Web Mill';
     $FAVICON_FILE = '/favicon.ico';
@@ -13,6 +12,7 @@
     $THEME_PRESET = 'Dark';
 
     //Page routing:
+    //TODO: Decide if I still need these:---------
     $INDEX = '/index.php';
     $TOS = '/pages/tos.php';
     $PRIVACY = '/pages/privacy.php';
@@ -25,3 +25,4 @@
     //Page Components:
     $HEADER = '/php/header.php';
     $FOOTER = '/php/footer.php';
+    //END TODO------------------------------------

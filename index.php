@@ -33,7 +33,7 @@
                     <?php echo date("Y"); ?>
                 </div>
                 <div class="nested" id="copyright-name">
-                    &nbsp;Your Name Here
+                    &nbsp;<?= $ORGANIZATION ?>
                 </div>
             </div>
         </div>

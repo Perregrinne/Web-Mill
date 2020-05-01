@@ -281,18 +281,20 @@
         }
     }
 
-
+    //Generate an empty div object:
     function createSimpleDiv($idName)
     {
         echo '<div id="' . $idName . '"class="nested">Div</div>';
     }
 
+    //Generate an empty "a href" link object:
     function createSimpleLink($idName)
     {
         echo '<a href="index.php" id="' . $idName . '" class="nested">homepage</a>';
     }
 
-    function createImage($idName)
+    //Generate an empty image object using file2.png as the default image:
+    function createImage($idName) //TODO: Add parameter for passing image files to use instead
     {
         echo '<img src="/php/cms-img/file2.png" id="' . $idName . '" class="nested"/>';
     }
@@ -300,10 +302,11 @@
     //Writes the HTML page.
     function writePage($text)
     {
+        //TODO: Write the text to the page.
         return 1;
     }
 
-    //Creates a new PHP page with the default stuff added.
+    //Creates a new PHP page with the default content (like header) incorporated.
     function createPage($name)
     {
         //Keep track of the new page's location.
@@ -418,4 +421,67 @@
         $dbConnection->close();
     }
 
+    //Connect to an external web service and look up the latest versions of Web Mill and PHP
+    //Returns an array that holds 2 strings that have a PHP version, and a Web Mill version.
+    function checkVersions()
+    {
+        //TODO: Put the version checker service online instead of localhost
+        $curl_request = curl_init("127.0.0.1:3000");
+
+        //By default the request type is "GET"
+        curl_setopt_array($curl_request, array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => 10, //Must connect within 10 seconds
+            CURLOPT_TIMEOUT => 20, //Must finish the whole request in 20 seconds... or else
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_2_0, //Falls back to 1.1 if 2.0 won't work
+        ));
+
+        //Get a response or a returned error (or if failed to connect)
+        $response = curl_exec($curl_request);
+        $err = curl_error($curl_request);
+
+        //Sample successful response body: "7.3.1 1.0.3"
+        //Where "7.3.1" is the PHP version and "1.0.3" is the Web Mill version.
+
+        //Close the connection and free up $curl_request's resources:
+        curl_close($curl_request);
+
+        //Put the PHP version and Web Mill version into an array
+        //They are currently separated by a space:
+        $versions = explode(" ", $response);
+        return $versions;
+    }
+
+    //Remove a directory
+    //Returns a bool indicating whether or not the directory was successfully deleted.
+    //In order to remove a directory, it must be empty (WHY, PHP?!)
+    //This means Web Mill has to recursively check each subdirectory for
+    //files and subdirectories and delete each one.
+    function delete_dir($directory)
+    {
+        //If it's empty or contains root, don't let it delete the root directory!
+        if($directory === '/' || !isset($directory))
+        {
+            //TODO: When you decide to make a logging mechanism, log that someone tried deleting root.
+            return false;
+        }
+        
+        //Scan the files in the subdirectory (and remove '.' and '..' <- I forget why these even exist)
+        $items = array_diff(scandir($directory), array('.', '..'));
+        //Now determine if each one is a file or subdirectory:
+        foreach($items as $item)
+        {
+            //Recursively delete the subdirectory inside the current directory:
+            if(is_dir($directory . '/' . $item))
+            {
+                delete_dir($directory . '/' . $item);
+            }
+            else //If it's a file, delete it:
+            {
+                unlink($directory . '/' . $item);
+            }
+        }
+        //Finally, try deleting this deepest-level directory
+        return rmdir($directory);
+    }
 ?>

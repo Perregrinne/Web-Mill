@@ -33,6 +33,8 @@
 <div id="admin-l-menu" toggle_l="0">
     <h3 id="menu-l-welcome">Welcome, <?php echo (isset($_SESSION["USERNAME"]) ? $_SESSION["USERNAME"] : " "); ?></h3>
     <a class="wm-link" href="/php/logout.php">Logout</a>
+    <br>
+    <a class="wm-link" href="/php/settings.php">Settings</a>
     <div id="admin-pages"><h5>Pages:</h5>
         <?php
             //List every webpage in the website.

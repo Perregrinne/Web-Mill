@@ -12,6 +12,7 @@
 
 + ajax function for handling all various actions, such as adding a page, deleting a page, going back a directory, going forward a directory, etc.
 
+TODO: Rename all files, variables, and classes (in PHP and Javascript) to follow standard naming conventions.
 
 function detectAllElems(){}
 
