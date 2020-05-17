@@ -11,11 +11,16 @@
     {
         updateWM(); //Run the update
         unset($_POST['update-wm']);
+        //TODO: Maybe updates should instead download the latest version of the "/php" folder
+        //instead of updating/deleting/creating individual files. It'd replace everything but
+        //the updates would obviously skip making any changes to the /php/admin subdirectory.
+        //The admin.php file should be the only thing outside /php that any update can touch.
     }
     if(isset($_POST['update-php']) && $_POST['update-php'] === 'true')
     {
         updatePHP(); //Run the update
         unset($_POST['update-php']);
+
     }
     if(isset($_POST['update-settings']) && $_POST['update-settings'] === 'true')
     {
@@ -44,11 +49,15 @@
         ?>
     </form>
     <?php //Now list the updatable things that are submitted in their own forms
-        echo 'Web Mill Version: ' . $VERSION; //Print the current version of Web Mill used.
+        
         //Check for updated versions of Web Mill and PHP:
         $latest_versions = checkVersions();
         $latest_php = $latest_versions[0];
         $latest_wm = $latest_versions[1];
+
+        //Display the current version of Web Mill used.
+        echo 'Web Mill Version: ' . $VERSION;
+        //If checkVersions() failed to connect, don't bother with the update warning:
         if(version_compare($VERSION, $latest_wm, '<') && !isset($_POST['update-wm']))
         {
             echo 'Web Mill version ' . $latest_wm . ' available!';
@@ -61,13 +70,10 @@
             //version number that is no longer supported), and all installed plugins
             //Warn them if they click "Update Web Mill" but don't meet requirements.
             //Also, compile a list of requirements that need to be met!
-            echo '<br>'; 
-        }
-        else //If no updates are available, move to the next item...
-        {
-            echo 'Web Mill version: ' . $VERSION . '<br>';
-        }
-        echo 'PHP Version: ' . $PHP_VER; //Print the user's version of PHP
+        } 
+
+        //Now move on to displaying the PHP version:
+        echo '<br>PHP Version: ' . $PHP_VER; //Print the user's version of PHP
         if(version_compare($PHP_VER, $latest_php, '<') && !isset($_POST['update-php']))
         {
             echo 'PHP version ' . $latest_php . ' available!';
@@ -77,12 +83,8 @@
             echo '</form>';
             //Might need to keep people from spamming the Update button at some point,
             //or refreshing the page during the update and hitting the Update button a second time
-            echo '<br>'; 
         }
-        else //If no updates are available, move to the next item...
-        {
-            echo '<br>';
-        }
+        echo '<br>'; 
     ?>
 </div>
 <?php

@@ -1,0 +1,15 @@
+language: php
+
+php:
+    - '7.3'
+    - '7.4'
+
+script:
+    phpunit
+
+matrix:
+    fast_finish: true
+
+notifications:
+    on_success: never
+    on_failure: never

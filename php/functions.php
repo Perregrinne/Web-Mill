@@ -1,4 +1,6 @@
 <?php
+    //In case errors need to be logged:
+    @include_once($_SERVER['DOCUMENT_ROOT'] . '/php/logger.php');
     //This is needed for the session variables
     if(!isset($_SESSION))
     {
@@ -366,6 +368,7 @@
             } 
             else //Otherwise, print the error.
             {
+                //TODO: Log the error instead!
                 echo "Database could not be created: " . $dbConnection->error;
             }
             //Close the connection.
@@ -423,6 +426,7 @@
 
     //Connect to an external web service and look up the latest versions of Web Mill and PHP
     //Returns an array that holds 2 strings that have a PHP version, and a Web Mill version.
+    //If the cURL request fails to connect, the function will log the error and return false
     function checkVersions()
     {
         //TODO: Put the version checker service online instead of localhost
@@ -439,9 +443,16 @@
         //Get a response or a returned error (or if failed to connect)
         $response = curl_exec($curl_request);
         $err = curl_error($curl_request);
+        //Don't needlessly call logMsg if no error was thrown:
+        if(isset($err))
+        {
+            logMsg($err);
+            curl_close($curl_request);
+            return false;
+        }
 
-        //Sample successful response body: "7.3.1 1.0.3"
-        //Where "7.3.1" is the PHP version and "1.0.3" is the Web Mill version.
+        //A sample successful response body would look like this: "7.3.1 1.0.3"
+        //where "7.3.1" is the PHP version and "1.0.3" is the Web Mill version.
 
         //Close the connection and free up $curl_request's resources:
         curl_close($curl_request);
