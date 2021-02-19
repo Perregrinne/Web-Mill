@@ -57,6 +57,8 @@
 
         //Display the current version of Web Mill used.
         echo 'Web Mill Version: ' . $VERSION;
+        echo $latest_wm;
+        echo $latest_php;
         //If checkVersions() failed to connect, don't bother with the update warning:
         if(version_compare($VERSION, $latest_wm, '<') && !isset($_POST['update-wm']))
         {
@@ -167,7 +169,7 @@
         set_time_limit(3600); 
         $downloaded_zip = fopen($tmp_zip, 'w+');
         //cURL the update location to download the changes in a .zip:
-        $curl_update = curl_init("127.0.0.1:3000/wmupdate");
+        $curl_update = curl_init("localhost:3002/wmupdate");
 
         //By default the request type is "GET"
         curl_setopt_array($curl_update, array(

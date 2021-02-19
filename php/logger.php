@@ -19,12 +19,10 @@
         $msg = date("[m/d/Y h:i:sa] ") . $msg . "\n"; //12hr clock with am/pm (UTC).
         $log_queue->enqueue($msg);
         //Check if there is a lock on the log:
-        $logfile = fopen($_SERVER['DOCUMENT_ROOT'] . "/php/admin/log.txt", "r+");
+        $logfile = fopen($_SERVER['DOCUMENT_ROOT'] . "/php/admin/log.txt", "a");
         //If there isn't a lock, append all elements in the queue:
         if (flock($logfile, LOCK_EX))
         {
-            //Take the contents out of the file:
-            ftruncate($logfile, 0);
             //Then write each message into the log file:
             $log_queue->rewind(); //Point to the 1st msg
             $log_append = $logfile;

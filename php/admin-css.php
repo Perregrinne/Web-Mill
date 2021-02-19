@@ -305,6 +305,7 @@
 
     .admin-li {
         list-style-type: none;
+        cursor: pointer;
     }
 
     #cookie-privacy {
@@ -837,6 +838,19 @@ body {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
+    cursor: pointer;
+}
+.nav-bttn {
+    color: #aaf;
+}
+.cookie-bttn {
+    background-color: rgba(255,255,255,0.15);
+    border: 1px solid #eee;
+    border-radius: 3px;
+    color: #eee;
+}
+.cookie-bttn:hover {
+    background-color: rgba(255,255,255,0.5);
 }
 .editor-bttn:hover{
     background-color: rgba(255, 255, 255, 0.2);

@@ -26,3 +26,5 @@
     $HEADER = '/php/header.php';
     $FOOTER = '/php/footer.php';
     //END TODO------------------------------------
+
+    $db_driver = 'mysql';

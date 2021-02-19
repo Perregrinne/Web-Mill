@@ -8,6 +8,8 @@
 body {
     width: 100%;
     height: 100%;
+    background-color: #111;
+    color: #EFEFEF;
 }
 
 #navbar {
@@ -16,7 +18,7 @@ body {
     height: 75px;
     left: 0;
     right: 0;
-    background-color: #DDDDDD;
+    background-color: #333;
 }
 
 #navbar-logo {
@@ -75,7 +77,7 @@ body {
     right: 0;
     width: 100%;
     height: 35px;
-    background-color: #DDDDDD;
+    background-color: #444;
     text-align: center;
 }
 
@@ -111,7 +113,7 @@ body {
     bottom: 0;
     z-index: 100;
     text-align: center;
-    background-color: #555555;
+    background-color: #444;
     /*line-height: 50px;*/
 }
 

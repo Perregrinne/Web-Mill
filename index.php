@@ -14,11 +14,11 @@
             <div class="nested" id="navbar-title">
                 Web Mill
             </div>
-            <a href="/index.php" class="nested" id="navbar-home-link">
-                home
+            <a href="/index.php" class="nested nav-bttn" id="navbar-home-link">
+                Home
             </a>
-            <a href="/admin.php" class="nested" id="navbar-admin-link">
-                admin
+            <a href="/admin.php" class="nested nav-bttn" id="navbar-admin-link">
+                Admin
             </a>
         </div>
         <h1 class="nested" id="main-text">

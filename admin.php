@@ -4,6 +4,8 @@
         include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/header.php');
         include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/functions.php');
 
+        //TODO: If $exclude_menu is true, don't render the right menu or the cookie banner.
+
         //Set the current page as the last visited one, in case user is redirected to the login page:
         //As long as admin.php is an "include" in any page, the last page will automatically be set here.
         $_SESSION['LASTPAGE'] = $_SERVER['REQUEST_URI'];
@@ -94,10 +96,10 @@
     <a class="wm-link" href="/php/textEditor.php">Text Editor</a>
 </div>
 <div id="admin-l-control">&nbsp;</div>
-<div id="admin-r-menu" toggle_r="0">
+<div id="admin-r-menu" toggle_r="0" <?php echo (defined('exclude_menu') and ($exclude_menu)) ? 'style="visibility: hidden !important;"' : 'style="visibility: visible !important;"';?>>
     <div id="admin-elem"><h5>Elements:</h5></div>
 </div>
-<div id="admin-r-control">&nbsp;</div>
+<div id="admin-r-control" <?php echo (defined('exclude_menu') and ($exclude_menu)) ? 'style="visibility: hidden !important;"' : 'style="visibility: visible !important;"';?>>&nbsp;</div>
 <script>
     //This runs only after the page has loaded, so javascript doesn't miss any elements not yet loaded in:
     document.addEventListener('DOMContentLoaded', function() {
