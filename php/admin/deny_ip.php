@@ -1,0 +1,1 @@
+<?php $BANNED_IPS = []; ?>

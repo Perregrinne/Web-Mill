@@ -1,20 +1,17 @@
 //Keep track if changes were made in the text editor:
 window.textEdited = false;
-function changesMade()
-{
+function changesMade() {
     window.textEdited = true;
 }
 
 //Start the editor:
-function start()
-{
+function start() {
     //Create the editor textbox:
     window.editor = ace.edit("ace-editor");
     window.editor.setTheme("ace/theme/twilight");
     window.editor.session.setMode("ace/mode/javascript");
     document.getElementById('ace-editor').style.fontSize='16px';
 }
-
 
 //On this page, we don't need the admin-right panel getting in the way,
 //so hide it:
@@ -38,9 +35,8 @@ window.onload = function() {
 };
 
 //New File function:
-function newFile(){
-    if(window.textEdited)
-    {
+function newFile() {
+    if(window.textEdited) {
         //The warning popup:
         var warnMsg = document.createElement("div");
         warnMsg.id = "unsaved-warning";

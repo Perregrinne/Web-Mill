@@ -4,6 +4,8 @@
     require_once ($_SERVER['DOCUMENT_ROOT'] . "/php/admin/config.php");
     require_once ($_SERVER['DOCUMENT_ROOT'] . "/php/functions.php");
 
+    //TODO: Set up a "Repair" or "Reset" button that reinstalls the core of Web Mill
+
     //TODO: I have tried many things to hide the update button after updating, but nothing works, so come back to it.
 
     //Check if the user is updating PHP or Web Mill:

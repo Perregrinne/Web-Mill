@@ -307,14 +307,6 @@
         list-style-type: none;
         cursor: pointer;
     }
-
-    #cookie-privacy {
-        position: static;
-    }
-
-    #cookie-ok {
-        margin-left: 5px;
-    }
 }
 
 
@@ -490,8 +482,6 @@ TODO:
     max-height: 47%;
     overflow: auto;
 }
-
-/*Customizing the scrollbars in the side menus*/
 
 .list-menu::-webkit-scrollbar {
     width: 10px;
@@ -693,7 +683,7 @@ TODO:
     z-index: 10;
 }
 
-/*Database.php*/
+/* Database Editor */
 #database-manager {
     margin-left: 65px;
 }
@@ -768,7 +758,38 @@ tr:nth-child(odd) {
     background-image: linear-gradient(#66FF66, #11AA11);
 }
 
-/*texteditor.php*/
+/* Text Editor */
+.text-edit-tab {
+  overflow: hidden;
+  border: 1px solid #787878;
+  background-color: #565656;
+}
+.text-edit-tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+.editor-bttn{
+    display: inline-block;
+    padding: 10px;
+    margin: 10px 10px 15px 0;
+    min-width: 85px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.editor-bttn:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.nav-bttn {
+    color: #aaf;
+}
 #text-page-wrapper {
     position: absolute;
     top: 0;
@@ -824,34 +845,9 @@ tr:nth-child(odd) {
     outline: none;
     font-family: "Lucida Console", serif;
 }
+
+/* TODO: This is concerning. Why is this here? */
 body {
     position: absolute;
     top: 0;
-}
-
-/*Text Editor*/
-.editor-bttn{
-    display: inline-block;
-    padding: 10px;
-    margin: 10px 10px 15px 0;
-    min-width: 85px;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-    cursor: pointer;
-}
-.nav-bttn {
-    color: #aaf;
-}
-.cookie-bttn {
-    background-color: rgba(255,255,255,0.15);
-    border: 1px solid #eee;
-    border-radius: 3px;
-    color: #eee;
-}
-.cookie-bttn:hover {
-    background-color: rgba(255,255,255,0.5);
-}
-.editor-bttn:hover{
-    background-color: rgba(255, 255, 255, 0.2);
 }

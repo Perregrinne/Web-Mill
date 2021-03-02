@@ -3,7 +3,7 @@
     $WEBSITE_TITLE = 'Web Mill';
     $FAVICON_FILE = '/favicon.ico';
 
-    //Version of the framework:
+    //Version of Web Mill and PHP:
     $VERSION = '0.0.1';
     $PHP_VER = phpversion();
 
@@ -27,4 +27,5 @@
     $FOOTER = '/php/footer.php';
     //END TODO------------------------------------
 
-    $db_driver = 'mysql';
+    $DB_DRIVER = 'mysql'; //mysql, pgsql, sqlsrv, sqlite, ...
+    $DB_CHARSET = 'utf8mb4'; //This is backwards compatible with UTF-8

@@ -1,10 +1,29 @@
-<?php 
-    include ($_SERVER['DOCUMENT_ROOT'] . "/php/header.php");
+<?php
+//Look for banned IP addresses:
+@require_once $_SERVER['DOCUMENT_ROOT'] . "/php/admin/deny_ip.php";
+if(!empty($BANNED_IPS) && in_array($_SERVER['REMOTE_ADDR'], $BANNED_IPS)) {
+   header("location: /index.php");
+   exit();
+}
+
+//We don't want the cookie banner showing on this page:
+$EXCLUDE_MENU = true;
+//TODO: Devices with more than 25 unsuccessful login attempts are banned for 24 hours
 ?>
+<!DOCTYPE html>
+<html>
 <head>
+<?php @include_once ($_SERVER['DOCUMENT_ROOT'] . "/php/header.php"); ?>
 </head>
 <body>
-    <h2>Enter Username and Password</h2> 
+    <div class="login-container">
+        <img src="/images/webmill_logo.png" width="128px" height="128px" alt="Web Mill logo"><br>
+        <button style="display: inline-block; vertical-align: middle;" class="btn btn-secondary" type="button" onclick="location.href='/'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+        </svg>
+        </button>
+        <h2 style="padding: 0.5em; display: inline-block; vertical-align: middle;">Admin Login</h2>
         <div class="container form-signin">
             <?php
                 //Reset the message for the login error:
@@ -12,55 +31,45 @@
             ?>
         </div>
         <?php
-            require ($_SERVER['DOCUMENT_ROOT'] . '/php/admin/secrets.php');
-
+            require $_SERVER['DOCUMENT_ROOT'] . '/php/admin/secrets.php';
             //Verifying username/password:
-            if (isset($_POST['LOGIN']) && !empty($_POST['USERNAME']) && !empty($_POST['PASSWORD'])) 
-            {
+            if(isset($_POST['LOGIN']) && !empty($_POST['USERNAME']) && !empty($_POST['PASSWORD'])) {
                 //If a matching username was found:
-                if(array_key_exists($_POST['USERNAME'], $USERS))
-                {
+                if(array_key_exists($_POST['USERNAME'], $USERS)) {
                     //Check the input password against the password with the same index as the username:
-                    if(password_verify($_POST['PASSWORD'], $USERS[$_POST['USERNAME']]))
-                    {
+                    if(password_verify($_POST['PASSWORD'], $USERS[$_POST['USERNAME']])) {
                         //If the passwords match, begin the session with the input username
                         $_SESSION['VALID'] = true;
                         $_SESSION['LAST_ACTIVITY'] = time();
                         $_SESSION['USERNAME'] = $_POST['USERNAME'];
-
-                        //Redirect to the last visited page (if there is one):
-                        if(isset($_SESSION['LASTPAGE']))
-                        {
-                            header('Refresh: 0; URL = ' . $_SESSION['LASTPAGE']);
-                        }
-                        else //If $_SESSION['LASTPAGE'] isn't set, redirect back to index.php, where it will now have the admin bar:
-                        {   
-                            header('Refresh: 0; URL = /index.php');
-                        }
-                        
+                        header('Refresh: 0; URL = /php/dashboard.php');
                     }
-                    else
-                    {
+                    else {
                         //If the input password doesn't match the username's password found at the same index:
                         $login_error = 'Incorrect username or password';
+                        //Log the unsuccessful attempt:
+                        logMsg("Incorrect login credentials from " . $_SERVER['REMOTE_ADDR']);
                     }
                 }
-                else 
-                {   
-                    //If no matching username was found:
-                    $login_error = 'Incorrect username or password';
+                else {   
+                    //If something was empty:
+                    $login_error = 'Username or password was not given';
+                    //Log the unsuccessful attempt:
+                    logMsg("Failed login attempt from " . $_SERVER['REMOTE_ADDR']);
                 }
             }
         ?>
-        <div class = "container">
+        <div class="container login-form">
             <?php $_SESSION['LAST_ACTIVITY'] = time(); ?>
-            <form class = "form-signin" role = "form" action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method = "post">
-                <h4 class = "form-signin-heading"><?php echo $login_error; ?></h4>
-                <input type = "text" class = "form-control" name = "USERNAME" placeholder = "username" required autofocus>
+            <form class="form-signin" role="form" action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method = "post">
+                <h4 class="form-signin-heading"><?php echo $login_error; ?></h4>
+                <input type="text" class="form-control" name="USERNAME" placeholder="username" required autofocus>
                 <br>
-                <input type = "password" class = "form-control" name = "PASSWORD" placeholder = "password" required>
+                <input type="password" class="form-control" name="PASSWORD" placeholder="password" required>
                 <br>
-                <button class = "btn btn-lg btn-primary btn-block" type = "submit" name = "LOGIN">Login</button>
+                <button class="btn btn-lg btn-primary" type="submit" name="LOGIN">Login</button>
             </form>
-        </div> 
-</body>
+        </div>
+    </div>
+<?php
+@include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/footer.php');

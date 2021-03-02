@@ -7,7 +7,19 @@
 */
     
 
-//TODO: This file needs to be fixed. All non-admin calls must be made through api.php, not functions.php
+//TODO: This file needs to be broken up into related PHP libs.
+//      Database functions should be in a .php file, while all
+//      Flowscript functions would be inside another PHP file.
+//      The only functions that should be here are admin ones.
+
+//Note to self: I only just realized that I've been using "API" and
+//"library" interchangeably, but I think people will figure it out.
+
+    //Return the currently-installed version of Web Mill (loosely-based on semver):
+    function get_web_mill_version() {
+        @require_once $_SERVER['DOCUMENT_ROOT'] . '/php/admin/config.php';
+        return $VERSION;
+    }
 
     //In case errors need to be logged:
     @include_once $_SERVER['DOCUMENT_ROOT'] . '/php/logger.php';
@@ -459,4 +471,31 @@
         }
         //Finally, try deleting this deepest-level directory
         return rmdir($directory);
+    }
+
+    function file_to_array($filename) {
+        if(file_exists($filename))
+        {
+            echo "Not finished with this one yet.";
+        }
+    }
+
+    //This function takes string (image file location) and converts it to a .webp
+    function convert_to_webp($imgfile, $quality = 80) {
+        if(file_exists($imgfile)) {
+            $pathinfo = pathinfo($imgfile);
+            $filename = $pathinfo['filename'];
+            $dirname = $pathinfo['dirname'];
+            $newfile = $dirname . '/' . $filename . '.webp';
+            $img = imagecreatefromstring($imgfile);
+            if(!$img) { //if imagecreatefromstring fails, it returns false
+                //Log the error:
+                logMsg('Failed to convert image: ' . strval($imgfile));
+                return false;
+            }
+            else {
+                imagewebp($img, $newfile, $quality);
+                return true;
+            }
+        }
     }

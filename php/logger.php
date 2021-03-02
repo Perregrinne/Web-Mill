@@ -6,6 +6,8 @@
     //user at a time may be granted access to it (to remain concurrent)
     $log_queue = new SplQueue();
 
+    //TODO: Attach a notification system to the logger for reporting banned IPs, various important script failures, etc...
+
     //Log a message in log.txt
     function logMsg($msg)
     {

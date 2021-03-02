@@ -1,8 +1,11 @@
-<?php //This is the temporary text editor, while the custom one is under construction. ?>
+<?php
+$EXCLUDE_MENU = true; //We don't want the right-side menu or the cookie banner shown on this page
+?>
 <html>
     <head>
         <?php
             include_once($_SERVER["DOCUMENT_ROOT"] . "/php/header.php");
+            
             
             //If an ongoing session has had no activity for 60 minutes, logout.
             if (isset($_SESSION['USERNAME']) && ($_SERVER['REQUEST_TIME'] - $_SESSION['LAST_ACTIVITY'] > 3600))

@@ -5,8 +5,8 @@ $API_KEYS = [];
 
 $WEBHOOKS = [];
 
-$servername = "localhost";
-$db_user = "default_user";
-$db_password = "default_password";
-$db_name = "default_db";
-?>
+$HOST = "127.0.0.1";
+$DB_USER = "default_user";
+$DB_PASSWORD = "default_password";
+$DB_NAME = "default_db";
+$DB_PORT = "3433"; //MySQL: 3306, Postgres: 5432, MSSQL: 1433

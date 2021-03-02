@@ -29,7 +29,7 @@ Options ExecCGI Includes IncludesNOEXEC SymLinksIfOwnerMatch -Indexes
 #Options All +Indexes
 
 
-#Url renaming:
+#Url renaming (Remove .php url extension):
 
 RewriteEngine On
 RewriteBase /
@@ -38,3 +38,5 @@ RewriteRule ^ %1 [R=301,L]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.*?)/?$ $1.php [NC,L]
+#Don't allow visitors into the admin directory:
+RewriteRule ^php/admin/?$ - [F,L]
