@@ -1,3 +1,13 @@
+<?php 
+//Show the cookie banner, but not if the user is on an admin page (in which case, $EXCLUDE_MENU is set)
+    if(!isset($EXCLUDE_MENU)) {
+        include_once ($_SERVER['DOCUMENT_ROOT'] . "/php/cookie_banner_html.php");
+    }
+    //Honestly, this could have been joined with the cookie_banner_js.php file, but I would prefer to stay
+    //consistent and keep the two separate. This way I can better ensure CSS/Head tags go first, then body
+    //tags, and lastly, the javascript. This won't matter because these are all on the development side of
+    //the website. The production side will render out all the relevant PHP files into a single .php page.
+?>
 <script>
     //Returns cookie data
     function getCookie(cookie) {
@@ -20,5 +30,11 @@
     }
 </script>
 <script src="/javascript/clock.js" onload="getTime(); setInterval('getTime()', 1000);"></script>
+<?php 
+//Show the cookie banner, but not if the user is on an admin page (in which case, $EXCLUDE_MENU is set)
+    if(!isset($EXCLUDE_MENU)) {
+        include_once ($_SERVER['DOCUMENT_ROOT'] . "/php/cookie_banner_js.php");
+    }
+?>
 </body>
 </html>

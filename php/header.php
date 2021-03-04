@@ -2,11 +2,6 @@
 require_once ($_SERVER['DOCUMENT_ROOT'] . "/php/admin/config.php");
 if(!isset($_SESSION)) {
     session_start();
-
-    //Show the cookie banner, but not if the user is on an admin page (in which case, $EXCLUDE_MENU is set)
-    if(!isset($EXCLUDE_MENU)) {
-        include_once ($_SERVER['DOCUMENT_ROOT'] . "/php/cookieBanner.php");
-    }
 }
 ?>
 <!DOCTYPE HTML>

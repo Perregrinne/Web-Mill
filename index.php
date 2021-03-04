@@ -1,4 +1,4 @@
-<?php include ($_SERVER['DOCUMENT_ROOT'] . "/php/header.php"); ?>
+<?php @include_once ($_SERVER['DOCUMENT_ROOT'] . "/php/header.php"); ?>
 <section style="display: block;">
 <div class="nested" id="navbar">
     <img src="/images/webmill_logo.png" height="64px" width="64px" class="nested" id="navbar-logo">
@@ -54,4 +54,4 @@
         <a href="/pages/tos.php">Terms of Service</a>
     </div>
 </div>
-<?php include ($_SERVER['DOCUMENT_ROOT'] . "/php/footer.php");
+<?php @include_once ($_SERVER['DOCUMENT_ROOT'] . "/php/footer.php");
