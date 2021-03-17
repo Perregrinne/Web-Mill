@@ -1,19 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
 <?php
+session_start();
 //Look for banned IP addresses:
 @require_once $_SERVER['DOCUMENT_ROOT'] . "/php/admin/deny_ip.php";
 if(!empty($BANNED_IPS) && in_array($_SERVER['REMOTE_ADDR'], $BANNED_IPS)) {
-   header("location: /index.php");
-   exit();
+    //Redirect banned IP addresses to Error 403 (Forbidden) page:
+    header("location: /pages/error/forbidden.php");
+    exit();
 }
-
+echo $_SESSION['USERNAME'];
+//If already logged in, just redirect to the dashboard:
+if (!empty($_SESSION['USERNAME'])) {
+    header("Location: /php/dashboard.php");
+    exit();
+} else {
 //We don't want the cookie banner showing on this page:
 $EXCLUDE_MENU = true;
 //TODO: Devices with more than 25 unsuccessful login attempts are banned for 24 hours
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-<?php @include_once ($_SERVER['DOCUMENT_ROOT'] . "/php/header.php"); ?>
+<?php @require_once ($_SERVER['DOCUMENT_ROOT'] . "/php/header.php"); ?>
 </head>
 <body>
     <div class="login-container">
@@ -73,3 +80,4 @@ $EXCLUDE_MENU = true;
     </div>
 <?php
 @include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/footer.php');
+    } //End for redirect block

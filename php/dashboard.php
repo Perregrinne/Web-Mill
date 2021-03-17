@@ -7,5 +7,6 @@
 //This page should not be accessible, except by anyone with the login:
 //@include_once (admin);
 ?>
+<p>This is your dashboard.</p>
 
 <?php @include_once ($_SERVER['DOCUMENT_ROOT'] . "/php/footer.php");

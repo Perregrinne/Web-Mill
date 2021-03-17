@@ -1,6 +1,6 @@
 <?php
     //This page serves as the UI for making and managing databases and datatables.
-
+    session_start();
     include ($_SERVER['DOCUMENT_ROOT'] . "/php/header.php");
     $exclude_menu = true; //We don't need/want the cookie banner or right menu visible on this page
     include_once ($_SERVER['DOCUMENT_ROOT'] . "/admin.php");

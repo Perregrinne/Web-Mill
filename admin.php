@@ -1,11 +1,6 @@
 <head>
     <?php
-        //PHP includes:
-        //include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/header.php');
-        include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/functions.php');
-
-        //TODO: If $exclude_menu is true, don't render the right menu or the cookie banner.
-
+        session_start();
         //Set the current page as the last visited one, in case user is redirected to the login page:
         //As long as admin.php is an "include" in any page, the last page will automatically be set here.
         $_SESSION['LASTPAGE'] = $_SERVER['REQUEST_URI'];
@@ -15,18 +10,26 @@
             header('Refresh: 0; URL = /php/logout.php');
         }
 
-        //If no session already exists, log in.
-        if(!isset($_SESSION['USERNAME'])) {
-            header('Refresh: 0; URL = /php/login.php');
-        }
-        
         //If a user is logged in, they should start on the index and be able to edit using the admin editor.
         if (isset($_SESSION['USERNAME']) && $_SERVER['REQUEST_URI'] === '/admin.php') {
-            header('Refresh: 0; URL = /index.php');
+            header('Refresh: 0; URL = /php/dashboard.php');
         }
 
         //Reset the activity timer:
         $_SESSION['LAST_ACTIVITY'] = $_SERVER['REQUEST_TIME'];
+
+        //PHP includes:
+        include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/header.php');
+
+        //TODO: If $exclude_menu is true, don't render the right menu or the cookie banner.
+
+        //If no session already exists, the admin page content will be hidden:
+        if(!isset($_SESSION['USERNAME'])) {
+            header('Refresh: 0; URL = /php/login.php');
+        }
+        //Don't hide the admin if the user is logged in already:
+        else { //--- Begin else for admin HTML ---
+            include_once ($_SERVER['DOCUMENT_ROOT'] . '/php/functions.php');
     ?>
 </head>
 <div id="admin-l-menu" toggle_l="0">
@@ -48,39 +51,6 @@
             echo '</ul>';
             //Now, scan every file and subdirectory in /pages/.
             listDir($_SERVER['DOCUMENT_ROOT'] . '/pages', '/pages');
-
-            //List all other pages in the /pages folder:
-            //Scan for all pages in the pages directory:
-            function listDir($fullDirectory, $directory) {
-                //Scan the current directory, but we don't want '.' or '..' in the returned list.
-                $files = array_diff(scandir($fullDirectory), array('.', '..'));
-
-                //Don't make a list if the directory is empty:
-                if(empty($files)) return; //We don't need to waste any more time here if it's empty.
-                //Otherwise, time for a new list:
-                echo '<ul class="pages-ul">';
-                //Don't make a nested list until all the directories are out of the way:
-                foreach($files as $file) {
-                    //If it's a folder, list it and scan inside it for more folders:
-                    if(is_dir($fullDirectory . '/' . $file)) {
-                        echo '<li>' . $file . '</li>';
-                        listDir($fullDirectory . '/' . $file, $directory . '/' . $file);
-                    }
-                }
-                echo '</ul>'; //Done scanning through directories now.
-
-                //Now that there are no more directories in the way, list the directory's files:
-                echo '<ul class="pages-ul">';
-                foreach($files as $file) {
-                    //We'll want to check its extension and get its filename without its path or extension.
-                    $fileName = pathinfo($file);
-                    //If it's a php file, then list it with a link to its path.
-                    if(isset($fileName['extension']) && $fileName['extension'] == 'php') { //Not sure why, but $fileName['extension'] isn't always set.
-                        echo '<li><a href="' . $directory . '/' . $fileName['basename'] . '">' . $fileName['filename'] . '</a></li>';
-                    }
-                }
-                echo '</ul>'; //Done listing the php webpages now.
-            }
         ?>
     </div>
     <a class="wm-link" href="/php/textEditor.php">Text Editor</a>
@@ -141,7 +111,6 @@
                 moveElem(admin_l_menu, "left", menuWidth, 500);
                 admin_l_menu.setAttribute("toggle_l", "0");
             }
-            
         };
 
         //Right menu open or close when "<" or ">" controls are clicked:
@@ -321,3 +290,4 @@
 </script>
 <!-- Detect all things on the page by their first tag only, not their end tag -->
 <!-- Determine the hierarchy tree based on where the end tag is -->
+<?php } //--- End of else block for admin HTML ---

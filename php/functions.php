@@ -499,3 +499,36 @@
             }
         }
     }
+
+    //List all other pages in the /pages folder:
+    //Scan for all pages in the pages directory:
+    function listDir($fullDirectory, $directory) {
+        //Scan the current directory, but we don't want '.' or '..' in the returned list.
+        $files = array_diff(scandir($fullDirectory), array('.', '..'));
+
+        //Don't make a list if the directory is empty:
+        if(empty($files)) return; //We don't need to waste any more time here if it's empty.
+        //Otherwise, time for a new list:
+        echo '<ul class="pages-ul">';
+        //Don't make a nested list until all the directories are out of the way:
+        foreach($files as $file) {
+            //If it's a folder, list it and scan inside it for more folders:
+            if(is_dir($fullDirectory . '/' . $file)) {
+                echo '<li>' . $file . '</li>';
+                listDir($fullDirectory . '/' . $file, $directory . '/' . $file);
+            }
+        }
+        echo '</ul>'; //Done scanning through directories now.
+
+        //Now that there are no more directories in the way, list the directory's files:
+        echo '<ul class="pages-ul">';
+        foreach($files as $file) {
+            //We'll want to check its extension and get its filename without its path or extension.
+            $fileName = pathinfo($file);
+            //If it's a php file, then list it with a link to its path.
+            if(isset($fileName['extension']) && $fileName['extension'] == 'php') { //Not sure why, but $fileName['extension'] isn't always set.
+                echo '<li><a href="' . $directory . '/' . $fileName['basename'] . '">' . $fileName['filename'] . '</a></li>';
+            }
+        }
+        echo '</ul>'; //Done listing the php webpages now.
+    }
