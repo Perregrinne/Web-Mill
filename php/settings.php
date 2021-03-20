@@ -105,8 +105,12 @@
     //panel (like cPanel) or ask their web host. If successful, restart the server with the new PHP.
     //I'll keep going with this until I determine that it is absolutely impossible to use a shell script
     //or any other means to update and get the server/website back online automatically.
-    function updatePHP()
+    function updatePHP() //TODO: DO NOT LET PEOPLE USE THIS FOR NOW! I don't like the idea of executing updates using the shell this way. It might also not be ok with the web host. 
     {
+        //Prevent this from being usable for now:
+        echo 'This function is off-limits, for now.';
+        return false;
+
         //First determine server's OS, then issue appropriate shell command to update PHP
         //---------------------------
         //For the most part, it's either Bash or Command Prompt, but MacOS now has Z Shell.
@@ -145,7 +149,7 @@
     //TODO: If the /tmp folder would not be deleted, its folder permissions must be changed
     //to prohibit anyone else from accessing the older versions to potentially exploit
     //patched vulnerabilities.
-    function updateWM()
+    function updateWM() //TODO: I need to harden security on this function.
     {
         //The /tmp directory:
         $tmp = $_SERVER['DOCUMENT_ROOT'] . "/tmp";
@@ -171,13 +175,14 @@
         set_time_limit(3600); 
         $downloaded_zip = fopen($tmp_zip, 'w+');
         //cURL the update location to download the changes in a .zip:
-        $curl_update = curl_init("localhost:3002/wmupdate");
+        $curl_update = curl_init("localhost:3002/wmupdate"); //TODO: This needs to be a real URL, with HTTPS
 
         //By default the request type is "GET"
         curl_setopt_array($curl_update, array(
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CONNECTTIMEOUT => 20, //Must connect within 20 seconds
             CURLOPT_TIMEOUT => 3000, //Must finish downloading updates within 50 minutes
+            CURLOPT_FOLLOWLOCATION => false, //If we use https, don't redirect to http
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_2_0, //Falls back to 1.1 if 2.0 won't work
         ));
 
